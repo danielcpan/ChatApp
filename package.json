@@ -1,0 +1,35 @@
+{
+  "name": "ChatApp",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "node server/server.js",
+    "server": "nodemon server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielcpan/ChatApp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielcpan/ChatApp/issues"
+  },
+  "homepage": "https://github.com/danielcpan/ChatApp#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "concurrently": "^4.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1",
+    "pg": "^7.12.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.10.3"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^5.5.0"
+  }
+}
