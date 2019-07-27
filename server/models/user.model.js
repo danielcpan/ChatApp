@@ -59,4 +59,15 @@ module.exports = class User extends Sequelize.Model {
       },
     });
   }
+
+  static associate(models) {
+    this.belongsToMany(models.Chat, {
+      through: 'chat_member',
+      foreignKey: {
+        name: 'userId',
+        field: 'user_id',
+      },
+      onDelete: 'cascade',
+    });
+  }
 };
