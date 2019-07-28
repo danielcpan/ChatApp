@@ -15,7 +15,7 @@ const styles = theme => ({
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   avatar: {
     margin: theme.spacing(1),
@@ -76,29 +76,18 @@ class UserForm extends React.Component {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
           <form className={classes.form} autoComplete="off">
             <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
-              <Grid item xs={12}>
-                <TextField
-                  id="username"
-                  type="text"
-                  label="Username"
-                  name="username"
-                  value={this.state.username}
-                  error={!!this.state.usernameError}
-                  helperText={this.state.usernameError}
-                  onChange={this.onChange}
-                  variant="outlined"
-                  required
-                  fullWidth
-                />
+              
+              <Grid item xs={8}>
+                <Typography component="h1" variant="h5">
+                  Create Account
+                </Typography>
               </Grid>
+
+              <Grid item xs={4}>
+                <Link href="#" variant="body2">Sign in</Link> instead?
+              </Grid>              
 
               <Grid item xs={12}>
                 <TextField
@@ -115,6 +104,22 @@ class UserForm extends React.Component {
                   fullWidth
                 />
               </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  id="username"
+                  type="text"
+                  label="Username"
+                  name="username"
+                  value={this.state.username}
+                  error={!!this.state.usernameError}
+                  helperText={this.state.usernameError}
+                  onChange={this.onChange}
+                  variant="outlined"
+                  required
+                  fullWidth
+                />
+              </Grid>              
 
               <Grid item xs={12}>
                 <TextField
@@ -143,13 +148,6 @@ class UserForm extends React.Component {
             >
               Sign Up
             </Button>
-            <Grid container justify="flex-end">
-              <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
           </form>
         </div>
       </Container>

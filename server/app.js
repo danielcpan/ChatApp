@@ -14,9 +14,9 @@ app.use(cors());
 
 // if (process.env.NODE_ENV === 'development') {
 // Sync the database models
-models.sequelize.sync({
-  force: true,
-});
+// models.sequelize.sync({
+//   force: true,
+// });
 // }
 
 app.use('/api', routes);
