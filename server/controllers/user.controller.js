@@ -1,3 +1,5 @@
+const models = require('../models')
+
 module.exports ={
   get: async (req, res, next) => {
     res.send("TODO: Get")
@@ -6,6 +8,7 @@ module.exports ={
     res.send("TODO: List")
   },
   create: async (req, res, next) => {
+    console.log(res)
     res.send("TODO: Create")
   },
   update: async (req, res, next) => {

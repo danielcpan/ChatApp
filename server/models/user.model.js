@@ -11,18 +11,10 @@ module.exports = class User extends Sequelize.Model {
         autoIncrement: true,
         primaryKey: true,
       },
-      firstName: {
+      username: {
         type: DataTypes.STRING(255),
+        unique: true,
         allowNull: false,
-        field: 'first_name',
-        validate: {
-          len: [2, 23],
-        },
-      },
-      lastName: {
-        type: DataTypes.STRING(255),
-        allowNull: false,
-        field: 'last_name',
         validate: {
           len: [2, 23],
         },
@@ -41,11 +33,6 @@ module.exports = class User extends Sequelize.Model {
         validate: {
           len: [8, 255],
         },
-      },
-      userRole: {
-        type: DataTypes.STRING(255),
-        defaultValue: 'GUEST',
-        field: 'user_role',
       },
     }, {
       tableName: 'users',
