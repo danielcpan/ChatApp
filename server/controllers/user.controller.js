@@ -11,7 +11,9 @@ module.exports ={
     res.json(users)
   },
   create: async (req, res, next) => {
-    const { input } = res.body
+    console.log("REQ")
+    console.log(req)
+    const { input } = req.body
     const user = models.User.create(input);
     res.json(user)
   },
