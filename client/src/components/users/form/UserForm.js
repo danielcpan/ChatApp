@@ -1,9 +1,10 @@
 import React from 'react';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faComments } from '@fortawesome/free-solid-svg-icons'
 import { withStyles } from '@material-ui/core/styles';
-import { Avatar, Button, Grid, Link, TextField, Typography, Container } from '@material-ui/core';
+import { Button, Grid, Link, Paper, TextField, Typography, Container } from '@material-ui/core';
 
 const styles = theme => ({
   '@global': {
@@ -11,15 +12,21 @@ const styles = theme => ({
       backgroundColor: theme.palette.common.white,
     },
   },
+  root: {
+    marginTop: theme.spacing(10),
+    width: '70vw',
+  },  
+  image: {
+    backgroundImage: `url(${require('../../../assets/SignUp.jpg')})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'contain',
+    backgroundPosition: 'center',
+  },
   paper: {
-    marginTop: theme.spacing(8),
+    margin: theme.spacing(2, 4),
     display: 'flex',
     flexDirection: 'column',
-    // alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    alignItems: 'center',
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -46,6 +53,7 @@ class UserForm extends React.Component {
 
   onChange = e => {
     const { name, value } = e.target
+    // this.validate(value)
     this.setState({ [name]: value })
   }
 
@@ -57,7 +65,6 @@ class UserForm extends React.Component {
     }
 
     const usernameLengthRule = val => (val.length >= 2 && val.length <= 23) || 'Please enter a value between 2 and 23 characters long';
-    // const 
 
     // const rules = this.getRules();
     const rules = [usernameLengthRule]
@@ -73,83 +80,85 @@ class UserForm extends React.Component {
     const { classes } = this.props;
 
     return (
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <form className={classes.form} autoComplete="off">
-            <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
-              
-              <Grid item xs={8}>
-                <Typography component="h1" variant="h5">
-                  Create Account
-                </Typography>
-              </Grid>
+      <Container component="main" className={classes.root}>
+        <Grid container component={Paper} elevation={6} square>
+          <CssBaseline />
+          <Grid item xs={false} sm={false} md={6} className={classes.image} />
+          <Grid item xs={12} sm={12} md={6}>
+            <div className={classes.paper}>
+              <form className={classes.form} autoComplete="off">
+                <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
+                  <Grid item xs={8}>
+                    <Typography component="h1" variant="h5"><b>Create Account</b></Typography>
+                  </Grid>
 
-              <Grid item xs={4}>
-                <Link href="#" variant="body2">Sign in</Link> instead?
-              </Grid>              
+                  <Grid item xs={4}>
+                    <Link href="#" variant="body2">Sign in</Link> instead?
+                  </Grid>              
 
-              <Grid item xs={12}>
-                <TextField
-                  id="email"
-                  type="email"
-                  label="Email"
-                  name="email"
-                  value={this.state.email}
-                  error={!!this.state.emailError}
-                  helperText={this.state.emailError}
-                  onChange={this.onChange}
-                  variant="outlined"
-                  required
+                  <Grid item xs={12}>
+                    <TextField
+                      id="email"
+                      type="email"
+                      label="Email"
+                      name="email"
+                      value={this.state.email}
+                      error={!!this.state.emailError}
+                      helperText={this.state.emailError}
+                      onChange={this.onChange}
+                      variant="outlined"
+                      required
+                      fullWidth
+                    />
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <TextField
+                      id="username"
+                      type="text"
+                      label="Username"
+                      name="username"
+                      value={this.state.username}
+                      error={!!this.state.usernameError}
+                      helperText={this.state.usernameError}
+                      onChange={this.onChange}
+                      variant="outlined"
+                      required
+                      fullWidth
+                    />
+                  </Grid>              
+
+                  <Grid item xs={12}>
+                    <TextField
+                      id="password"
+                      type="password"
+                      label="Password"
+                      name="password"
+                      value={this.state.password}
+                      error={!!this.state.passwordError}
+                      helperText={this.state.passwordError}
+                      onChange={this.onChange}
+                      variant="outlined"
+                      required
+                      fullWidth
+                    />
+                  </Grid>
+                </Grid>
+
+                <Button
+                  type="submit"
                   fullWidth
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  id="username"
-                  type="text"
-                  label="Username"
-                  name="username"
-                  value={this.state.username}
-                  error={!!this.state.usernameError}
-                  helperText={this.state.usernameError}
-                  onChange={this.onChange}
-                  variant="outlined"
-                  required
-                  fullWidth
-                />
-              </Grid>              
-
-              <Grid item xs={12}>
-                <TextField
-                  id="password"
-                  type="password"
-                  label="Password"
-                  name="password"
-                  value={this.state.password}
-                  error={!!this.state.passwordError}
-                  helperText={this.state.passwordError}
-                  onChange={this.onChange}
-                  variant="outlined"
-                  required
-                  fullWidth
-                />
-              </Grid>
-            </Grid>
-
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              onClick={this.onSubmit}
-            >
-              Sign Up
-            </Button>
-          </form>
-        </div>
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={this.onSubmit}
+                >
+                  Sign Up
+                </Button>
+              </form>
+            </div>
+          </Grid>
+        </Grid>
       </Container>
     )
   }
