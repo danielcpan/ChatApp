@@ -1,29 +1,57 @@
-const models = require('../models')
+const httpStatus = require('http-status');
+const models = require('../models');
+const ApiError = require('../utils/APIError.utils')
 
-module.exports ={
+module.exports = {
   get: async (req, res, next) => {
-    const id = req.params.id;
-    const user = await models.User.findByPk(id);
-    res.json(user);
+    try {
+      const user = await models.User.findByPk(req.params.userId);
+      if (!user) {
+        return next(new ApiError('User not found', httpStatus.NOT_FOUND));
+      }
+      return res.json(user);
+    } catch (err) {
+      return next(err)
+    }
   },
   list: async (req, res, next) => {
-    const users = await models.User.findAll()
-    res.json(users)
+    try {
+      const users = await models.User.findAll();
+      return res.json(users);
+    } catch (err) {
+      return next(err)
+    }
   },
   create: async (req, res, next) => {
-    console.log("REQ")
-    console.log(req)
-    const { input } = req.body
-    const user = models.User.create(input);
-    res.json(user)
+    try {
+      const newUser = await models.User.create(req.body);
+      return res.status(httpStatus.CREATED).json(newUser)
+    } catch (err) {
+      return next(err)
+    }
   },
   update: async (req, res, next) => {
-    const { input } = res.body
-    await models.User.update(input, { where: { id: input.id } });
-    return models.User.findByPk(input.id);
+    try {
+      const user = await models.User.findByPk(req.params.userId);
+      if (!user) {
+        return next(new ApiError('User not found', httpStatus.NOT_FOUND));
+      }
+      await user.update(req.body)
+      return res.status(httpStatus.OK).json(user)
+    } catch (err) {
+      next(err)
+    }
   },
   delete: async (req, res, next) => {
-    const { id } = res.body
-    models.User.destroy({ where: { id } })
+    try {
+      const user = await models.User.findByPk(req.params.userId);
+      if (!user) {
+        return next(new ApiError('User not found', httpStatus.NOT_FOUND));
+      }
+      await user.destroy();
+      return res.status(httpStatus.OK).json({ deleted: true })
+    } catch (err) {
+      return next(err);
+    }
   }
 }

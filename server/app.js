@@ -10,9 +10,7 @@ const models = require('./models');
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Force close connection, sometimes it persists
 // db.sequelize.close()
