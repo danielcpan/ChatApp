@@ -1,27 +1,57 @@
-const models = require('../models')
+const httpStatus = require('http-status');
+const models = require('../models');
+const ApiError = require('../utils/APIError.utils')
 
-module.exports ={
+module.exports = {
   get: async (req, res, next) => {
-    const id = req.params.id;
-    const chat = await models.Chat.findByPk(id);
-    res.json(chat);
+    try {
+      const chat = await models.Chat.findByPk(req.params.chatId);
+      if (!chat) {
+        return next(new ApiError('Chat not found', httpStatus.NOT_FOUND));
+      }
+      return res.json(chat);
+    } catch (err) {
+      return next(err)
+    }
   },
   list: async (req, res, next) => {
-    const chats = await models.Chat.findAll()
-    res.json(chats)
+    try {
+      const chats = await models.Chat.findAll();
+      return res.json(chats);
+    } catch (err) {
+      return next(err)
+    }
   },
   create: async (req, res, next) => {
-    const { input } = res.body
-    const chat = models.Chat.create(input);
-    res.json(chat)
+    try {
+      const newChat = await models.Chat.create(req.body);
+      return res.status(httpStatus.CREATED).json(newChat)
+    } catch (err) {
+      return next(err)
+    }
   },
   update: async (req, res, next) => {
-    const { input } = res.body
-    await models.Chat.update(input, { where: { id: input.id } });
-    return models.Chat.findByPk(input.id);
+    try {
+      const chat = await models.Chat.findByPk(req.params.chatId);
+      if (!chat) {
+        return next(new ApiError('Chat not found', httpStatus.NOT_FOUND));
+      }
+      await chat.update(req.body)
+      return res.status(httpStatus.OK).json(chat)
+    } catch (err) {
+      next(err)
+    }
   },
   delete: async (req, res, next) => {
-    const { id } = res.body
-    models.Chat.destroy({ where: { id } })
+    try {
+      const chat = await models.Chat.findByPk(req.params.chatId);
+      if (!chat) {
+        return next(new ApiError('Chat not found', httpStatus.NOT_FOUND));
+      }
+      await chat.destroy();
+      return res.status(httpStatus.OK).json({ deleted: true })
+    } catch (err) {
+      return next(err);
+    }
   }
 }

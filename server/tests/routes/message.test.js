@@ -1,14 +1,36 @@
+const httpStatus = require('http-status');
+const app = require('../../app');
+
 describe('## Message APIs', () => {
+  let message1, user1, chat1;
+
+  before(async () => {
+    await truncateTables();
+    chat1 = await factory.create('Chat');
+    user1 = await factory.create('User');
+    message1 = await factory.create('Message', { chatId: chat1.id, userId: user1.id });
+  })
 
   describe('# GET /api/messages', () => {
     it('should get all messages', async () => {
-      
+      const response = await request(app).get('/api/messages')
+
+      expect(response.status).to.equal(httpStatus.OK);
+      expect(response.body).to.have.lengthOf(1)
     });
   });
 
   describe('# POST /api/messages', () => {
-    it('should create new user', async () => {
-      
+    it('should create new message', async () => {
+      const data = {
+        text: 'Foobar',
+        chatId: chat1.id,
+        userId: user1.id
+      }
+      const response = await request(app).post('/api/messages').send(data)
+
+      expect(response.status).to.equal(httpStatus.CREATED);
+      expect(response.body.name).to.equal(data.name);
     });
   });
 

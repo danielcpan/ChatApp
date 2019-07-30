@@ -1,13 +1,21 @@
-const models = require('../models')
+const httpStatus = require('http-status');
+const models = require('../models');
 
-module.exports ={
+module.exports = {
   list: async (req, res, next) => {
-    const messages = await models.Message.findAll()
-    res.json(messages)
+    try {
+      const messages = await models.Message.findAll();
+      return res.json(messages);
+    } catch (err) {
+      return next(err)
+    }
   },
   create: async (req, res, next) => {
-    const { input } = res.body
-    const message = models.Message.create(input);
-    res.json(message)
+    try {
+      const newMessage = await models.Message.create(req.body);
+      return res.status(httpStatus.CREATED).json(newMessage)
+    } catch (err) {
+      return next(err)
+    }
   },
 }
