@@ -16,6 +16,7 @@ module.exports = class Message extends Sequelize.Model {
       },
     }, {
       tableName: 'messages',
+      modelName: 'messages',
       underscored: true,
       sequelize,
     });

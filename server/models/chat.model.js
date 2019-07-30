@@ -15,6 +15,7 @@ module.exports = class Chat extends Sequelize.Model {
       },
     }, {
       tableName: 'chats',
+      modelName: 'chats',
       underscored: true,
       sequelize,
     });

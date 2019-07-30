@@ -35,6 +35,7 @@ module.exports = class User extends Sequelize.Model {
       },
     }, {
       tableName: 'users',
+      modelName: 'users',
       underscored: true,
       sequelize,
       hooks: {

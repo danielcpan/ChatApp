@@ -1,3 +1,4 @@
+const Sequelize = require('sequelize');
 const httpStatus = require('http-status');
 const models = require('../models');
 const ApiError = require('../utils/APIError.utils');
@@ -17,6 +18,7 @@ module.exports = {
   list: async (req, res, next) => {
     try {
       const chats = await models.Chat.findAll({
+        attributes: ['id', 'name'],
         include: [
           {
             model: models.User,
@@ -27,13 +29,16 @@ module.exports = {
           },
           {
             model: models.Message,
-            attributes: ['id', 'text', 'createdAt'],
-            order: [['createdAt', 'DESC']],
-            limit: 1
-          }
+            attributes: ['id', 'userId', 'text', 'createdAt'],
+            include: [
+              {
+                model: models.User,
+                attributes: ['username']
+              }
+            ],
+          },
         ],
-        attributes: ['id', 'name'],
-        order: [['updatedAt', 'DESC']],
+        order: [[ models.Message, 'createdAt', 'DESC'], ['updatedAt', 'DESC']],
       });
       return res.json(chats);
     } catch (err) {
