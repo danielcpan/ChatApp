@@ -13,7 +13,7 @@ module.exports = class Message extends Sequelize.Model {
       text: {
         type: DataTypes.STRING(1024),
         allowNull: false,
-      }
+      },
     }, {
       tableName: 'messages',
       underscored: true,

@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express');
 const messageController = require('../controllers/message.controller');
 
 const router = express.Router(); // eslint-disable-line new-cap

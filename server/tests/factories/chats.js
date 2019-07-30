@@ -7,17 +7,18 @@ module.exports = factory.define('Chat', models.Chat, (buildOptions = {}) => { //
     name: () => faker.random.word(),
   };
   return attrs;
-},{ afterCreate: async (model, attrs, buildOptions) => {
-  let users = []
-  if (!buildOptions.users) {
-    const user1 = await factory.create('User');
-    const user2 = await factory.create('User');
-    users = [user1, user2]
-  } else {
-    users = buildOptions.users
-  }
+}, {
+  afterCreate: async (model, attrs, buildOptions) => {
+    let { users } = buildOptions.users || {};
 
-  await model.setUsers(users)
-  
-  return model;
-}});
+    if (!users) {
+      const user1 = await factory.create('User');
+      const user2 = await factory.create('User');
+      users = [user1, user2];
+    }
+
+    await model.setUsers(users);
+
+    return model;
+  },
+});

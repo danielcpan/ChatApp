@@ -12,7 +12,7 @@ module.exports = class Chat extends Sequelize.Model {
       name: {
         type: DataTypes.STRING(255),
         allowNull: false,
-      }
+      },
     }, {
       tableName: 'chats',
       underscored: true,
