@@ -46,10 +46,10 @@ describe('## Chat APIs', () => {
   describe('# PUT /api/chats/:chatId', () => {
     it('should update a chat', async () => {
       const data = {
-        name: `${chat1.name}foobar`
+        name: `${chat1.name}foobar1`
       }
       const response = await request(app).put(`/api/chats/${chat1.id}`).send(data);
-
+      
       expect(response.status).to.equal(httpStatus.OK);
       expect(response.body.name).to.equal(data.name);
     });

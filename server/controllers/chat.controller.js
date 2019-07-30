@@ -24,7 +24,7 @@ module.exports = {
   },
   create: async (req, res, next) => {
     try {
-      const users = await models.User.findAll({ where: { id: [0,1313] }});
+      const users = await models.User.findAll({ where: { id: req.body.usersIdList }});
       if (users.length === 0) {
         return next(new ApiError('Users not found', httpStatus.NOT_FOUND));
       }
