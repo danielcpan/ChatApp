@@ -9,7 +9,7 @@ module.exports = factory.define('Chat', models.Chat, (buildOptions = {}) => { //
   return attrs;
 }, {
   afterCreate: async (model, attrs, buildOptions) => {
-    let { users } = buildOptions.users || {};
+    let { users } = buildOptions || {};
 
     if (!users) {
       const user1 = await factory.create('User');

@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const request = require('supertest');
 const { factory } = require('factory-girl');
-const { isValid, syncTestDatabase, truncateTables } = require('./testHelpers');
+const { isValid, syncTestDatabase, truncateTables } = require('./testHelpers.utils');
 
 // Set Up Global Variables
 global.isValid = isValid;

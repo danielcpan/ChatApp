@@ -9,11 +9,6 @@ module.exports.isValid = async (object) => {
     errorsList = status.errors;
   });
 
-  // Console log detected validation errors
-  // for (let error of errorsList) {
-  //   console.log('\x1b[31m%s\x1b[0m', `Validation Error: ${error.message}`)
-  // }
-
   return !errorsList.length;
 };
 
@@ -29,3 +24,4 @@ module.exports.syncTestDatabase = async () => {
     force: true,
   });
 };
+

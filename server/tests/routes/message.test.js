@@ -2,8 +2,11 @@ const httpStatus = require('http-status');
 const app = require('../../app');
 
 describe('## Message APIs', () => {
+  let message1;
+
   before(async () => {
     await truncateTables();
+    message1 = await factory.create('Message');
   });
 
   describe('# GET /api/messages', () => {

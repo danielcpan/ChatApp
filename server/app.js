@@ -20,7 +20,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // models.sequelize.sync({
 //   force: true,
 // });
-// }
+
+// const { createTestData } = require('./seeders/testData');
+// createTestData()
 
 app.use('/api', routes);
 
