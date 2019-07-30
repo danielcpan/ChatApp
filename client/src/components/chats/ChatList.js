@@ -17,15 +17,26 @@ const styles = theme => ({
   },
 });
 
-class ChatBox extends React.Component {
-  state = {
-    username: '',
-    usernameError: '',
-    email: '',
-    emailError: '',
-    password: '',
-    passwordError: ''
-  };
+class ChatList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      chats: [
+        {
+          id: 1,
+          name: 'Chat1',
+        },
+        {
+          id: 2,
+          name: 'Chat2',
+        },
+        {
+          id: 3,
+          name: 'Chat3',
+        },                
+      ]
+    }
+  }
 
   onSubmit = async () => {
 
@@ -33,18 +44,19 @@ class ChatBox extends React.Component {
 
   onChange = e => {
     const { name, value } = e.target
-    // this.validate(value)
     this.setState({ [name]: value })
   }
 
   render() {
     const { classes } = this.props;
+    // const { name } = this.state;
+    console.log(this.state.chats)
 
     return (
       <List className={classes.root}>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          <Avatar>D</Avatar>
+          <Avatar></Avatar>
         </ListItemAvatar>
         <ListItemText
           primary="Brunch this weekend?"
@@ -112,4 +124,4 @@ class ChatBox extends React.Component {
   }
 }
 
-export default withStyles(styles)(ChatBox);
+export default withStyles(styles)(ChatList);

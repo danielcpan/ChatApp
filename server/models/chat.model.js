@@ -29,5 +29,12 @@ module.exports = class Chat extends Sequelize.Model {
       },
       onDelete: 'cascade',
     });
+    this.hasMany(models.Message, {
+      foreignKey: {
+        name: 'chatId',
+        field: 'chat_id',
+      },
+      onDelete: 'cascade',
+    });
   }
 };

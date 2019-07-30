@@ -16,7 +16,25 @@ module.exports = {
   },
   list: async (req, res, next) => {
     try {
-      const chats = await models.Chat.findAll();
+      const chats = await models.Chat.findAll({
+        include: [
+          {
+            model: models.User,
+            attributes: ['id', 'username'],
+            through: {
+              attributes: []
+            },
+          },
+          {
+            model: models.Message,
+            attributes: ['id', 'text', 'createdAt'],
+            order: [['createdAt', 'DESC']],
+            limit: 1
+          }
+        ],
+        attributes: ['id', 'name'],
+        order: [['updatedAt', 'DESC']],
+      });
       return res.json(chats);
     } catch (err) {
       return next(err);
