@@ -1,4 +1,3 @@
-
 const Sequelize = require('sequelize');
 
 module.exports = class Chat extends Sequelize.Model {
@@ -23,7 +22,7 @@ module.exports = class Chat extends Sequelize.Model {
 
   static associate(models) {
     this.belongsToMany(models.User, {
-      through: 'chat_member',
+      through: 'chat_members',
       foreignKey: {
         name: 'chatId',
         field: 'chat_id',

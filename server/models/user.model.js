@@ -1,4 +1,3 @@
-
 const Sequelize = require('sequelize');
 const bcrypt = require('bcrypt');
 
@@ -49,7 +48,7 @@ module.exports = class User extends Sequelize.Model {
 
   static associate(models) {
     this.belongsToMany(models.Chat, {
-      through: 'chat_member',
+      through: 'chat_members',
       foreignKey: {
         name: 'userId',
         field: 'user_id',

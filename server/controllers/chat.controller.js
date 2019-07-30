@@ -24,7 +24,13 @@ module.exports = {
   },
   create: async (req, res, next) => {
     try {
+      const users = await models.User.findAll({ where: { id: [0,1313] }});
+      if (users.length === 0) {
+        return next(new ApiError('Users not found', httpStatus.NOT_FOUND));
+      }
       const newChat = await models.Chat.create(req.body);
+      await newChat.setUsers(users)
+
       return res.status(httpStatus.CREATED).json(newChat)
     } catch (err) {
       return next(err)
@@ -53,5 +59,6 @@ module.exports = {
     } catch (err) {
       return next(err);
     }
-  }
+  },
+
 }

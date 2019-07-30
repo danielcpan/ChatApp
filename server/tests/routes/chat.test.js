@@ -29,8 +29,12 @@ describe('## Chat APIs', () => {
 
   describe('# POST /api/chats', () => {
     it('should create new chat', async () => {
+      const user1 = await factory.create('User');
+      const user2 = await factory.create('User');
+
       const data = {
-        name: 'Foobar'
+        name: 'Foobar',
+        usersIdList: [user1.id, user2.id]
       }
       const response = await request(app).post('/api/chats').send(data)
 

@@ -27,7 +27,7 @@ if (process.env.DATABASE_URL) {
 const models = {
   User: User.init(sequelize, Sequelize),
   Chat: Chat.init(sequelize, Sequelize),
-  Message: Message.init(sequelize, Sequelize)
+  Message: Message.init(sequelize, Sequelize),
 };
 
 Object.values(models)
