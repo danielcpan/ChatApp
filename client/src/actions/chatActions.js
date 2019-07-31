@@ -8,14 +8,19 @@ import {
   DELETE_CHAT 
 } from './types';
 
-export const getChat = () => dispatch => {
+export const getChat = () => async dispatch => {
+  console.log("inside action")
+  const response = await axios.get('http://localhost:5000/api/chats/4');
+  console.log(response.data)
+  console.log("wow")
+  dispatch({
+    type: GET_CHAT,
+    payload: response.data
+  })
 }
 
 export const getChats = () => async dispatch => {
-  console.log("inside action")
   const response = await axios.get('http://localhost:5000/api/chats');
-  // console.log("seeing inside response")
-  // console.log(response)
   dispatch({
     type: GET_CHATS,
     payload: response.data

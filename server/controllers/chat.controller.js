@@ -8,14 +8,20 @@ module.exports = {
     try {
       // const chat = await models.Chat.findByPk(req.params.chatId);
       const chat = await models.Chat.findByPk(req.params.chatId, {
+        attributes: ['id', 'name'],
         include: [
           { 
             model: models.Message,
             attributes: ['id', 'userId', 'text', 'createdAt'],
-            order: [['createdAt', 'DESC']],
+            include: [{
+              model: models.User,
+              attributes: ['id', 'username']
+            }]
+            // order: [['createdAt', 'DESC']],
             // limit: 100,
           },
         ],
+        order: [[ models.Message, 'createdAt', 'DESC']],
       });
 
       // RAW QUERY TEST
@@ -35,6 +41,7 @@ module.exports = {
       if (!chat) {
         return next(new ApiError('Chat not found', httpStatus.NOT_FOUND));
       }
+      chat.messages.reverse();
       return res.json(chat);
     } catch (err) {
       return next(err);

@@ -14,8 +14,12 @@ const initialState = {
 export default (state = initialState, action) => {
   switch(action.type) {
     case GET_CHAT:
+        console.log("inside the reducer ")
+        return {
+          ...state,
+          currentChat: action.payload
+        }      
     case GET_CHATS:
-      console.log("inside the reducer")
       return {
         ...state,
         chatsList: action.payload

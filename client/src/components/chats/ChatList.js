@@ -18,10 +18,10 @@ import ChatListItem from './ChatListItem';
 const styles = theme => ({
   root: {
     width: '100%',
-    maxWidth: 420,
+    maxWidth: '30vw',
     position: 'relative',
     overflow: 'auto',
-    maxHeight: 300,    
+    maxHeight: '100vh',
     // border: 1,
     // borderColor: 'black',
     backgroundColor: theme.palette.background.paper,
