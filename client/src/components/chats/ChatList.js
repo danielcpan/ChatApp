@@ -2,40 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import format from 'date-fns/format';
-import { getChats } from '../../actions/chatActions';
-
-
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { withStyles } from '@material-ui/core/styles';
-import { List, ListSubheader, Grid, Divider, Avatar, Fab, Icon} from '@material-ui/core';
+import { List, ListSubheader, Grid, Fab, Icon} from '@material-ui/core';
 
+import { getChats } from '../../actions/chatActions';
 import ChatListItem from './ChatListItem';
-
-
 
 const styles = theme => ({
   root: {
     width: '100%',
-    maxWidth: '30vw',
-    position: 'relative',
     overflow: 'auto',
-    maxHeight: '100vh',
-    // border: 1,
-    // borderColor: 'black',
-    backgroundColor: theme.palette.background.paper,
   },
   inline: {
     display: 'inline',
   },
   header: {
+    color: 'black',
     fontWeight: 'bold',
     fontSize: 28,
-    // width: 50,
-    // whiteSpace: 'nowrap',
-    // overflow: 'hidden',
-    // textOverflow: 'ellipsis',
+    padding: theme.spacing(1)
   },
   fab: {
     margin: theme.spacing(1),
@@ -65,9 +50,12 @@ class ChatList extends React.Component {
 
   getTextPreview = (message) => {
     const { user: { username }, text, timestamp } = message;
-    const previewLength = 35 - username.length;
+    const previewLength = 50 - username.length;
+    const preview = text.substr(0, previewLength);
+    const ellipsis = text.length > previewLength ? '...' : '';
+    const date = this.getDate(timestamp);
 
-    return `${text.substr(0, previewLength)}... · ${this.getDate(timestamp)}`
+    return `${preview}${ellipsis} · ${date}`
   }
   
   getDate(date) {
@@ -120,7 +108,7 @@ class ChatList extends React.Component {
             <Fab size="small" color="secondary" aria-label="edit" className={classes.fab}>
               <Icon>edit_icon</Icon>
             </Fab>
-            </Grid>            
+            </Grid>
           </Grid>
         }>
         {this.props.chats.map(chat => (          
