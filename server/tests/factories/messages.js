@@ -7,7 +7,7 @@ module.exports = factory.define('Message', models.Message, (buildOptions = {}) =
     text: () => faker.lorem.text(),
     chatId: factory.assoc('Chat', 'id'),
     userId: factory.assoc('User', 'id'),
-    // createdAt: faker.date.recent(400)
   };
   return attrs;
 });
+    // createdAt: faker.date.recent(400)

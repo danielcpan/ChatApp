@@ -6,7 +6,32 @@ const ApiError = require('../utils/APIError.utils');
 module.exports = {
   get: async (req, res, next) => {
     try {
-      const chat = await models.Chat.findByPk(req.params.chatId);
+      // const chat = await models.Chat.findByPk(req.params.chatId);
+      const chat = await models.Chat.findByPk(req.params.chatId, {
+        include: [
+          { 
+            model: models.Message,
+            attributes: ['id', 'userId', 'text', 'createdAt'],
+            order: [['createdAt', 'DESC']],
+            // limit: 100,
+          },
+        ],
+      });
+
+      // RAW QUERY TEST
+      // const chat = await models.sequelize
+      //   .query(`
+      //     SELECT messages.id, text, messages.created_at, username 
+      //     FROM messages 
+      //     INNER JOIN 
+      //     users ON messages.user_id = users.id 
+      //     WHERE chat_id = 1 
+      //     ORDER BY created_at DESC 
+      //     LIMIT 1`, {
+      //       model: models.Message,
+      //       mapToModel: true
+      //     }
+      //   )
       if (!chat) {
         return next(new ApiError('Chat not found', httpStatus.NOT_FOUND));
       }
@@ -18,7 +43,7 @@ module.exports = {
   list: async (req, res, next) => {
     try {
       const chats = await models.Chat.findAll({
-        attributes: ['id', 'name'],
+        attributes: ['id', 'name', 'createdAt'],
         include: [
           {
             model: models.User,
@@ -30,6 +55,10 @@ module.exports = {
           {
             model: models.Message,
             attributes: ['id', 'userId', 'text', 'createdAt'],
+            // order:[[ models.Message, 'createdAt', 'ASC']],
+            // separate: true,
+            // order:[[ 'createdAt', 'DESC']],
+            // limit: 1,
             include: [
               {
                 model: models.User,
@@ -38,8 +67,9 @@ module.exports = {
             ],
           },
         ],
-        order: [[ models.Message, 'createdAt', 'DESC'], ['updatedAt', 'DESC']],
+        order: [[ models.Message, 'createdAt', 'DESC'], ['createdAt', 'DESC']],
       });
+      
       return res.json(chats);
     } catch (err) {
       return next(err);

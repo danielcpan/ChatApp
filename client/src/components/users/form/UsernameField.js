@@ -32,7 +32,6 @@ class UsernameField extends React.Component {
       ...this.state,
       usernameError
     })
-  
   }
 
   render() {
