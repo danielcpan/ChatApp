@@ -14,6 +14,10 @@ module.exports = class Message extends Sequelize.Model {
         type: DataTypes.STRING(1024),
         allowNull: false,
       },
+      timestamp: {
+        type: DataTypes.DATE,
+        allowNull: false
+      }
     }, {
       tableName: 'messages',
       modelName: 'messages',

@@ -12,7 +12,7 @@ module.exports = {
         include: [
           { 
             model: models.Message,
-            attributes: ['id', 'userId', 'text', 'createdAt'],
+            attributes: ['id', 'userId', 'text', 'timestamp'],
             include: [{
               model: models.User,
               attributes: ['id', 'username']
@@ -21,7 +21,7 @@ module.exports = {
             // limit: 100,
           },
         ],
-        order: [[ models.Message, 'createdAt', 'DESC']],
+        order: [[ models.Message, 'timestamp', 'DESC']],
       });
 
       // RAW QUERY TEST
@@ -61,7 +61,7 @@ module.exports = {
           },
           {
             model: models.Message,
-            attributes: ['id', 'userId', 'text', 'createdAt'],
+            attributes: ['id', 'userId', 'text', 'timestamp'],
             // order:[[ models.Message, 'createdAt', 'ASC']],
             // separate: true,
             // order:[[ 'createdAt', 'DESC']],
@@ -74,7 +74,7 @@ module.exports = {
             ],
           },
         ],
-        order: [[ models.Message, 'createdAt', 'DESC'], ['createdAt', 'DESC']],
+        order: [[ models.Message, 'timestamp', 'DESC'], ['createdAt', 'DESC']],
       });
       
       return res.json(chats);

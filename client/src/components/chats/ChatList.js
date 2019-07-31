@@ -64,10 +64,10 @@ class ChatList extends React.Component {
   }
 
   getTextPreview = (message) => {
-    const { user: { username }, text, createdAt } = message;
+    const { user: { username }, text, timestamp } = message;
     const previewLength = 35 - username.length;
 
-    return `${text.substr(0, previewLength)}... · ${this.getDate(createdAt)}`
+    return `${text.substr(0, previewLength)}... · ${this.getDate(timestamp)}`
   }
   
   getDate(date) {

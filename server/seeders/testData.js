@@ -36,46 +36,46 @@ module.exports.createTestData = async () => {
   const chat13 = await factory.create('Chat', { name: 'user1AndUser14Chat' }, { users: [user1, user14] })    
   const chat14 = await factory.create('Chat', { name: 'user1AndUser15Chat' }, { users: [user1, user15] })
 
-  const messages1User1 = await factory.createMany('Message', 5, { chatId: chat1.id, userId: user1.id, createdAt: () => faker.date.recent(400)})
-  const messages1User2 = await factory.createMany('Message', 5, { chatId: chat1.id, userId: user2.id, createdAt: () => faker.date.recent(400) })
+  const messages1User1 = await factory.createMany('Message', 5, { chatId: chat1.id, userId: user1.id})
+  const messages1User2 = await factory.createMany('Message', 5, { chatId: chat1.id, userId: user2.id})
 
-  const messages2User1 = await factory.createMany('Message', 5, { chatId: chat2.id, userId: user1.id, createdAt: () => faker.date.recent(400) })
-  const messages2User3 = await factory.createMany('Message', 5, { chatId: chat2.id, userId: user3.id, createdAt: () => faker.date.recent(400) })
+  const messages2User1 = await factory.createMany('Message', 5, { chatId: chat2.id, userId: user1.id})
+  const messages2User3 = await factory.createMany('Message', 5, { chatId: chat2.id, userId: user3.id})
   
-  const messages3User1 = await factory.createMany('Message', 5, { chatId: chat3.id, userId: user1.id, createdAt: () => faker.date.recent(400) })
-  const messages3User4 = await factory.createMany('Message', 5, { chatId: chat3.id, userId: user4.id, createdAt: () => faker.date.recent(400) })
+  const messages3User1 = await factory.createMany('Message', 5, { chatId: chat3.id, userId: user1.id})
+  const messages3User4 = await factory.createMany('Message', 5, { chatId: chat3.id, userId: user4.id})
 
-  const messages4User1 = await factory.createMany('Message', 5, { chatId: chat4.id, userId: user1.id, createdAt: () => faker.date.recent(400) })
-  const messages4User5 = await factory.createMany('Message', 5, { chatId: chat4.id, userId: user5.id, createdAt: () => faker.date.recent(400) })
+  const messages4User1 = await factory.createMany('Message', 5, { chatId: chat4.id, userId: user1.id})
+  const messages4User5 = await factory.createMany('Message', 5, { chatId: chat4.id, userId: user5.id})
 
-  const messages5User1 = await factory.createMany('Message', 5, { chatId: chat5.id, userId: user1.id, createdAt: () => faker.date.recent(400)})
-  const messages5User6 = await factory.createMany('Message', 5, { chatId: chat5.id, userId: user6.id, createdAt: () => faker.date.recent(400) })
+  const messages5User1 = await factory.createMany('Message', 5, { chatId: chat5.id, userId: user1.id})
+  const messages5User6 = await factory.createMany('Message', 5, { chatId: chat5.id, userId: user6.id})
 
-  const messages6User1 = await factory.createMany('Message', 5, { chatId: chat6.id, userId: user1.id, createdAt: () => faker.date.recent(400) })
-  const messages6User7 = await factory.createMany('Message', 5, { chatId: chat6.id, userId: user7.id, createdAt: () => faker.date.recent(400) })
+  const messages6User1 = await factory.createMany('Message', 5, { chatId: chat6.id, userId: user1.id})
+  const messages6User7 = await factory.createMany('Message', 5, { chatId: chat6.id, userId: user7.id})
   
-  const messages7User1 = await factory.createMany('Message', 5, { chatId: chat7.id, userId: user1.id, createdAt: () => faker.date.recent(400) })
-  const messages7User8 = await factory.createMany('Message', 5, { chatId: chat7.id, userId: user8.id, createdAt: () => faker.date.recent(400) })
+  const messages7User1 = await factory.createMany('Message', 5, { chatId: chat7.id, userId: user1.id})
+  const messages7User8 = await factory.createMany('Message', 5, { chatId: chat7.id, userId: user8.id})
 
-  const messages8User1 = await factory.createMany('Message', 5, { chatId: chat8.id, userId: user1.id, createdAt: () => faker.date.recent(400) })
-  const messages8User9 = await factory.createMany('Message', 5, { chatId: chat8.id, userId: user9.id, createdAt: () => faker.date.recent(400) })
+  const messages8User1 = await factory.createMany('Message', 5, { chatId: chat8.id, userId: user1.id})
+  const messages8User9 = await factory.createMany('Message', 5, { chatId: chat8.id, userId: user9.id})
   
-  const messages9User1 = await factory.createMany('Message', 5, { chatId: chat9.id, userId: user1.id, createdAt: () => faker.date.recent(400)})
-  const messages9User10 = await factory.createMany('Message', 5, { chatId: chat9.id, userId: user10.id, createdAt: () => faker.date.recent(400) })
+  const messages9User1 = await factory.createMany('Message', 5, { chatId: chat9.id, userId: user1.id})
+  const messages9User10 = await factory.createMany('Message', 5, { chatId: chat9.id, userId: user10.id})
 
-  const messages10User1 = await factory.createMany('Message', 5, { chatId: chat10.id, userId: user1.id, createdAt: () => faker.date.recent(400) })
-  const messages10User11 = await factory.createMany('Message', 5, { chatId: chat10.id, userId: user11.id, createdAt: () => faker.date.recent(400) })
+  const messages10User1 = await factory.createMany('Message', 5, { chatId: chat10.id, userId: user1.id})
+  const messages10User11 = await factory.createMany('Message', 5, { chatId: chat10.id, userId: user11.id})
   
-  const messages11User1 = await factory.createMany('Message', 5, { chatId: chat11.id, userId: user1.id, createdAt: () => faker.date.recent(400) })
-  const messages11User12 = await factory.createMany('Message', 5, { chatId: chat11.id, userId: user12.id, createdAt: () => faker.date.recent(400) })
+  const messages11User1 = await factory.createMany('Message', 5, { chatId: chat11.id, userId: user1.id})
+  const messages11User12 = await factory.createMany('Message', 5, { chatId: chat11.id, userId: user12.id})
 
-  const messages12User1 = await factory.createMany('Message', 5, { chatId: chat12.id, userId: user1.id, createdAt: () => faker.date.recent(400) })
-  const messages12User13 = await factory.createMany('Message', 5, { chatId: chat12.id, userId: user13.id, createdAt: () => faker.date.recent(400) })
+  const messages12User1 = await factory.createMany('Message', 5, { chatId: chat12.id, userId: user1.id})
+  const messages12User13 = await factory.createMany('Message', 5, { chatId: chat12.id, userId: user13.id})
   
-  const messages13User1 = await factory.createMany('Message', 5, { chatId: chat13.id, userId: user1.id, createdAt: () => faker.date.recent(400)})
-  const messages13User14 = await factory.createMany('Message', 5, { chatId: chat13.id, userId: user14.id, createdAt: () => faker.date.recent(400) })
+  const messages13User1 = await factory.createMany('Message', 5, { chatId: chat13.id, userId: user1.id})
+  const messages13User14 = await factory.createMany('Message', 5, { chatId: chat13.id, userId: user14.id})
 
-  const messages14User1 = await factory.createMany('Message', 5, { chatId: chat14.id, userId: user1.id, createdAt: () => faker.date.recent(400) })
-  const messages14User15 = await factory.createMany('Message', 5, { chatId: chat14.id, userId: user15.id, createdAt: () => faker.date.recent(400) })  
+  const messages14User1 = await factory.createMany('Message', 5, { chatId: chat14.id, userId: user1.id})
+  const messages14User15 = await factory.createMany('Message', 5, { chatId: chat14.id, userId: user15.id})  
 };
 

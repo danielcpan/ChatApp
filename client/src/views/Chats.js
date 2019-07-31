@@ -55,10 +55,10 @@ class Chats extends React.Component {
 
     return (
       <Grid container>
-        <Grid item xs={3}>
+        <Grid item xs={2} sm={3}>
           <ChatList></ChatList>
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={10} sm={9} pt={2}>
           <MessageContainer></MessageContainer>
         </Grid>
       </Grid>

@@ -137,7 +137,7 @@ class MessageContainer extends React.Component {
         {/* <Fab size="small" aria-label="send" className={classes.sendIcon}>
           <Icon className={classes.rightIcon}>send</Icon>
         </Fab>     */}
-        <IconButton aria-label="delete" className={classes.sendIcon}>
+        <IconButton size="small" aria-label="delete" className={classes.sendIcon}>
         <Icon className={classes.rightIcon}>send</Icon>
         </IconButton>            
           {/* <Icon className={classes.rightIcon}>send</Icon> */}
