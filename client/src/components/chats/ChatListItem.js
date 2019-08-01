@@ -8,7 +8,7 @@ export default function ChatListItem(props) {
   const { getTextPreview } = props;
 
   return (
-    <ListItem alignItems="flex-start" key={id}>
+    <ListItem alignItems="flex-start" button key={id}>
       <ListItemAvatar>
         <Avatar>{users[1].username.charAt(0).toUpperCase()}</Avatar>
       </ListItemAvatar>

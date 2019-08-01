@@ -1,126 +1,37 @@
-// import React from 'react';
-// import PropTypes from 'prop-types';
-// import AppBar from '@material-ui/core/AppBar';
-// import CssBaseline from '@material-ui/core/CssBaseline';
-// import Drawer from '@material-ui/core/Drawer';
-// import Hidden from '@material-ui/core/Hidden';
-// import IconButton from '@material-ui/core/IconButton';
-// import MenuIcon from '@material-ui/icons/Menu';
-// import Toolbar from '@material-ui/core/Toolbar';
-// import Typography from '@material-ui/core/Typography';
-// import { makeStyles, useTheme } from '@material-ui/core/styles';
+import React from 'react';
+import PropTypes from 'prop-types';
+import io from "socket.io-client";
 
-// import ChatList from '../components/chats/ChatList';
-// import MessageContainer from '../components/messages/MessageContainer';
+const socketUrl = "http://localhost:5000"
+class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+	  	socket: null,
+	  	user: null      
+    }
+  }
 
-// const drawerWidth = 350;
+	componentWillMount() {
+		this.initSocket()
+	}  
 
-// const useStyles = makeStyles(theme => ({
-//   root: {
-//     display: 'flex',
-//     height: '100vh',
-//     overflow: 'auto'
-//   },
-//   drawer: {
-//     [theme.breakpoints.up('sm')]: {
-//       width: drawerWidth,
-//       flexShrink: 0,
-//     },
-//   },
-//   appBar: {
-//     marginLeft: drawerWidth,
-//     [theme.breakpoints.up('sm')]: {
-//       width: `calc(100% - ${drawerWidth}px)`,
-//     },
-//   },
-//   menuButton: {
-//     marginRight: theme.spacing(2),
-//     [theme.breakpoints.up('sm')]: {
-//       display: 'none',
-//     },
-//   },
-//   toolbar: theme.mixins.toolbar,
-//   drawerPaper: {
-//     width: drawerWidth,
-//   },
-//   chatName: {
-//     color: 'black',
-//     fontWeight: 'bold',
-//     fontSize: 28,    
-//   },
-//   content: {
-//     marginTop: theme.spacing(10),
-//     flexGrow: 1,
-//   },  
-// }));
+	initSocket = ()=>{
+		const socket = io(socketUrl)
 
-// function Home(props) {
-//   console.log(props.match)
-//   const { container } = props;
-//   const classes = useStyles();
-//   const theme = useTheme();
-//   const [mobileOpen, setMobileOpen] = React.useState(false);
+		socket.on('connect', ()=>{
+			console.log("Connected");
+		})
+		
+		this.setState({socket})
+	}  
 
-//   function handleDrawerToggle() {
-//     setMobileOpen(!mobileOpen);
-//   }
+  render() {
+    return (
+      <div>test</div>
+    )
 
-//   const drawer = (
-//     <React.Fragment>
-//       <Hidden smUp implementation="css">
-//         <Drawer
-//           container={container}
-//           variant="temporary"
-//           anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-//           open={mobileOpen}
-//           onClose={handleDrawerToggle}
-//           classes={{
-//             paper: classes.drawerPaper,
-//           }}
-//           ModalProps={{
-//             keepMounted: true,
-//           }}
-//         >
-//           <ChatList />
-//         </Drawer>
-//       </Hidden>
-//       <Hidden xsDown implementation="css">
-//         <Drawer
-//           classes={{
-//             paper: classes.drawerPaper,
-//           }}
-//           variant="permanent"
-//           open
-//         >
-//           <ChatList />
-//         </Drawer>
-//       </Hidden>
-//     </React.Fragment>
-//   );
+  }
+}
 
-//   return (
-//     <div className={classes.root}>
-//       <CssBaseline />
-//       <AppBar position="fixed" elevation={1} color="inherit" className={classes.appBar}>
-//         <Toolbar>
-//           <IconButton
-//             color="inherit"
-//             aria-label="open drawer"
-//             edge="start"
-//             onClick={handleDrawerToggle}
-//             className={classes.menuButton}
-//           >
-//             <MenuIcon />
-//           </IconButton>
-//           <Typography noWrap className={classes.chatName}>
-//             User
-//           </Typography>
-//         </Toolbar>
-//       </AppBar>
-//       <nav className={classes.drawer}>{drawer}</nav>
-//       <MessageContainer />
-//     </div>
-//   );
-// }
-
-// export default Home;
+export default Home;
