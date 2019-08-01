@@ -7,6 +7,7 @@ import { List, ListSubheader, Grid, Fab, Icon} from '@material-ui/core';
 
 import { getChat, getChats } from '../../actions/chatActions';
 import ChatListItem from './ChatListItem';
+import ChatForm from './ChatForm';
 
 import { Link, Route, Switch, Redirect } from 'react-router-dom';
 
@@ -35,6 +36,7 @@ class ChatList extends React.Component {
     this.state = {
       chats: [],
       selectedId: 0,
+      isFormOpen: false
     }
   }
 
@@ -98,43 +100,60 @@ class ChatList extends React.Component {
     this.setState({ selectedId: id })
   }
 
+  handleClickOpen = () => {
+    this.setState({ isFormOpen: true })
+  }
+
+  handleClose = () => {
+    this.setState({ isFormOpen: false })
+  }
+
   render() {
     const { classes } = this.props;
 
     return (
-      <List 
-        className={classes.root} 
-        subheader={
-          <Grid container>
-            <Grid item xs={10}>
-              <ListSubheader className={classes.header}>
-                Chats
-              </ListSubheader>
+      <React.Fragment>
+        <List 
+          className={classes.root} 
+          subheader={
+            <Grid container>
+              <Grid item xs={10}>
+                <ListSubheader className={classes.header}>
+                  Chats
+                </ListSubheader>
+              </Grid>
+              <Grid item xs={2}>
+              <Fab 
+                size="small" 
+                color="secondary" 
+                aria-label="edit" 
+                className={classes.fab}
+                onClick={this.handleClickOpen}
+              >
+                <Icon>edit_icon</Icon>
+              </Fab>
+              </Grid>
             </Grid>
-            <Grid item xs={2}>
-            <Fab size="small" color="secondary" aria-label="edit" className={classes.fab}>
-              <Icon>edit_icon</Icon>
-            </Fab>
-            </Grid>
-          </Grid>
-        }>
-        {this.props.chats.map(chat => (          
-          <Link 
-            to={`/chats/${chat.id}`} 
-            key={chat.id} 
-            style={{ textDecoration: 'none', color: 'black' }} 
-            onClick={() => this.props.getChat(chat.id)}
-          >
-            <ChatListItem 
-              chat={chat}
-              selectedId={this.state.selectedId}
-              getTextPreview={this.getTextPreview} 
-              handleListItemClick={this.handleListItemClick}
+          }>
+          {this.props.chats.map(chat => (          
+            <Link 
+              to={`/chats/${chat.id}`} 
+              key={chat.id} 
+              style={{ textDecoration: 'none', color: 'black' }} 
+              onClick={() => this.props.getChat(chat.id)}
             >
-            </ChatListItem>
-          </Link>
-        ))}
-    </List>
+              <ChatListItem 
+                chat={chat}
+                selectedId={this.state.selectedId}
+                getTextPreview={this.getTextPreview} 
+                handleListItemClick={this.handleListItemClick}
+              >
+              </ChatListItem>
+            </Link>
+          ))}
+      </List>
+      <ChatForm isFormOpen={this.state.isFormOpen} handleClose={this.handleClose}/>
+    </React.Fragment>
     )
   }
 }
