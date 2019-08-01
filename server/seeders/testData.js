@@ -75,7 +75,7 @@ module.exports.createTestData = async () => {
   const messages13User1 = await factory.createMany('Message', 5, { chatId: chat13.id, userId: user1.id})
   const messages13User14 = await factory.createMany('Message', 5, { chatId: chat13.id, userId: user14.id})
 
-  const messages14User1 = await factory.createMany('Message', 5, { chatId: chat14.id, userId: user1.id})
-  const messages14User15 = await factory.createMany('Message', 5, { chatId: chat14.id, userId: user15.id})  
+  // const messages14User1 = await factory.createMany('Message', 5, { chatId: chat14.id, userId: user1.id})
+  // const messages14User15 = await factory.createMany('Message', 5, { chatId: chat14.id, userId: user15.id})  
 };
 

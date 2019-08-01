@@ -88,7 +88,8 @@ module.exports = {
       if (users.length === 0) {
         return next(new ApiError('Users not found', httpStatus.NOT_FOUND));
       }
-      const newChat = await models.Chat.create(req.body);
+      const chatName = users.map(user => user.username).join(", ")
+      const newChat = await models.Chat.create({ name: chatName });
       await newChat.setUsers(users);
 
       return res.status(httpStatus.CREATED).json(newChat);

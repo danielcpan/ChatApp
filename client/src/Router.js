@@ -7,6 +7,7 @@ import UserForm from './components/users/form/UserForm';
 import ChatList from './components/chats/ChatList';
 import MessageContainer from './components/messages/MessageContainer';
 import Chats from './views/Chats';
+import ChatForm from './components/chats/ChatForm';
 // import UsernameField from './components/users/form/UsernameField';
 
 export default () => (
@@ -18,7 +19,9 @@ export default () => (
       <Route path="/chats" exact component={ChatList} />
       <Route path="/messages" exact component={MessageContainer} />
       {/* <Route path="/chats2" exact component={Chats} /> */}
+      <Route path="/chats/new" exact component={ChatForm} />
       <Route path="/chats/:chatId" component={Chats} />
+
     </Switch>
   </BrowserRouter>
 );

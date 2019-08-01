@@ -16,7 +16,9 @@ module.exports = {
   },
   list: async (req, res, next) => {
     try {
-      const users = await models.User.findAll();
+      const users = await models.User.findAll({
+        attributes: ['id', 'username']
+      });
       return res.json(users);
     } catch (err) {
       return next(err);

@@ -45,7 +45,8 @@ class MessageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      chat: {}
+      message: ''
+      // chat: {}
     }
   }
 

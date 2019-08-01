@@ -33,13 +33,12 @@ describe('## Chat APIs', () => {
       const user2 = await factory.create('User');
 
       const data = {
-        name: 'Foobar',
         usersIdList: [user1.id, user2.id],
       };
       const response = await request(app).post('/api/chats').send(data);
 
       expect(response.status).to.equal(httpStatus.CREATED);
-      expect(response.body.name).to.equal(data.name);
+      expect(response.body.name).to.equal(`${user1.username}, ${user2.username}`);
     });
   });
 

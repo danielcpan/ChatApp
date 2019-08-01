@@ -1,4 +1,4 @@
-const io = require('../server').io
+const io = require('./server').io
 
 // const { VERIFY_USER, USER_CONNECTED, USER_DISCONNECTED, 
 // 		LOGOUT, COMMUNITY_CHAT, MESSAGE_RECIEVED, MESSAGE_SENT,
@@ -17,6 +17,7 @@ module.exports = (socket) => {
   console.log(`Connections: ${connections.length}`)
   socket.emit('news', { hello: 'world' });
   socket.on('my other event', (data) => {
+    // socket.emit()
     console.log(data); // eslint-disable-line no-console
   });
 

@@ -19,9 +19,11 @@ class Home extends React.Component {
 	initSocket = ()=>{
 		const socket = io(socketUrl)
 
-		socket.on('connect', ()=>{
+		socket.on('connect', () => {
 			console.log("Connected");
-		})
+    })
+    
+    socket.emit('my other event', { id: 1, text: "Hello World" });
 		
 		this.setState({socket})
 	}  

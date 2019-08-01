@@ -33,7 +33,8 @@ class ChatList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      chats: []
+      chats: [],
+      selectedId: 0,
     }
   }
 
@@ -93,6 +94,10 @@ class ChatList extends React.Component {
     return (date.getFullYear() === currentDate.getFullYear())
   }
 
+  handleListItemClick = (event, id) => {
+    this.setState({ selectedId: id })
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -121,8 +126,10 @@ class ChatList extends React.Component {
             onClick={() => this.props.getChat(chat.id)}
           >
             <ChatListItem 
-              chat={chat} 
+              chat={chat}
+              selectedId={this.state.selectedId}
               getTextPreview={this.getTextPreview} 
+              handleListItemClick={this.handleListItemClick}
             >
             </ChatListItem>
           </Link>

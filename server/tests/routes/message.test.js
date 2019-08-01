@@ -26,6 +26,7 @@ describe('## Message APIs', () => {
         text: 'Foobar',
         chatId: chat1.id,
         userId: user1.id,
+        timestamp: new Date()
       };
       const response = await request(app).post('/api/messages').send(data);
 

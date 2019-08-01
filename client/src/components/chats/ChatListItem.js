@@ -5,34 +5,59 @@ import { Avatar, ListItem, ListItemText, ListItemAvatar, Typography} from '@mate
 
 export default function ChatListItem(props) {
   const { id, name, users, messages } = props.chat;
-  const { getTextPreview } = props;
+  const { selectedId, getTextPreview, handleListItemClick } = props;
 
   return (
-    <ListItem alignItems="flex-start" button key={id}>
+    <ListItem 
+      alignItems="flex-start" 
+      button 
+      selected={id === selectedId}
+      onClick={ e => handleListItemClick(e, id)}
+      key={id}>
       <ListItemAvatar>
         <Avatar>{users[1].username.charAt(0).toUpperCase()}</Avatar>
       </ListItemAvatar>
-      <ListItemText
-        primary={name}
-        secondary={
-          <React.Fragment>
-            <Typography
-              component="span"
-              variant="body2"
-              noWrap
-              color="textPrimary"
-            >
-              {`${messages[0].user.username}: `}
-            </Typography>
-            {getTextPreview(messages[0])}
-          </React.Fragment>
-        }
-      />
+      {messages.length > 0 ? (
+        <ListItemText
+          primary={name}
+          secondary={
+            <React.Fragment>
+              <Typography
+                component="span"
+                variant="body2"
+                noWrap
+                color="textPrimary"
+              >
+                {`${messages[0].user.username}: `}
+              </Typography>
+              {getTextPreview(messages[0])}
+            </React.Fragment>
+          }
+        />
+      ) : (
+        <ListItemText
+          primary={name}
+          secondary={
+            <React.Fragment>
+              <Typography
+                component="span"
+                variant="body2"
+                noWrap
+                color="textPrimary"
+              >
+                No messages yet!
+              </Typography>
+            </React.Fragment>
+          }
+        />
+      )}
     </ListItem>
   )
 }
 
 ChatListItem.propTypes = {
   chat: PropTypes.object.isRequired,
-  getTextPreview: PropTypes.func.isRequired
+  selectedId: PropTypes.number,
+  getTextPreview: PropTypes.func.isRequired,
+  handleListItemClick: PropTypes.func.isRequired
 }
