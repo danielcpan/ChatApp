@@ -5,8 +5,10 @@ import format from 'date-fns/format';
 import { withStyles } from '@material-ui/core/styles';
 import { List, ListSubheader, Grid, Fab, Icon} from '@material-ui/core';
 
-import { getChats } from '../../actions/chatActions';
+import { getChat, getChats } from '../../actions/chatActions';
 import ChatListItem from './ChatListItem';
+
+import { Link, Route, Switch, Redirect } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -112,12 +114,18 @@ class ChatList extends React.Component {
           </Grid>
         }>
         {this.props.chats.map(chat => (          
-          <ChatListItem 
-            chat={chat} 
-            getTextPreview={this.getTextPreview} 
-            key={chat.id}
+          <Link 
+            to={`/chats/${chat.id}`} 
+            key={chat.id} 
+            style={{ textDecoration: 'none', color: 'black' }} 
+            onClick={() => this.props.getChat(chat.id)}
           >
-          </ChatListItem>
+            <ChatListItem 
+              chat={chat} 
+              getTextPreview={this.getTextPreview} 
+            >
+            </ChatListItem>
+          </Link>
         ))}
     </List>
     )
@@ -126,15 +134,18 @@ class ChatList extends React.Component {
 
 
 ChatList.propTypes = {
+  getChat: PropTypes.func.isRequired,
   getChats: PropTypes.func.isRequired,
   chats: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => ({
+  chat: state.chats.currentChat,
   chats: state.chats.chatsList
 })
 
 const mapDispatchToProps = dispatch => ({
+  getChat: (id) => dispatch(getChat(id)),
   getChats: () => dispatch(getChats())
 })
 

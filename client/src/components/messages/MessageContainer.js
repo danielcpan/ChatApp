@@ -50,7 +50,7 @@ class MessageContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.props.getChat();
+    this.props.getChat(this.props.chatId);
   }
 
   render() {
@@ -92,7 +92,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getChat: () => dispatch(getChat())
+  getChat: (id) => dispatch(getChat(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MessageContainer));
