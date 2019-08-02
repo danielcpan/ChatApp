@@ -35,13 +35,18 @@ class ChatList extends React.Component {
     super(props);
     this.state = {
       chats: [],
-      selectedId: 0,
+      selectedId: null,
       isFormOpen: false
     }
   }
 
-  componentWillMount() {
-    this.props.getChats();
+  async componentWillMount() {
+    await this.props.getChats();
+    // console.log("hererrr")
+    // console.log(this.props.currentChatId)
+    this.setState({ selectedId: this.props.currentChatId || 0 })
+    // console.log("this.props.match")
+    // console.log(this.props.match)
   }
 
   onSubmit = async () => {

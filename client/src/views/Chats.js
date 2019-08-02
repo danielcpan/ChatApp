@@ -91,7 +91,7 @@ function Chats(props) {
           variant="permanent"
           open
         >
-          <ChatList />
+          <ChatList currentChatId={props.match.params.chatId}/>
         </Drawer>
       </Hidden>
     </React.Fragment>

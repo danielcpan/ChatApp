@@ -19,8 +19,10 @@ export const getChat = (id) => async dispatch => {
       payload: response.data
     })
   } catch (err) {
-    // TODO: Handle Errors via storing in ErrorMessageState
-    console.log(err)
+    dispatch({
+      type: 'GET_CHAT_ERROR',
+      error: err
+    })
   }
 }
 
@@ -32,8 +34,10 @@ export const getChats = () => async dispatch => {
       payload: response.data
     })
   } catch (err) {
-    // TODO: Handle Errors via storing in ErrorMessageState
-    console.log(err)
+    dispatch({
+      type: 'GET_CHATS_ERROR',
+      error: err
+    })
   }
 }
 
@@ -45,8 +49,10 @@ export const createChat = (data) => async dispatch => {
       payload: response.data
     })
   } catch (err) {
-    // TODO: Handle Errors via storing in ErrorMessageState
-    console.log(err)
+    dispatch({
+      type: 'CREATE_CHAT_ERROR',
+      error: err
+    })
   }
 }
 
@@ -58,8 +64,10 @@ export const updateChat = (data) => async dispatch => {
       payload: response.data
     })
   } catch (err) {
-    // TODO: Handle Errors via storing in ErrorMessageState
-    console.log(err)
+    dispatch({
+      type: 'UPDATE_CHAT_ERROR',
+      error: err
+    })
   }
 }
 
@@ -71,8 +79,10 @@ export const deleteChat = (id) => async dispatch => {
       payload: response.data
     })
   } catch (err) {
-    // TODO: Handle Errors via storing in ErrorMessageState
-    console.log(err)
+    dispatch({
+      type: 'DELETE_CHAT_ERROR',
+      error: err
+    })
   }
 }
 
@@ -84,7 +94,9 @@ export const createMessage = (data) => async dispatch => {
       payload: response.data
     })
   } catch (err) {
-    // TODO: Handle Errors via storing in ErrorMessageState
-    console.log(err)
+    dispatch({
+      type: 'CREATE_MESSAGE_ERROR',
+      error: err
+    })
   }
 }

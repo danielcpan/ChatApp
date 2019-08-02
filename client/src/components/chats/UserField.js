@@ -79,34 +79,16 @@ function getSuggestions(value, users, { showEmpty = false } = {}) {
 }
 
 function DownshiftMultiple(props) {
-  const { classes } = props;
-  const [inputValue, setInputValue] = React.useState('');
-  const [selectedItem, setSelectedItem] = React.useState([]);
-
-  function handleKeyDown(event) {
-    if (selectedItem.length && !inputValue.length && event.key === 'Backspace') {
-      setSelectedItem(selectedItem.slice(0, selectedItem.length - 1));
-    }
-  }
-
-  function handleInputChange(event) {
-    setInputValue(event.target.value);
-  }
-
-  function handleChange(item) {
-    let newSelectedItem = [...selectedItem];
-    if (newSelectedItem.indexOf(item) === -1) {
-      newSelectedItem = [...newSelectedItem, item];
-    }
-    setInputValue('');
-    setSelectedItem(newSelectedItem);
-  }
-
-  const handleDelete = item => () => {
-    const newSelectedItem = [...selectedItem];
-    newSelectedItem.splice(newSelectedItem.indexOf(item), 1);
-    setSelectedItem(newSelectedItem);
-  };
+  const { 
+    usersSuggestionList, 
+    selectedItem, 
+    inputValue, 
+    handleKeyDown, 
+    handleInputChange, 
+    handleChange, 
+    handleDelete, 
+    classes 
+  } = props;
 
   return (
     <Downshift
@@ -157,7 +139,7 @@ function DownshiftMultiple(props) {
 
             {isOpen ? (
               <Paper className={classes.paper} square>
-                {getSuggestions(inputValue2, props.usersSuggestionList).map((suggestion, index) =>
+                {getSuggestions(inputValue2, usersSuggestionList).map((suggestion, index) =>
                   renderSuggestion({
                     suggestion,
                     index,
@@ -215,20 +197,56 @@ class UserField extends React.Component {
     super(props);
     this.state = {
       usersSuggestionList: [],
-      usersToAdd: []
+      selectedItem: [],
+      inputValue: ''
     }
   }
+  
 
   async componentWillMount() {
     const response = await axios.get('http://localhost:5000/api/users')
     this.setState({ usersSuggestionList: response.data })
   }
 
+  handleKeyDown = event => {
+    if (this.state.selectedItem.length && !this.state.inputValue.length && event.key === 'Backspace') {
+      this.setState({ selectedItem: this.state.selectedItem.slice(0, this.state.selectedItem.length - 1) })
+    }
+  }
+
+  handleInputChange = event => {
+    this.setState({ inputValue: event.target.value })
+  }
+
+  handleChange = item => {
+    let newSelectedItem = [...this.state.selectedItem];
+    if (newSelectedItem.indexOf(item) === -1) {
+      newSelectedItem = [...newSelectedItem, item];
+    }
+    this.setState({ inputValue: '' })
+    this.setState({ selectedItem: newSelectedItem})
+  }
+
+  handleDelete = item => () => {
+    const newSelectedItem = [...this.state.selectedItem];
+    newSelectedItem.splice(newSelectedItem.indexOf(item), 1);
+    this.setState({ selectedItem: newSelectedItem})
+  };  
+
   render() {
     const { classes } = this.props;
 
     return (
-      <DownshiftMultiple usersSuggestionList={this.state.usersSuggestionList} usersToAdd={this.props.users} classes={classes} /> 
+      <DownshiftMultiple 
+        usersSuggestionList={this.state.usersSuggestionList} 
+        selectedItem={this.state.selectedItem} 
+        inputValue={this.state.inputValue}
+        handleKeyDown={this.handleKeyDown}
+        handleInputChange={this.handleInputChange}
+        handleChange={this.handleChange}
+        handleDelete={this.handleDelete}
+        classes={classes} 
+      />
     )
   }
 }
