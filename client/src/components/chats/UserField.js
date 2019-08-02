@@ -157,7 +157,7 @@ function DownshiftMultiple(props) {
 
             {isOpen ? (
               <Paper className={classes.paper} square>
-                {getSuggestions(inputValue2, props.users).map((suggestion, index) =>
+                {getSuggestions(inputValue2, props.usersSuggestionList).map((suggestion, index) =>
                   renderSuggestion({
                     suggestion,
                     index,
@@ -214,20 +214,21 @@ class UserField extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: []
+      usersSuggestionList: [],
+      usersToAdd: []
     }
   }
 
   async componentWillMount() {
     const response = await axios.get('http://localhost:5000/api/users')
-    this.setState({ users: response.data })
+    this.setState({ usersSuggestionList: response.data })
   }
 
   render() {
     const { classes } = this.props;
 
     return (
-      <DownshiftMultiple users={this.state.users} classes={classes} /> 
+      <DownshiftMultiple usersSuggestionList={this.state.usersSuggestionList} usersToAdd={this.props.users} classes={classes} /> 
     )
   }
 }

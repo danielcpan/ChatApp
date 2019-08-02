@@ -44,12 +44,6 @@ class ChatList extends React.Component {
     this.props.getChats();
   }
 
-  componentDidMount() {
-    console.log("mounting")
-    console.log(this.props)
-    console.log(this.props.match)
-  }
-
   onSubmit = async () => {
 
   }
@@ -70,10 +64,14 @@ class ChatList extends React.Component {
   }
   
   getDate(date) {
+    // console.log("date: " + date)
     const messageDate = new Date(date);
+    // console.log("messageDate: " + messageDate)
+    // console.log("format(messageDate, 'h:MM A'): " + format(messageDate, 'h:MM A'))
 
     if (this.isWithinTwentyFourHours(messageDate)) {
       return format(messageDate, 'h:MM A')
+      // return messageDate
     } else if (this.isWithinWeek(messageDate)) {
       return format(messageDate, 'ddd')
     } else if (this.isWithinYear(messageDate)) {
@@ -150,7 +148,6 @@ class ChatList extends React.Component {
             >
               <ChatListItem 
                 chat={chat}
-                // itemIndex={idx}
                 selectedId={this.state.selectedId}
                 getTextPreview={this.getTextPreview} 
                 handleListItemClick={this.handleListItemClick}
@@ -164,7 +161,6 @@ class ChatList extends React.Component {
     )
   }
 }
-
 
 ChatList.propTypes = {
   getChat: PropTypes.func.isRequired,

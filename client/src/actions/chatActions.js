@@ -9,41 +9,82 @@ import {
   CREATE_MESSAGE 
 } from './types';
 
+const SERVER_URL = 'http://localhost:5000';
+
 export const getChat = (id) => async dispatch => {
-  const response = await axios.get(`http://localhost:5000/api/chats/${id}`);
-  console.log(response.data)
-  dispatch({
-    type: GET_CHAT,
-    payload: response.data
-  })
+  try {
+    const response = await axios.get(`${SERVER_URL}/api/chats/${id}`);
+    dispatch({
+      type: GET_CHAT,
+      payload: response.data
+    })
+  } catch (err) {
+    // TODO: Handle Errors via storing in ErrorMessageState
+    console.log(err)
+  }
 }
 
 export const getChats = () => async dispatch => {
-  const response = await axios.get('http://localhost:5000/api/chats');
-  dispatch({
-    type: GET_CHATS,
-    payload: response.data
-  })
+  try {
+    const response = await axios.get(`${SERVER_URL}/api/chats`);
+    dispatch({
+      type: GET_CHATS,
+      payload: response.data
+    })
+  } catch (err) {
+    // TODO: Handle Errors via storing in ErrorMessageState
+    console.log(err)
+  }
 }
 
-export const createChat = () => dispatch => {
-
+export const createChat = (data) => async dispatch => {
+  try {
+    const response = await axios.post(`${SERVER_URL}/api/chats`, data);
+    dispatch({
+      type: CREATE_CHAT,
+      payload: response.data
+    })
+  } catch (err) {
+    // TODO: Handle Errors via storing in ErrorMessageState
+    console.log(err)
+  }
 }
 
-export const updateChat = () => dispatch => {
-
+export const updateChat = (data) => async dispatch => {
+  try {
+    const response = await axios.put(`${SERVER_URL}/api/chats/${data.id}`, data);
+    dispatch({
+      type: UPDATE_CHAT,
+      payload: response.data
+    })
+  } catch (err) {
+    // TODO: Handle Errors via storing in ErrorMessageState
+    console.log(err)
+  }
 }
 
-export const deleteChat = () => dispatch => {
-
+export const deleteChat = (id) => async dispatch => {
+  try {
+    const response = await axios.delete(`${SERVER_URL}/api/chats/${id}`);
+    dispatch({
+      type: DELETE_CHAT,
+      payload: response.data
+    })
+  } catch (err) {
+    // TODO: Handle Errors via storing in ErrorMessageState
+    console.log(err)
+  }
 }
 
 export const createMessage = (data) => async dispatch => {
-  const response = await axios.post('http://localhost:5000/api/messages', data);
-  console.log("in here response")
-  console.log(response)
-  dispatch({
-    type: CREATE_MESSAGE,
-    payload: response.data
-  })
+  try {
+    const response = await axios.post(`${SERVER_URL}/api/messages`, data);
+    dispatch({
+      type: CREATE_MESSAGE,
+      payload: response.data
+    })
+  } catch (err) {
+    // TODO: Handle Errors via storing in ErrorMessageState
+    console.log(err)
+  }
 }
