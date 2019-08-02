@@ -10,6 +10,13 @@ module.exports = {
       const chat = await models.Chat.findByPk(req.params.chatId, {
         attributes: ['id', 'name'],
         include: [
+          {
+            model: models.User,
+            attributes: ['id', 'username'],
+            through: {
+              attributes: []
+            },
+          },          
           { 
             model: models.Message,
             attributes: ['id', 'userId', 'text', 'timestamp'],
@@ -50,7 +57,7 @@ module.exports = {
   list: async (req, res, next) => {
     try {
       const chats = await models.Chat.findAll({
-        attributes: ['id', 'name', 'createdAt'],
+        attributes: ['id', 'name'],
         include: [
           {
             model: models.User,

@@ -44,6 +44,12 @@ class ChatList extends React.Component {
     this.props.getChats();
   }
 
+  componentDidMount() {
+    console.log("mounting")
+    console.log(this.props)
+    console.log(this.props.match)
+  }
+
   onSubmit = async () => {
 
   }
@@ -96,8 +102,8 @@ class ChatList extends React.Component {
     return (date.getFullYear() === currentDate.getFullYear())
   }
 
-  handleListItemClick = (event, id) => {
-    this.setState({ selectedId: id })
+  handleListItemClick = (event, idx) => {
+    this.setState({ selectedId: idx })
   }
 
   handleClickOpen = () => {
@@ -135,15 +141,16 @@ class ChatList extends React.Component {
               </Grid>
             </Grid>
           }>
-          {this.props.chats.map(chat => (          
+          {this.props.chats.map((chat, idx) => (          
             <Link 
               to={`/chats/${chat.id}`} 
-              key={chat.id} 
+              key={`chat_${chat.id}_index_${idx}`}
               style={{ textDecoration: 'none', color: 'black' }} 
               onClick={() => this.props.getChat(chat.id)}
             >
               <ChatListItem 
                 chat={chat}
+                // itemIndex={idx}
                 selectedId={this.state.selectedId}
                 getTextPreview={this.getTextPreview} 
                 handleListItemClick={this.handleListItemClick}

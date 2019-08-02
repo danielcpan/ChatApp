@@ -70,11 +70,10 @@ function getSuggestions(value, users, { showEmpty = false } = {}) {
     : users.filter(user => {
         const keep =
           count < 5 && user.username.slice(0, inputLength).toLowerCase() === inputValue;
-
         if (keep) {
           count += 1;
         }
-
+        
         return keep;
       });
 }

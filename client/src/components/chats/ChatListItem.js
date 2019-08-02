@@ -5,7 +5,7 @@ import { Avatar, ListItem, ListItemText, ListItemAvatar, Typography} from '@mate
 
 export default function ChatListItem(props) {
   const { id, name, users, messages } = props.chat;
-  const { selectedId, getTextPreview, handleListItemClick } = props;
+  const { selectedId = 0, getTextPreview, handleListItemClick } = props;
 
   return (
     <ListItem 
@@ -19,7 +19,7 @@ export default function ChatListItem(props) {
       </ListItemAvatar>
       {messages.length > 0 ? (
         <ListItemText
-          primary={name}
+          primary={`id: ${id} - ${name}`}
           secondary={
             <React.Fragment>
               <Typography

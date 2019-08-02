@@ -7,7 +7,7 @@ import { List, Grid, InputBase, Icon, IconButton } from '@material-ui/core';
 
 import MessageReceiverItem from './MessageReceiverItem';
 import MessageSenderItem from './MessageSenderItem';
-import { getChat } from '../../actions/chatActions';
+import { getChat, getChats, createMessage } from '../../actions/chatActions';
 
 
 const styles = theme => ({
@@ -45,8 +45,7 @@ class MessageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: ''
-      // chat: {}
+      text: '',
     }
   }
 
@@ -54,13 +53,45 @@ class MessageContainer extends React.Component {
     this.props.getChat(this.props.chatId);
   }
 
+  onSubmit = async e => {
+    e.preventDefault();
+    if (this.state.text.length === 0) return;
+
+    const data = {
+      text: this.state.text,
+      timestamp: new Date(),
+      chatId: this.props.chat.id,
+      userId: 1
+    }
+    await this.props.createMessage(data)
+    // await this.props.getChats();
+    this.setState({text: ''})
+  }
+
+  onChange = e => {
+    const { name, value } = e.target
+    this.setState({ [name]: value })
+  }
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom() {
+    this.el.scrollIntoView();
+  }  
+
   render() {
     const { classes } = this.props;
     const { messages = [] } = this.props.chat
 
     return (
       <Grid container className={classes.root}>
-        <Grid item>
+        <Grid item xs={12}>
           <List dense>
             {messages.map(message => {
               if (message.userId === 1) {
@@ -72,14 +103,22 @@ class MessageContainer extends React.Component {
           </List>
         </Grid>
         <Grid item xs={10}>
+          <form autoComplete="off" onSubmit={this.onSubmit}>
           <InputBase
             className={classes.input}
-            defaultValue="Naked input"
-            inputProps={{ 'aria-label': 'naked' }}
+            name="text"
+            value={this.state.text}
+            onChange={this.onChange}
           />
+          </form>
         </Grid>
         <Grid item xs={2}>
-          <IconButton size="medium" aria-label="send" className={classes.sendIcon}>
+          <IconButton 
+            size="medium" 
+            aria-label="send" 
+            className={classes.sendIcon}
+            ref={el => this.el = el}
+          >
             <Icon className={classes.rightIcon}>send</Icon>
           </IconButton>
         </Grid>
@@ -93,7 +132,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getChat: (id) => dispatch(getChat(id))
+  getChat: (id) => dispatch(getChat(id)),
+  getChats: (id) => dispatch(getChats()),
+  createMessage: (text) => dispatch(createMessage(text))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MessageContainer));

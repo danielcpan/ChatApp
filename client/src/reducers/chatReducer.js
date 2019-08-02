@@ -3,7 +3,8 @@ import {
   GET_CHATS, 
   CREATE_CHAT, 
   UPDATE_CHAT, 
-  DELETE_CHAT 
+  DELETE_CHAT, 
+  CREATE_MESSAGE
 } from '../actions/types';
 
 const initialState = {
@@ -26,6 +27,28 @@ export default (state = initialState, action) => {
     case CREATE_CHAT:
     case UPDATE_CHAT:
     case DELETE_CHAT:
+    case CREATE_MESSAGE: 
+      const currentChatCopy = { 
+        ...state.currentChat, 
+        messages: [...state.currentChat.messages, action.payload],
+        users: [...state.currentChat.users]
+      }
+
+      const chatsListCopy = state.chatsList.map(chat => {
+        if (chat.id === action.payload.chatId) {
+          return { 
+            ...currentChatCopy, 
+            messages: [...currentChatCopy.messages].reverse()
+          }
+        }
+        return chat;
+      })
+
+      return {
+        ...state,
+        currentChat: currentChatCopy,
+        chatsList: chatsListCopy
+      }
     default: 
       return state;
   }
