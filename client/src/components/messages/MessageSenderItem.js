@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function MessageSenderItem(props) {
   const classes = useStyles();
-  const { id, text, } = props.message;
+  const { id, text } = props.message;
 
   return (
     <ListItem>

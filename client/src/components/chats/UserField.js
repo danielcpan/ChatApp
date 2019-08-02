@@ -38,7 +38,7 @@ function renderSuggestion(suggestionProps) {
   return (
     <MenuItem
       {...itemProps}
-      key={suggestion.username}
+      key={suggestion.id}
       selected={isHighlighted}
       component="div"
       style={{
@@ -120,9 +120,9 @@ function DownshiftMultiple(props) {
               InputProps: {
                 startAdornment: selectedItem.map(item => (
                   <Chip
-                    key={item}
+                    key={item.id}
                     tabIndex={-1}
-                    label={item}
+                    label={item.username}
                     className={classes.chip}
                     onDelete={handleDelete(item)}
                   />
@@ -143,7 +143,7 @@ function DownshiftMultiple(props) {
                   renderSuggestion({
                     suggestion,
                     index,
-                    itemProps: getItemProps({ item: suggestion.username }),
+                    itemProps: getItemProps({ item: suggestion }),
                     highlightedIndex,
                     selectedItem: selectedItem2,
                   }),
@@ -210,6 +210,7 @@ class UserField extends React.Component {
 
   handleKeyDown = event => {
     if (this.state.selectedItem.length && !this.state.inputValue.length && event.key === 'Backspace') {
+      this.props.handleUsersIdListChange(this.state.selectedItem.slice(0, this.state.selectedItem.length - 1))
       this.setState({ selectedItem: this.state.selectedItem.slice(0, this.state.selectedItem.length - 1) })
     }
   }
@@ -224,6 +225,7 @@ class UserField extends React.Component {
       newSelectedItem = [...newSelectedItem, item];
     }
     this.setState({ inputValue: '' })
+    this.props.handleUsersIdListChange(newSelectedItem)
     this.setState({ selectedItem: newSelectedItem})
   }
 
@@ -231,13 +233,14 @@ class UserField extends React.Component {
     const newSelectedItem = [...this.state.selectedItem];
     newSelectedItem.splice(newSelectedItem.indexOf(item), 1);
     this.setState({ selectedItem: newSelectedItem})
+    this.props.handleUsersIdListChange(newSelectedItem)
   };  
 
   render() {
     const { classes } = this.props;
 
     return (
-      <DownshiftMultiple 
+      <DownshiftMultiple
         usersSuggestionList={this.state.usersSuggestionList} 
         selectedItem={this.state.selectedItem} 
         inputValue={this.state.inputValue}

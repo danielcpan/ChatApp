@@ -34,6 +34,7 @@ export const getChats = () => async dispatch => {
       payload: response.data
     })
   } catch (err) {
+    console.log(err)
     dispatch({
       type: 'GET_CHATS_ERROR',
       error: err

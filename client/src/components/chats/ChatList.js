@@ -44,7 +44,7 @@ class ChatList extends React.Component {
     await this.props.getChats();
     // console.log("hererrr")
     // console.log(this.props.currentChatId)
-    this.setState({ selectedId: this.props.currentChatId || 0 })
+    // this.setState({ selectedId: this.props.currentChatId || 0 })
     // console.log("this.props.match")
     // console.log(this.props.match)
   }

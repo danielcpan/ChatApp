@@ -17,20 +17,23 @@ export default function MessageReceiverItem(props) {
   const classes = useStyles();
   const { id, user, text, } = props.message;
 
-  return (
-    <ListItem>
-      <Grid container alignItems="flex-start" wrap='nowrap'>
-        <Grid item>
-          <ListItemAvatar>
-              <Avatar>{user.username.charAt(0).toUpperCase()}</Avatar>
-          </ListItemAvatar>
+  if (user) {
+    return (
+      <ListItem>
+        <Grid container alignItems="flex-start" wrap='nowrap'>
+          <Grid item>
+            <ListItemAvatar>
+                <Avatar>{user.username.charAt(0).toUpperCase()}</Avatar>
+            </ListItemAvatar>
+          </Grid>
+          <Grid item>
+            <ListItemText id={id} primary={text} className={classes.received}/>
+          </Grid>
         </Grid>
-        <Grid item>
-          <ListItemText id={id} primary={text} className={classes.received}/>
-        </Grid>
-      </Grid>
-    </ListItem>
-  )
+      </ListItem>
+    )
+  }
+  return null
 }
 
 MessageReceiverItem.propTypes = {
