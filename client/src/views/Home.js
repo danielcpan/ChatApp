@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import io from "socket.io-client";
 
 const socketUrl = "http://localhost:5000"
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -13,20 +14,20 @@ class Home extends React.Component {
   }
 
 	componentWillMount() {
-		this.initSocket()
+		// this.initSocket()
 	}  
 
-	initSocket = () =>{
-		const socket = io(socketUrl)
+	// initSocket = () => {
+	// 	const socket = io(socketUrl)
 
-		socket.on('connect', () => {
-			console.log("Connected");
-    })
+	// 	socket.on('connect', () => {
+	// 		console.log("Connected");
+  //   })
     
-    socket.emit('my other event', { id: 1, text: "Hello World" });
+  //   socket.emit('my other event', { id: 1, text: "Hello World" });
 		
-		this.setState({socket})
-	}  
+	// 	this.setState({socket})
+	// }  
 
   render() {
     return (

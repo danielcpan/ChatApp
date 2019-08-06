@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
-import { List, Grid, InputBase, Icon, IconButton } from '@material-ui/core';
+import { List, Grid, Icon, TextField, IconButton, AppBar, Toolbar, MenuIcon, Fab } from '@material-ui/core';
 
 import MessageReceiverItem from './MessageReceiverItem';
 import MessageSenderItem from './MessageSenderItem';
 import { getChat, getChats, sendMessage } from '../../actions/chatActions';
 
+const drawerWidth = 350;
 
 const styles = theme => ({
   root: {
@@ -16,7 +17,8 @@ const styles = theme => ({
     position: 'relative',
     overflow: 'auto',
     maxHeight: '100vh',
-    marginTop: theme.spacing(7)
+    marginTop: theme.spacing(7),
+    marginBottom: theme.spacing(7)
   },
   inline: {
     display: 'inline',
@@ -33,6 +35,14 @@ const styles = theme => ({
     padding: theme.spacing(0.4, 2),
     margin: theme.spacing(1, 2),
   },
+  appBar: {
+    top: 'auto',
+    bottom: 0,
+    marginLeft: drawerWidth,
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+    },    
+  },  
   rightIcon: {
     color: 'rgb(0, 153, 255)',
   },
@@ -82,6 +92,7 @@ class MessageContainer extends React.Component {
   }
 
   scrollToBottom() {
+    // this.el.scrollIntoView({behavior: 'smooth'});
     this.el.scrollIntoView();
   }  
 
@@ -102,7 +113,13 @@ class MessageContainer extends React.Component {
             })}
           </List>
         </Grid>
-        <Grid item xs={10}>
+        <Grid item>
+          <div style={{ float:"left", clear: "both" }}
+            // Temp solution to scroll down
+            ref={el => {this.el = el}}>{`.`}
+          </div>
+        </Grid>
+        {/* <Grid item xs={10}>
           <form autoComplete="off" onSubmit={this.onSubmit}>
           <InputBase
             className={classes.input}
@@ -121,7 +138,46 @@ class MessageContainer extends React.Component {
           >
             <Icon className={classes.rightIcon}>send</Icon>
           </IconButton>
-        </Grid>
+        </Grid> */}
+      <AppBar position="fixed" color="inherit" className={classes.appBar}>
+        <Toolbar>
+          <Grid container>
+            <Grid item xs={10}>
+              <form autoComplete="off" onSubmit={this.onSubmit}>
+                <TextField
+                  placeholder="Test"
+                  margin="dense"
+                  fullWidth
+                  variant="outlined"
+                  name="text"
+                  value={this.state.text}
+                  onChange={this.onChange}
+                  style={{backgroundColor: "#f1f0f0", width: '100%'}}
+                >
+                </TextField>
+              </form>
+            </Grid>
+
+            <Grid item xs={2}>
+              <IconButton 
+                size="medium" 
+                aria-label="send" 
+                className={classes.sendIcon}
+              >
+                <Icon className={classes.rightIcon}>send</Icon>
+              </IconButton>
+            </Grid>
+            {/* <InputBase
+              className={classes.input}
+              name="text"
+              label="test"
+              value={this.state.text}
+              onChange={this.onChange}
+            /> */}
+            </Grid>
+          {/* dasdas */}
+        </Toolbar>
+      </AppBar>        
       </Grid>
     )
   }
