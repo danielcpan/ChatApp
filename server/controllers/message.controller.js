@@ -15,7 +15,7 @@ module.exports = {
       return next(err);
     }
   },
-  create: async (req, res, next) => {
+  send: async (req, res, next) => {
     console.log(req.body)
     try {
       const newMessage = await models.Message.create(req.body);

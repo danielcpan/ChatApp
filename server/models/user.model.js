@@ -49,7 +49,8 @@ module.exports = class User extends Sequelize.Model {
 
   static associate(models) {
     this.belongsToMany(models.Chat, {
-      through: 'chat_members',
+      // through: 'chat_members',
+      through: models.ChatMember,
       foreignKey: {
         name: 'userId',
         field: 'user_id',

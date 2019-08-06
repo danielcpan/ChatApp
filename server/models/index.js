@@ -4,6 +4,7 @@ const Sequelize = require('sequelize');
 const User = require('./user.model');
 const Chat = require('./chat.model');
 const Message = require('./message.model');
+const ChatMember = require('./chatMember.model');
 
 const env = process.env.NODE_ENV || 'development';
 const config = require(`${__dirname}/../config/config`)[env]; // eslint-disable-line import/no-dynamic-require
@@ -28,6 +29,7 @@ const models = {
   User: User.init(sequelize, Sequelize),
   Chat: Chat.init(sequelize, Sequelize),
   Message: Message.init(sequelize, Sequelize),
+  ChatMember: ChatMember.init(sequelize, Sequelize),
 };
 
 Object.values(models)

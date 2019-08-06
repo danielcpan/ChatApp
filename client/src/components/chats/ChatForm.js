@@ -16,7 +16,7 @@ class ChatForm extends React.Component {
   }
 
   handleUsersIdListChange = usersList => {
-    const idList = usersList.map(user => user.id)
+    const idList = usersList.map(user => { if (user !== null) return user.id})
     this.setState({ chatFormData: { usersIdList: idList }})
   }
 

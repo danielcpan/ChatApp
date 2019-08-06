@@ -15,7 +15,7 @@ export default function ChatListItem(props) {
       onClick={ e => handleListItemClick(e, id)}
       key={id}>
       <ListItemAvatar>
-        <Avatar>{users[1].username.charAt(0).toUpperCase()}</Avatar>
+        <Avatar>{users[0].username.charAt(0).toUpperCase()}</Avatar>
       </ListItemAvatar>
       {messages.length > 0 ? (
         <ListItemText

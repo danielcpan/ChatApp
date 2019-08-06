@@ -2,6 +2,25 @@ import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
 
+const UsernameField = ({props}) => {
+  // const {} p
+  return (
+    <TextField
+      id="username"
+      type="text"
+      label="Name"
+      name="username"
+      value={this.state.username}
+      error={!!this.state.usernameError}
+      helperText={this.state.usernameError}
+      onChange={this.onChange}
+      margin="normal"
+    />
+  )
+}
+
+
+
 class UsernameField extends React.Component {
   constructor(props) {
     super(props);

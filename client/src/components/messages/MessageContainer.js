@@ -7,7 +7,7 @@ import { List, Grid, InputBase, Icon, IconButton } from '@material-ui/core';
 
 import MessageReceiverItem from './MessageReceiverItem';
 import MessageSenderItem from './MessageSenderItem';
-import { getChat, getChats, createMessage } from '../../actions/chatActions';
+import { getChat, getChats, sendMessage } from '../../actions/chatActions';
 
 
 const styles = theme => ({
@@ -63,7 +63,7 @@ class MessageContainer extends React.Component {
       chatId: this.props.chat.id,
       userId: 1
     }
-    await this.props.createMessage(data)
+    await this.props.sendMessage(data)
     // await this.props.getChats();
     this.setState({text: ''})
   }
@@ -134,7 +134,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getChat: (id) => dispatch(getChat(id)),
   getChats: (id) => dispatch(getChats()),
-  createMessage: (text) => dispatch(createMessage(text))
+  sendMessage: (text) => dispatch(sendMessage(text))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MessageContainer));

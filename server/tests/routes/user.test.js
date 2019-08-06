@@ -28,13 +28,13 @@ describe('## User APIs', () => {
   });
 
   describe('# POST /api/users', () => {
-    it('should create new user', async () => {
+    it('should register new user', async () => {
       const data = {
         username: 'Foobar',
         email: 'foo@bar.com',
         password: 'foobar123',
       };
-      const response = await request(app).post('/api/users').send(data);
+      const response = await request(app).post('/api/users/register').send(data);
 
       expect(response.status).to.equal(httpStatus.CREATED);
       expect(response.body.username).to.equal(data.username);

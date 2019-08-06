@@ -87,16 +87,16 @@ export const deleteChat = (id) => async dispatch => {
   }
 }
 
-export const createMessage = (data) => async dispatch => {
+export const sendMessage = (data) => async dispatch => {
   try {
-    const response = await axios.post(`${SERVER_URL}/api/messages`, data);
+    const response = await axios.post(`${SERVER_URL}/api/messages/send`, data);
     dispatch({
       type: CREATE_MESSAGE,
       payload: response.data
     })
   } catch (err) {
     dispatch({
-      type: 'CREATE_MESSAGE_ERROR',
+      type: 'SEND_MESSAGE_ERROR',
       error: err
     })
   }

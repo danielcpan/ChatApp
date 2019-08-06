@@ -56,12 +56,32 @@ module.exports = {
   },
   list: async (req, res, next) => {
     try {
+      // const chats = await models.Chat.findAll({ 
+      //   where: { 
+      //     name: 'Luisa.Hettinger44, Amani.Hartmann58'
+      //   },
+      //   include: [{
+      //     model: models.User,
+      //     attributes: ['id', 'username']
+      //     // where: {
+      //     //   id: {
+      //     //     [Sequelize.Op.In]: [1,3] 
+      //     //   }
+      //     // }
+      //   }]
+      // })
+
       const chats = await models.Chat.findAll({
         attributes: ['id', 'name'],
         include: [
           {
             model: models.User,
             attributes: ['id', 'username'],
+            where: {
+              id: { 
+                [Sequelize.Op.notIn]: [1] 
+              }
+            },
             through: {
               attributes: []
             },
@@ -81,10 +101,11 @@ module.exports = {
             ],
           },
         ],
-        order: [[ models.Message, 'timestamp', 'DESC'], ['createdAt', 'DESC']],
+        // order: [[ models.Message, 'timestamp', 'DESC'], ['createdAt', 'DESC']],
+        order: [[ models.Message, 'timestamp', 'DESC']],
       });
-      
-      return res.json(chats);
+
+      return res.json(chats)
     } catch (err) {
       return next(err);
     }
@@ -99,7 +120,40 @@ module.exports = {
       const newChat = await models.Chat.create({ name: chatName });
       await newChat.setUsers(users);
 
-      return res.status(httpStatus.CREATED).json(newChat);
+      const chat = await models.Chat.findByPk(newChat.id, {
+        include: [
+          {
+            model: models.User,
+            attributes: ['id', 'username'],
+            where: {
+              id: {
+                [Sequelize.Op.notIn]: [1]
+              }
+            },
+            through: {
+              attributes: []
+            },
+          },
+          {
+            model: models.Message,
+            attributes: ['id', 'userId', 'text', 'timestamp'],
+            // order:[[ models.Message, 'createdAt', 'ASC']],
+            // separate: true,
+            // order:[[ 'createdAt', 'DESC']],
+            // limit: 1,
+            include: [
+              {
+                model: models.User,
+                attributes: ['username']
+              }
+            ],
+          },          
+        ]
+      })
+
+      console.log(chat.toJSON())
+
+      return res.status(httpStatus.CREATED).json(chat);
     } catch (err) {
       return next(err);
     }

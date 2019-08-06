@@ -4,7 +4,7 @@ const io = require('./server').io
 // 		LOGOUT, COMMUNITY_CHAT, MESSAGE_RECIEVED, MESSAGE_SENT,
 // 		TYPING  } = require('../Events')
 
-// const { createUser, createMessage, createChat } = require('../Factories')
+// const { createUser, sendMessage, createChat } = require('../Factories')
 
 // let connectedUsers = { }
 
@@ -109,7 +109,7 @@ module.exports = (socket) => {
 // */
 // function sendMessageToChat(sender){
 // 	return (chatId, message)=>{
-// 		io.emit(`${MESSAGE_RECIEVED}-${chatId}`, createMessage({message, sender}))
+// 		io.emit(`${MESSAGE_RECIEVED}-${chatId}`, sendMessage({message, sender}))
 // 	}
 // }
 

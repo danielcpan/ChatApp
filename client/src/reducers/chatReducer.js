@@ -25,6 +25,10 @@ export default (state = initialState, action) => {
         chatsList: action.payload
       }
     case CREATE_CHAT:
+      return {
+        ...state, 
+        chatsList: [action.payload, ...state.chatsList]
+      }
     case UPDATE_CHAT:
     case DELETE_CHAT:
     case CREATE_MESSAGE: 

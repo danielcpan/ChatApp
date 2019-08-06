@@ -16,7 +16,7 @@ class Home extends React.Component {
 		this.initSocket()
 	}  
 
-	initSocket = ()=>{
+	initSocket = () =>{
 		const socket = io(socketUrl)
 
 		socket.on('connect', () => {

@@ -19,7 +19,7 @@ describe('## Message APIs', () => {
   });
 
   describe('# POST /api/messages', () => {
-    it('should create new message', async () => {
+    it('should send new message', async () => {
       const chat1 = await factory.create('Chat');
       const user1 = await factory.create('User');
       const data = {
@@ -28,7 +28,7 @@ describe('## Message APIs', () => {
         userId: user1.id,
         timestamp: new Date()
       };
-      const response = await request(app).post('/api/messages').send(data);
+      const response = await request(app).post('/api/messages/send').send(data);
 
       expect(response.status).to.equal(httpStatus.CREATED);
       expect(response.body.name).to.equal(data.name);
