@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import ErrorIcon from '@material-ui/icons/Error';
 import { Button, Grid, Link, Paper, TextField, Typography, Container, Icon, SnackbarContent } from '@material-ui/core';
 
-import { register } from '../../../actions/userActions';
+import { register } from '../../../actions/authActions';
 import ServerErrorsList from '../../ServerErrorsList';
 
 const styles = theme => ({

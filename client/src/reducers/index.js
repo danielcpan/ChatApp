@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import userReducer from './userReducer';
+import authReducer from './authReducer';
 import chatReducer from './chatReducer';
 
 const errorReducer = (state = null, action) => {
@@ -15,7 +15,7 @@ const errorReducer = (state = null, action) => {
 }
 
 export default combineReducers({
-  user: userReducer,
+  auth: authReducer,
   chats: chatReducer,
   errors: errorReducer
 })

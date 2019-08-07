@@ -9,9 +9,7 @@ module.exports = {
     try {
       const user = await models.User.findOne({
         attributes: ['id', 'username', 'password'],
-        where: {
-          email: req.body.email,
-        },
+        where: { email: req.body.email },
       });
 
       if (!user) {
