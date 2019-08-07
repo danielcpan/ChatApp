@@ -64,7 +64,6 @@ module.exports = class User extends Sequelize.Model {
 
   static associate(models) {
     this.belongsToMany(models.Chat, {
-      // through: 'chat_members',
       through: models.ChatMember,
       foreignKey: {
         name: 'userId',
@@ -72,5 +71,9 @@ module.exports = class User extends Sequelize.Model {
       },
       onDelete: 'cascade',
     });
+  }
+
+  validPassword(password) {
+    return bcrypt.compareSync(password, this.password);
   }
 };

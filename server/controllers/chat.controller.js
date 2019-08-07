@@ -46,7 +46,6 @@ module.exports = {
       //     }
       //   )
       if (!chat) {
-        console.log("doesn't exist");
         return next(new APIError('Chat not found', httpStatus.NOT_FOUND));
       }
       chat.messages.reverse();

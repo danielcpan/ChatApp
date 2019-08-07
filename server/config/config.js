@@ -25,4 +25,5 @@ module.exports = {
   },
   PORT: process.env.PORT || 5000,
   PUBLIC_URL: process.env.PUBLIC_URL,
+  JWT_SECRET: process.env.JWT_SECRET,
 };

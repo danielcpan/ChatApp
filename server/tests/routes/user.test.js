@@ -27,20 +27,6 @@ describe('## User APIs', () => {
     });
   });
 
-  describe('# POST /api/users', () => {
-    it('should register new user', async () => {
-      const data = {
-        username: 'Foobar',
-        email: 'foo@bar.com',
-        password: 'foobar123',
-      };
-      const response = await request(app).post('/api/users/register').send(data);
-
-      expect(response.status).to.equal(httpStatus.CREATED);
-      expect(response.body.username).to.equal(data.username);
-    });
-  });
-
   describe('# PUT /api/users/:userId', () => {
     it('should update a user', async () => {
       const data = {

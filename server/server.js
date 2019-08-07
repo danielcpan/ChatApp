@@ -1,9 +1,8 @@
-// const server = require('http').Server(app);
 const http = require('http');
 const app = require('./app');
 
 const server = http.Server(app);
-const io = module.exports.io = require('socket.io')(server); // eslint-disable-line import/order
+const io = module.exports.io = require('socket.io')(server); // eslint-disable-line import/order, no-multi-assign
 
 const socketManager = require('./socketManager');
 const { PORT, PUBLIC_URL } = require('./config/config');

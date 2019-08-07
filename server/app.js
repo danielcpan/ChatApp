@@ -13,18 +13,16 @@ const APIError = require('./utils/APIError.utils');
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app
 
 // Force close connection, sometimes it persists
 // db.sequelize.close()
 
 // if (process.env.NODE_ENV === 'development') {
 // Sync the database models
-const models = require('./models');
-
-models.sequelize.sync({
-  force: true,
-});
+// const models = require('./models');
+// models.sequelize.sync({
+//   force: true,
+// });
 
 // const { createTestData } = require('./seeders/testData');
 // createTestData()

@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable max-len */
 
 const { factory } = require('factory-girl');
 const faker = require('faker/locale/en');
