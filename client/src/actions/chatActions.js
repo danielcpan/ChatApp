@@ -14,18 +14,14 @@ const SERVER_URL = 'http://localhost:5000';
 export const getChat = (id) => async dispatch => {
   try {
     const response = await axios.get(`${SERVER_URL}/api/chats/${id}`);
-    console.log("checking this1")
-    console.log(response)
     dispatch({
       type: GET_CHAT,
       payload: response.data
     })
   } catch (err) {
-    console.log("err")
-    console.log(err.response)
     dispatch({
       type: 'GET_CHAT_ERROR',
-      error: err
+      error: err.response.data
     })
   }
 }
@@ -38,11 +34,9 @@ export const getChats = () => async dispatch => {
       payload: response.data
     })
   } catch (err) {
-    console.log("qqqqqwwwww")
-    console.log(err.response.data.message)
     dispatch({
       type: 'GET_CHATS_ERROR',
-      error: err
+      error: err.response.data
     })
   }
 }
@@ -57,7 +51,7 @@ export const createChat = (data) => async dispatch => {
   } catch (err) {
     dispatch({
       type: 'CREATE_CHAT_ERROR',
-      error: err
+      error: err.response.data
     })
   }
 }
@@ -72,7 +66,7 @@ export const updateChat = (data) => async dispatch => {
   } catch (err) {
     dispatch({
       type: 'UPDATE_CHAT_ERROR',
-      error: err
+      error: err.response.data
     })
   }
 }
@@ -87,7 +81,7 @@ export const deleteChat = (id) => async dispatch => {
   } catch (err) {
     dispatch({
       type: 'DELETE_CHAT_ERROR',
-      error: err
+      error: err.response.data
     })
   }
 }
@@ -102,7 +96,7 @@ export const sendMessage = (data) => async dispatch => {
   } catch (err) {
     dispatch({
       type: 'SEND_MESSAGE_ERROR',
-      error: err
+      error: err.response.data
     })
   }
 }

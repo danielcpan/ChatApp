@@ -16,7 +16,6 @@ module.exports = {
     }
   },
   send: async (req, res, next) => {
-    console.log(req.body)
     try {
       const newMessage = await models.Message.create(req.body);
       const message = await models.Message.findByPk(newMessage.id, {

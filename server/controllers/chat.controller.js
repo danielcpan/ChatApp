@@ -152,8 +152,6 @@ module.exports = {
         ]
       })
 
-      // console.log(chat.toJSON())
-
       return res.status(httpStatus.CREATED).json(chat);
     } catch (err) {
       return next(err);

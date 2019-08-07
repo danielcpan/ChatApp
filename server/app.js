@@ -28,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // const { createTestData } = require('./seeders/testData');
 // createTestData()
 
+// Mount all routes on /api path
 app.use('/api', routes);
 
 // If error is not an instanceOf APIError, convert it.

@@ -9,11 +9,7 @@ const SERVER_URL = 'http://localhost:5000';
 
 export const register = (data) => async dispatch => {
   try {
-    console.log("redux")
-    console.log(data)
     const response = await axios.post(`${SERVER_URL}/api/auth/register`, data);
-    console.log("response")
-    console.log(response)
     dispatch({
       type: REGISTER,
       payload: response.data
@@ -21,7 +17,7 @@ export const register = (data) => async dispatch => {
   } catch (err) {
     dispatch({
       type: 'REGISTER_ERROR',
-      error: err
+      error: err.response.data
     })
   }
 }
@@ -36,7 +32,7 @@ export const login = (data) => async dispatch => {
   } catch (err) {
     dispatch({
       type: 'LOGIN_ERROR',
-      error: err
+      error: err.response.data
     })
   }
 }

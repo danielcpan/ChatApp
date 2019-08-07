@@ -22,8 +22,6 @@ class ChatForm extends React.Component {
 
   onSubmit = e => {
     e.preventDefault()
-    console.log("testing")
-    // console.log(this.props)
     this.props.createChat(this.state.chatFormData)
     this.props.handleClose()
   }
