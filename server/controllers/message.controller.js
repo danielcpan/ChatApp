@@ -7,8 +7,8 @@ module.exports = {
       const messages = await models.Message.findAll({
         include: [{
           model: models.User,
-          attributes: ['id', 'username']
-        }]
+          attributes: ['id', 'username'],
+        }],
       });
       return res.json(messages);
     } catch (err) {
@@ -21,10 +21,10 @@ module.exports = {
       const message = await models.Message.findByPk(newMessage.id, {
         include: [{
           model: models.User,
-          attributes: ['id', 'username']
-        }]
-      })
-      
+          attributes: ['id', 'username'],
+        }],
+      });
+
       return res.status(httpStatus.CREATED).json(message);
     } catch (err) {
       return next(err);

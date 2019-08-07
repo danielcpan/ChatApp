@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // if (process.env.NODE_ENV === 'development') {
 // Sync the database models
 const models = require('./models');
+
 models.sequelize.sync({
   force: true,
 });
@@ -36,10 +37,10 @@ app.use((err, req, res, next) => {
   if (err instanceof Sequelize.ValidationError) {
     const unifiedErrorMessage = err.errors.map(error => error.message).join(', ');
     const error = new APIError(unifiedErrorMessage, err.status, true);
-    return next(error)
-  } else if(!(err instanceof APIError)){
-    const apiError = new APIError(err.message, err.status)
-    return next(apiError)
+    return next(error);
+  } if (!(err instanceof APIError)) {
+    const apiError = new APIError(err.message, err.status);
+    return next(apiError);
   }
   return next(err);
 });
@@ -55,9 +56,9 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).json({
     name: err.name,
     message: err.message,
-    stack: process.env.NODE_ENV === 'development' ? err.stack : {}
-  })  
-})
+    stack: process.env.NODE_ENV === 'development' ? err.stack : {},
+  });
+});
 
 
 module.exports = app;

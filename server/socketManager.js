@@ -1,6 +1,6 @@
-const io = require('./server').io
+const { io } = require('./server');
 
-// const { VERIFY_USER, USER_CONNECTED, USER_DISCONNECTED, 
+// const { VERIFY_USER, USER_CONNECTED, USER_DISCONNECTED,
 // 		LOGOUT, COMMUNITY_CHAT, MESSAGE_RECIEVED, MESSAGE_SENT,
 // 		TYPING  } = require('../Events')
 
@@ -10,11 +10,11 @@ const io = require('./server').io
 
 // let communityChat = createChat()
 
-const connections = []
+const connections = [];
 
 module.exports = (socket) => {
   connections.push(socket);
-  console.log(`Connections: ${connections.length}`)
+  console.log(`Connections: ${connections.length}`);
   socket.emit('news', { hello: 'world' });
   socket.on('my other event', (data) => {
     // socket.emit()
@@ -22,11 +22,11 @@ module.exports = (socket) => {
   });
 
   socket.on('disconnect', (data) => {
-    console.log("disconnecting!")
+    console.log('disconnecting!');
     connections.splice(connections.indexOf(socket), 1);
-  })
-}
-					
+  });
+};
+
 // 	// console.log('\x1bc'); //clears console
 // 	console.log("Socket Id:" + socket.id);
 
@@ -55,7 +55,7 @@ module.exports = (socket) => {
 // 		console.log(connectedUsers);
 
 // 	})
-	
+
 // 	//User disconnects
 // 	socket.on('disconnect', ()=>{
 // 		if("user" in socket){

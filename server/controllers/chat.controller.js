@@ -14,39 +14,39 @@ module.exports = {
             model: models.User,
             attributes: ['id', 'username'],
             through: {
-              attributes: []
+              attributes: [],
             },
-          },          
-          { 
+          },
+          {
             model: models.Message,
             attributes: ['id', 'userId', 'text', 'timestamp'],
             include: [{
               model: models.User,
-              attributes: ['id', 'username']
-            }]
+              attributes: ['id', 'username'],
+            }],
             // order: [['createdAt', 'DESC']],
             // limit: 100,
           },
         ],
-        order: [[ models.Message, 'timestamp', 'DESC']],
+        order: [[models.Message, 'timestamp', 'DESC']],
       });
 
       // RAW QUERY TEST
       // const chat = await models.sequelize
       //   .query(`
-      //     SELECT messages.id, text, messages.created_at, username 
-      //     FROM messages 
-      //     INNER JOIN 
-      //     users ON messages.user_id = users.id 
-      //     WHERE chat_id = 1 
-      //     ORDER BY created_at DESC 
+      //     SELECT messages.id, text, messages.created_at, username
+      //     FROM messages
+      //     INNER JOIN
+      //     users ON messages.user_id = users.id
+      //     WHERE chat_id = 1
+      //     ORDER BY created_at DESC
       //     LIMIT 1`, {
       //       model: models.Message,
       //       mapToModel: true
       //     }
       //   )
       if (!chat) {
-        console.log("doesn't exist")
+        console.log("doesn't exist");
         return next(new APIError('Chat not found', httpStatus.NOT_FOUND));
       }
       chat.messages.reverse();
@@ -57,8 +57,8 @@ module.exports = {
   },
   list: async (req, res, next) => {
     try {
-      // const chats = await models.Chat.findAll({ 
-      //   where: { 
+      // const chats = await models.Chat.findAll({
+      //   where: {
       //     name: 'Luisa.Hettinger44, Amani.Hartmann58'
       //   },
       //   include: [{
@@ -66,7 +66,7 @@ module.exports = {
       //     attributes: ['id', 'username']
       //     // where: {
       //     //   id: {
-      //     //     [Sequelize.Op.In]: [1,3] 
+      //     //     [Sequelize.Op.In]: [1,3]
       //     //   }
       //     // }
       //   }]
@@ -79,12 +79,12 @@ module.exports = {
             model: models.User,
             attributes: ['id', 'username'],
             where: {
-              id: { 
-                [Sequelize.Op.notIn]: [1] 
-              }
+              id: {
+                [Sequelize.Op.notIn]: [1],
+              },
             },
             through: {
-              attributes: []
+              attributes: [],
             },
           },
           {
@@ -97,16 +97,16 @@ module.exports = {
             include: [
               {
                 model: models.User,
-                attributes: ['username']
-              }
+                attributes: ['username'],
+              },
             ],
           },
         ],
         // order: [[ models.Message, 'timestamp', 'DESC'], ['createdAt', 'DESC']],
-        order: [[ models.Message, 'timestamp', 'DESC']],
+        order: [[models.Message, 'timestamp', 'DESC']],
       });
 
-      return res.json(chats)
+      return res.json(chats);
     } catch (err) {
       return next(err);
     }
@@ -117,7 +117,7 @@ module.exports = {
       if (users.length === 0) {
         return next(new APIError('Users not found', httpStatus.NOT_FOUND));
       }
-      const chatName = users.map(user => user.username).join(", ")
+      const chatName = users.map(user => user.username).join(', ');
       const newChat = await models.Chat.create({ name: chatName });
       await newChat.setUsers(users);
 
@@ -128,11 +128,11 @@ module.exports = {
             attributes: ['id', 'username'],
             where: {
               id: {
-                [Sequelize.Op.notIn]: [1]
-              }
+                [Sequelize.Op.notIn]: [1],
+              },
             },
             through: {
-              attributes: []
+              attributes: [],
             },
           },
           {
@@ -145,12 +145,12 @@ module.exports = {
             include: [
               {
                 model: models.User,
-                attributes: ['username']
-              }
+                attributes: ['username'],
+              },
             ],
-          },          
-        ]
-      })
+          },
+        ],
+      });
 
       return res.status(httpStatus.CREATED).json(chat);
     } catch (err) {

@@ -15,12 +15,12 @@ module.exports = class User extends Sequelize.Model {
         allowNull: false,
         unique: {
           args: true,
-          msg: 'Username already exists'
+          msg: 'Username already exists',
         },
         validate: {
-          len: { 
+          len: {
             args: [2, 23],
-            msg: 'Username must be between 2 and 23 characters long'
+            msg: 'Username must be between 2 and 23 characters long',
           },
         },
       },
@@ -29,12 +29,12 @@ module.exports = class User extends Sequelize.Model {
         allowNull: false,
         unique: {
           args: true,
-          msg: 'Email already exists'
+          msg: 'Email already exists',
         },
         validate: {
-          isEmail: { 
+          isEmail: {
             args: true,
-            msg: 'Invalid Email'
+            msg: 'Invalid Email',
           },
         },
       },
@@ -42,12 +42,9 @@ module.exports = class User extends Sequelize.Model {
         type: DataTypes.STRING(255),
         allowNull: false,
         validate: {
-          len: [8, 255],
-        },
-        validate: {
-          len: { 
+          len: {
             args: [8, 255],
-            msg: 'Password must be between 8 and 255 characters long'
+            msg: 'Password must be between 8 and 255 characters long',
           },
         },
       },
