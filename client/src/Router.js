@@ -15,7 +15,7 @@ export default () => (
     <Switch>
       {/* <Route path="/" exact component={Home} /> */}
       <Route path="/" exact component={Home} />
-      <Route path="/userForm" exact component={UserForm} />
+      <Route path="/register" exact component={UserForm} />
       <Route path="/chats" exact component={ChatList} />
       <Route path="/messages" exact component={MessageContainer} />
       {/* <Route path="/chats2" exact component={Chats} /> */}

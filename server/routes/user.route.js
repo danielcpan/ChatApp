@@ -11,10 +11,4 @@ router.route('/:userId')
   .put(userController.update)
   .delete(userController.delete);
 
-router.route('/register')
-  .post(userController.register)
-
-router.route('/login')
-  .post(userController.login)
-
 module.exports = router;

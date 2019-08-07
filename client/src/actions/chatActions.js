@@ -14,11 +14,15 @@ const SERVER_URL = 'http://localhost:5000';
 export const getChat = (id) => async dispatch => {
   try {
     const response = await axios.get(`${SERVER_URL}/api/chats/${id}`);
+    console.log("checking this1")
+    console.log(response)
     dispatch({
       type: GET_CHAT,
       payload: response.data
     })
   } catch (err) {
+    console.log("err")
+    console.log(err.response)
     dispatch({
       type: 'GET_CHAT_ERROR',
       error: err
@@ -34,7 +38,8 @@ export const getChats = () => async dispatch => {
       payload: response.data
     })
   } catch (err) {
-    console.log(err)
+    console.log("qqqqqwwwww")
+    console.log(err.response.data.message)
     dispatch({
       type: 'GET_CHATS_ERROR',
       error: err

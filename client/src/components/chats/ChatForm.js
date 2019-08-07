@@ -20,7 +20,7 @@ class ChatForm extends React.Component {
     this.setState({ chatFormData: { usersIdList: idList }})
   }
 
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault()
     console.log("testing")
     // console.log(this.props)

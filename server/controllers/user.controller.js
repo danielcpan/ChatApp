@@ -1,13 +1,13 @@
 const httpStatus = require('http-status');
 const models = require('../models');
-const ApiError = require('../utils/APIError.utils');
+const APIError = require('../utils/APIError.utils');
 
 module.exports = {
   get: async (req, res, next) => {
     try {
       const user = await models.User.findByPk(req.params.userId);
       if (!user) {
-        return next(new ApiError('User not found', httpStatus.NOT_FOUND));
+        return next(new APIError('User not found', httpStatus.NOT_FOUND));
       }
       return res.json(user);
     } catch (err) {
@@ -24,27 +24,11 @@ module.exports = {
       return next(err);
     }
   },
-  login: async (req, res, next) => {
-    try {
-      // const newUser = await models.User.create(req.body);
-      // return res.status(httpStatus.CREATED).json(newUser);
-    } catch (err) {
-      return next(err);
-    }
-  },  
-  register: async (req, res, next) => {
-    try {
-      const newUser = await models.User.create(req.body);
-      return res.status(httpStatus.CREATED).json(newUser);
-    } catch (err) {
-      return next(err);
-    }
-  },
   update: async (req, res, next) => {
     try {
       const user = await models.User.findByPk(req.params.userId);
       if (!user) {
-        return next(new ApiError('User not found', httpStatus.NOT_FOUND));
+        return next(new APIError('User not found', httpStatus.NOT_FOUND));
       }
       await user.update(req.body);
       return res.status(httpStatus.OK).json(user);
@@ -56,7 +40,7 @@ module.exports = {
     try {
       const user = await models.User.findByPk(req.params.userId);
       if (!user) {
-        return next(new ApiError('User not found', httpStatus.NOT_FOUND));
+        return next(new APIError('User not found', httpStatus.NOT_FOUND));
       }
       await user.destroy();
       return res.status(httpStatus.OK).json({ deleted: true });

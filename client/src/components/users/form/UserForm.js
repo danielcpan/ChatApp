@@ -1,10 +1,10 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faComments } from '@fortawesome/free-solid-svg-icons'
 import { withStyles } from '@material-ui/core/styles';
 import { Button, Grid, Link, Paper, TextField, Typography, Container } from '@material-ui/core';
+
+import { register } from '../../../actions/userActions';
 
 const styles = theme => ({
   '@global': {
@@ -38,23 +38,30 @@ const styles = theme => ({
 });
 
 class UserForm extends React.Component {
-  state = {
-    username: '',
-    usernameError: '',
-    email: '',
-    emailError: '',
-    password: '',
-    passwordError: ''
-  };
+  constructor(props) {
+    super(props)
+    this.state = {
+      userFormData: {
+        username: '',
+        email: '',
+        password: ''
+      }
+    }
+  }
 
-  onSubmit = async () => {
+  onSubmit = async e => {
+    e.preventDefault();
 
+    this.props.register(this.state.userFormData)
   }
 
   onChange = e => {
     const { name, value } = e.target
     // this.validate(value)
-    this.setState({ [name]: value })
+    this.setState({ userFormData: {
+      ...this.state.userFormData,
+      [name]: value
+    }})
   }
 
   validate = (val) => {
@@ -86,7 +93,7 @@ class UserForm extends React.Component {
           <Grid item xs={false} sm={false} md={6} className={classes.image} />
           <Grid item xs={12} sm={12} md={6}>
             <div className={classes.paper}>
-              <form className={classes.form} autoComplete="off">
+              <form className={classes.form} autoComplete="off" onSubmit={this.onSubmit}>
                 <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
                   <Grid item xs={8}>
                     <Typography component="h1" variant="h5"><b>Create Account</b></Typography>
@@ -102,9 +109,7 @@ class UserForm extends React.Component {
                       type="email"
                       label="Email"
                       name="email"
-                      value={this.state.email}
-                      error={!!this.state.emailError}
-                      helperText={this.state.emailError}
+                      value={this.state.userFormData.email}
                       onChange={this.onChange}
                       variant="outlined"
                       required
@@ -118,15 +123,13 @@ class UserForm extends React.Component {
                       type="text"
                       label="Username"
                       name="username"
-                      value={this.state.username}
-                      error={!!this.state.usernameError}
-                      helperText={this.state.usernameError}
+                      value={this.state.userFormData.username}
                       onChange={this.onChange}
                       variant="outlined"
                       required
                       fullWidth
                     />
-                  </Grid>              
+                  </Grid>
 
                   <Grid item xs={12}>
                     <TextField
@@ -134,9 +137,7 @@ class UserForm extends React.Component {
                       type="password"
                       label="Password"
                       name="password"
-                      value={this.state.password}
-                      error={!!this.state.passwordError}
-                      helperText={this.state.passwordError}
+                      value={this.state.userFormData.password}
                       onChange={this.onChange}
                       variant="outlined"
                       required
@@ -163,5 +164,8 @@ class UserForm extends React.Component {
     )
   }
 }
+const mapDispatchToProps = dispatch => ({
+  register: (data) => dispatch(register(data)),
+})
 
-export default withStyles(styles)(UserForm);
+export default connect(null, mapDispatchToProps)(withStyles(styles)(UserForm));
