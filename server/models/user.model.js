@@ -12,18 +12,30 @@ module.exports = class User extends Sequelize.Model {
       },
       username: {
         type: DataTypes.STRING(255),
-        unique: true,
         allowNull: false,
+        unique: {
+          args: true,
+          msg: 'Username already exists'
+        },
         validate: {
-          len: [2, 23],
+          len: { 
+            args: [2, 23],
+            msg: 'Username must be between 2 and 23 characters long'
+          },
         },
       },
       email: {
         type: DataTypes.STRING(255),
-        unique: true,
         allowNull: false,
+        unique: {
+          args: true,
+          msg: 'Email already exists'
+        },
         validate: {
-          isEmail: true,
+          isEmail: { 
+            args: true,
+            msg: 'Invalid Email'
+          },
         },
       },
       password: {
@@ -31,6 +43,12 @@ module.exports = class User extends Sequelize.Model {
         allowNull: false,
         validate: {
           len: [8, 255],
+        },
+        validate: {
+          len: { 
+            args: [8, 255],
+            msg: 'Password must be between 8 and 255 characters long'
+          },
         },
       },
     }, {

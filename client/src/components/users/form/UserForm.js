@@ -2,9 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '@material-ui/core/styles';
-import { Button, Grid, Link, Paper, TextField, Typography, Container } from '@material-ui/core';
+import ErrorIcon from '@material-ui/icons/Error';
+import { Button, Grid, Link, Paper, TextField, Typography, Container, Icon, SnackbarContent } from '@material-ui/core';
 
 import { register } from '../../../actions/userActions';
+import ServerErrorsList from '../../ServerErrorsList';
 
 const styles = theme => ({
   '@global': {
@@ -84,7 +86,7 @@ class UserForm extends React.Component {
   }  
 
   render() {
-    const { classes } = this.props;
+    const { classes, errors } = this.props;
 
     return (
       <Container component="main" className={classes.root}>
@@ -101,7 +103,9 @@ class UserForm extends React.Component {
 
                   <Grid item xs={4}>
                     <Link href="#" variant="body2">Sign in</Link> instead?
-                  </Grid>              
+                  </Grid>
+
+                  <ServerErrorsList errors={errors} />
 
                   <Grid item xs={12}>
                     <TextField
@@ -164,8 +168,12 @@ class UserForm extends React.Component {
     )
   }
 }
+const mapStateToProps = state => ({
+  errors: state.errors,
+})
+
 const mapDispatchToProps = dispatch => ({
   register: (data) => dispatch(register(data)),
 })
 
-export default connect(null, mapDispatchToProps)(withStyles(styles)(UserForm));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(UserForm));

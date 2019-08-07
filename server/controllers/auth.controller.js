@@ -13,7 +13,9 @@ module.exports = {
     }
   },  
   register: async (req, res, next) => {
+    // console.log("wowowowow")
     try {
+      // console.log("this is doing something")
       const newUser = await models.User.create(req.body)
       return res.status(httpStatus.CREATED).json(newUser);
     } catch (err) {

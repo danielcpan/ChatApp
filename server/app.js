@@ -20,10 +20,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // if (process.env.NODE_ENV === 'development') {
 // Sync the database models
-// const models = require('./models');
-// models.sequelize.sync({
-//   force: true,
-// });
+const models = require('./models');
+models.sequelize.sync({
+  force: true,
+});
 
 // const { createTestData } = require('./seeders/testData');
 // createTestData()
