@@ -2,6 +2,7 @@
 export const REGISTER = 'REGISTER';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const GET_CURRENT_USER = 'GET_CURRENT_USER'
 
 // CHAT_ACTIONS
 export const GET_CHAT = 'GET_CHAT';

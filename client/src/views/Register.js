@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '@material-ui/core/styles';
-import { Link, Redirect } from 'react-router-dom'
-import { Button, Grid, Paper, TextField, Typography, Container } from '@material-ui/core';
+import { Redirect } from 'react-router-dom'
+import { Button, Grid, Link, Paper, TextField, Typography, Container } from '@material-ui/core';
 
 import { register } from '../actions/authActions';
 import { resetErrors } from '../actions/errorActions';
@@ -50,19 +50,16 @@ class Register extends React.Component {
         password: ''
       },
       toChats: false,
+      toLogin: false,
     }
   }
 
   onSubmit = async e => {
     e.preventDefault();
     await this.props.register(this.state.userFormData)
-    if (this.props.currentUser !== {}) {
+    if (this.props.isLoggedIn) {
       this.setState({ toChats: true })
     }
-  }
-
-  componentWillMount() {
-    this.props.resetErrors()
   }
 
   onChange = e => {
@@ -73,11 +70,20 @@ class Register extends React.Component {
     }})
   }
 
+  linkToLogin = async () => {
+    await this.props.resetErrors();
+    this.setState({ toLogin: true})
+  }  
+
   render() {
     const { classes, errors } = this.props;
 
     if (this.state.toChats === true) {
       return <Redirect to='/chats/1' />
+    }
+
+    if (this.state.toLogin === true) {
+      return <Redirect to='/login' />
     }    
 
     return (
@@ -94,7 +100,13 @@ class Register extends React.Component {
                   </Grid>
 
                   <Grid item xs={4}>
-                    <Link to={'/login'} variant="body2">Sign in</Link> instead?
+                    <Link 
+                      onClick={this.linkToLogin} 
+                      variant="body2" 
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Sign in
+                    </Link> instead?                    
                   </Grid>
 
                   <ServerErrorsList errors={errors} />
@@ -162,7 +174,8 @@ class Register extends React.Component {
 }
 const mapStateToProps = state => ({
   errors: state.errors,
-  currentUser: state.auth.currentUser
+  currentUser: state.auth.currentUser,
+  isLoggedIn: state.auth.isLoggedIn
 })
 
 const mapDispatchToProps = dispatch => ({

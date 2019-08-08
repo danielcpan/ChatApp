@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '@material-ui/core/styles';
-import { Link, Redirect } from 'react-router-dom'
-import { Button, Grid, Paper, TextField, Typography, Container } from '@material-ui/core';
+import { Redirect } from 'react-router-dom'
+import { Button, Grid, Link, Paper, TextField, Typography, Container } from '@material-ui/core';
 
 import { login } from '../actions/authActions';
 import { resetErrors } from '../actions/errorActions';
@@ -49,13 +49,15 @@ class Login extends React.Component {
         password: ''
       },
       toChats: false,
+      toRegister: false,
     }
   }
 
   onSubmit = async e => {
     e.preventDefault();
     await this.props.login(this.state.userFormData)
-    if (this.props.currentUser !== {}) {
+    // console.log()
+    if (this.props.isLoggedIn) {
       this.setState({ toChats: true })
     }
   }
@@ -68,8 +70,9 @@ class Login extends React.Component {
     }})
   }
 
-  componentWillMount() {
-    this.props.resetErrors()
+  linkToRegister = async () => {
+    await this.props.resetErrors();
+    this.setState({ toRegister: true})
   }
 
   render() {
@@ -77,6 +80,10 @@ class Login extends React.Component {
 
     if (this.state.toChats === true) {
       return <Redirect to='/chats/1' />
+    }
+
+    if (this.state.toRegister === true) {
+      return <Redirect to='/register' />
     }
 
     return (
@@ -93,8 +100,13 @@ class Login extends React.Component {
                   </Grid>
 
                   <Grid item xs={4}>
-                    <Link to={'/register'} variant="body2">Sign up</Link> instead?
-                    {/* <Link to={`/users/${user.id}`} activeClassName="active">{user.name}</Link> */}
+                    <Link 
+                      onClick={this.linkToRegister} 
+                      variant="body2" 
+                      style={{ cursor: 'pointer' }}
+                    >
+                      Sign up
+                    </Link> instead?
                   </Grid>
 
                   <ServerErrorsList errors={errors} />
@@ -148,7 +160,8 @@ class Login extends React.Component {
 }
 const mapStateToProps = state => ({
   errors: state.errors,
-  currentUser: state.auth.currentUser
+  currentUser: state.auth.currentUser,
+  isLoggedIn: state.auth.isLoggedIn
 })
 
 const mapDispatchToProps = dispatch => ({

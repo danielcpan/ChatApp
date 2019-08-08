@@ -11,9 +11,13 @@ import {
 
 const SERVER_URL = 'http://localhost:5000';
 
-export const getChat = (id) => async dispatch => {
+const token = localStorage.getItem('token')
+
+export const getChat = (id) => async (dispatch, getState) => {
   try {
-    const response = await axios.get(`${SERVER_URL}/api/chats/${id}`);
+    const response = await axios.get(`${SERVER_URL}/api/chats/${id}`, {
+      headers: { Authorization: "Bearer " + token }
+    });
     dispatch({
       type: GET_CHAT,
       payload: response.data
@@ -28,7 +32,9 @@ export const getChat = (id) => async dispatch => {
 
 export const getChats = () => async dispatch => {
   try {
-    const response = await axios.get(`${SERVER_URL}/api/chats`);
+    const response = await axios.get(`${SERVER_URL}/api/chats`, {
+      headers: { Authorization: "Bearer " + token }
+    });
     dispatch({
       type: GET_CHATS,
       payload: response.data

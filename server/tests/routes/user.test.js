@@ -5,7 +5,7 @@ describe('## User APIs', () => {
   let user1;
 
   before(async () => {
-    await truncateTables();
+  await truncateTables();
     user1 = await factory.create('User');
   });
 

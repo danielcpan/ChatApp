@@ -5,6 +5,7 @@ import format from 'date-fns/format';
 import { withStyles } from '@material-ui/core/styles';
 import { List, ListSubheader, Grid, Fab, Icon} from '@material-ui/core';
 
+import { getCurrentUser } from '../../actions/authActions';
 import { getChat, getChats } from '../../actions/chatActions';
 import ChatListItem from './ChatListItem';
 import ChatForm from './ChatForm';
@@ -41,6 +42,7 @@ class ChatList extends React.Component {
   }
 
   async componentWillMount() {
+    await this.props.getCurrentUser();
     await this.props.getChats();
   }
 
@@ -170,12 +172,14 @@ ChatList.propTypes = {
 
 const mapStateToProps = state => ({
   chat: state.chats.currentChat,
-  chats: state.chats.chatsList
+  chats: state.chats.chatsList,
+  currentUser: state.auth.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({
   getChat: (id) => dispatch(getChat(id)),
-  getChats: () => dispatch(getChats())
+  getChats: () => dispatch(getChats()),
+  getCurrentUser: () => dispatch(getCurrentUser())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ChatList));

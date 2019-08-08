@@ -1,12 +1,15 @@
+
 import { 
   REGISTER, 
   LOGIN,
-  LOGOUT
+  LOGOUT,
+  GET_CURRENT_USER
 } from '../actions/types';
 
 const initialState = {
   currentUser: {},
-  token: '',
+  token: localStorage.getItem('token'),
+  isLoggedIn: !!localStorage.getItem('token'),
 };
 
 export default (state = initialState, action) => {
@@ -17,7 +20,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         currentUser: action.payload.user,
-        token: action.payload.token
+        token: action.payload.token,
+        isLoggedIn: true
       }
     case LOGOUT:
       localStorage.clear();
@@ -25,6 +29,12 @@ export default (state = initialState, action) => {
         ...state,
         currentUser: {},
         token: ''
+      }
+    case GET_CURRENT_USER: 
+      console.log('got inside here')
+      return {
+        ...state,
+        currentUser: action.payload
       }
     default: 
       return state;

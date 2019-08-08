@@ -6,13 +6,17 @@ const APIError = require('../utils/APIError.utils');
 module.exports = {
   get: async (req, res, next) => {
     try {
-      // const chat = await models.Chat.findByPk(req.params.chatId);
       const chat = await models.Chat.findByPk(req.params.chatId, {
         attributes: ['id', 'name'],
         include: [
           {
             model: models.User,
             attributes: ['id', 'username'],
+            where: {
+              id: {
+                [Sequelize.Op.notIn]: [req.user.id],
+              },
+            },
             through: {
               attributes: [],
             },
@@ -24,12 +28,19 @@ module.exports = {
               model: models.User,
               attributes: ['id', 'username'],
             }],
-            // order: [['createdAt', 'DESC']],
-            // limit: 100,
           },
         ],
         order: [[models.Message, 'timestamp', 'DESC']],
       });
+
+      const user = await chat.getUsers({ where: {id: req.user.id}})
+
+      if (!user[0]) {
+        return next(new APIError('User does not own this chat', httpStatus.UNAUTHORIZED));
+      }
+
+      // console.log(users[0].toJSON())
+      // console.log(await chat.getUsers())
 
       // RAW QUERY TEST
       // const chat = await models.sequelize
@@ -56,43 +67,21 @@ module.exports = {
   },
   list: async (req, res, next) => {
     try {
-      // const chats = await models.Chat.findAll({
-      //   where: {
-      //     name: 'Luisa.Hettinger44, Amani.Hartmann58'
-      //   },
-      //   include: [{
-      //     model: models.User,
-      //     attributes: ['id', 'username']
-      //     // where: {
-      //     //   id: {
-      //     //     [Sequelize.Op.In]: [1,3]
-      //     //   }
-      //     // }
-      //   }]
-      // })
-
       const chats = await models.Chat.findAll({
         attributes: ['id', 'name'],
         include: [
           {
             model: models.User,
             attributes: ['id', 'username'],
-            where: {
-              id: {
-                [Sequelize.Op.notIn]: [1],
-              },
-            },
             through: {
               attributes: [],
+              where: { userId: req.user.id }
             },
+            required: true
           },
           {
             model: models.Message,
             attributes: ['id', 'userId', 'text', 'timestamp'],
-            // order:[[ models.Message, 'createdAt', 'ASC']],
-            // separate: true,
-            // order:[[ 'createdAt', 'DESC']],
-            // limit: 1,
             include: [
               {
                 model: models.User,
@@ -101,7 +90,6 @@ module.exports = {
             ],
           },
         ],
-        // order: [[ models.Message, 'timestamp', 'DESC'], ['createdAt', 'DESC']],
         order: [[models.Message, 'timestamp', 'DESC']],
       });
 
@@ -137,10 +125,6 @@ module.exports = {
           {
             model: models.Message,
             attributes: ['id', 'userId', 'text', 'timestamp'],
-            // order:[[ models.Message, 'createdAt', 'ASC']],
-            // separate: true,
-            // order:[[ 'createdAt', 'DESC']],
-            // limit: 1,
             include: [
               {
                 model: models.User,
