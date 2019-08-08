@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const Sequelize = require('sequelize');
 const httpStatus = require('http-status');
 const models = require('../models');
 const APIError = require('../utils/APIError.utils');
@@ -12,18 +13,30 @@ module.exports = {
         where: { email: req.body.email },
       });
 
+      // Check and catch sequelize instance errors
+      let sequelizeInstanceErrors = null;
+      await models.User.build({ 
+        username: 'temp',
+        email: req.body.email,
+        password: req.body.password
+      }).validate().catch(err => sequelizeInstanceErrors = err)
+
+      if (sequelizeInstanceErrors) {
+        return next(sequelizeInstanceErrors)
+      }
+
       if (!user) {
         return next(new APIError('Email not found', httpStatus.NOT_FOUND));
       }
 
       if (!user.validPassword(req.body.password)) {
-        return next(new APIError('Invalid password', httpStatus.UNAUTHORIZED));
+        return next(new APIError('Invalid or wrong password', httpStatus.UNAUTHORIZED));
       }
 
       const { password, ...userWithoutPass } = user.toJSON();
       const token = jwt.sign(userWithoutPass, JWT_SECRET, { expiresIn: '7d' });
 
-      return res.status(httpStatus.OK).json({ token });
+      return res.status(httpStatus.OK).json({ token, user: userWithoutPass });
     } catch (err) {
       return next(err);
     }

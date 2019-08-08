@@ -6,9 +6,9 @@ import ErrorIcon from '@material-ui/icons/Error';
 import { Link } from 'react-router-dom'
 import { Button, Grid, Paper, TextField, Typography, Container, Icon, SnackbarContent } from '@material-ui/core';
 
-import { register } from '../../../actions/authActions';
-import { resetErrors } from '../../../actions/errorActions';
-import ServerErrorsList from '../../ServerErrorsList';
+import { login } from '../actions/authActions';
+import { resetErrors } from '../actions/errorActions';
+import ServerErrorsList from '../components/ServerErrorsList';
 
 const styles = theme => ({
   '@global': {
@@ -21,7 +21,7 @@ const styles = theme => ({
     width: '70vw',
   },  
   image: {
-    backgroundImage: `url(${require('../../../assets/SignUp.jpg')})`,
+    backgroundImage: `url(${require('../assets/SignUp.jpg')})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'contain',
     backgroundPosition: 'center',
@@ -46,7 +46,6 @@ class UserForm extends React.Component {
     super(props)
     this.state = {
       userFormData: {
-        username: '',
         email: '',
         password: ''
       }
@@ -56,15 +55,9 @@ class UserForm extends React.Component {
   onSubmit = async e => {
     e.preventDefault();
 
-    await this.props.register(this.state.userFormData)
-    // this.props.resetErrors()
-  }
-
-  componentWillMount() {
-    console.log("about to mount")
-    this.props.resetErrors()
+    this.props.login(this.state.userFormData)
     // console.log(this.props)
-    // this.props.dispatch({ type: RESET_ERROR_MESSAGE})
+
   }
 
   onChange = e => {
@@ -93,10 +86,19 @@ class UserForm extends React.Component {
       ...this.state,
       usernameError
     })
-  }  
+  }
+
+  componentWillMount() {
+    console.log("login about to mount")
+    this.props.resetErrors()
+  }
 
   render() {
     const { classes, errors } = this.props;
+
+    // if (this.state.toDashboard === true) {
+    //   return <Redirect to='/dashboard' />
+    // }
 
     return (
       <Container component="main" className={classes.root}>
@@ -108,11 +110,12 @@ class UserForm extends React.Component {
               <form className={classes.form} autoComplete="off" onSubmit={this.onSubmit}>
                 <Grid container direction="row" justify="center" alignItems="center" spacing={3}>
                   <Grid item xs={8}>
-                    <Typography component="h1" variant="h5"><b>Create Account</b></Typography>
+                    <Typography component="h1" variant="h5"><b>Login</b></Typography>
                   </Grid>
 
                   <Grid item xs={4}>
-                    <Link to={'/login'} variant="body2">Sign in</Link> instead?
+                    <Link to={'/register'} variant="body2">Sign up</Link> instead?
+                    {/* <Link to={`/users/${user.id}`} activeClassName="active">{user.name}</Link> */}
                   </Grid>
 
                   <ServerErrorsList errors={errors} />
@@ -124,20 +127,6 @@ class UserForm extends React.Component {
                       label="Email"
                       name="email"
                       value={this.state.userFormData.email}
-                      onChange={this.onChange}
-                      variant="outlined"
-                      required
-                      fullWidth
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <TextField
-                      id="username"
-                      type="text"
-                      label="Username"
-                      name="username"
-                      value={this.state.userFormData.username}
                       onChange={this.onChange}
                       variant="outlined"
                       required
@@ -168,7 +157,7 @@ class UserForm extends React.Component {
                   className={classes.submit}
                   onClick={this.onSubmit}
                 >
-                  Sign Up
+                  Login
                 </Button>
               </form>
             </div>
@@ -183,7 +172,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  register: (data) => dispatch(register(data)),
+  login: (data) => dispatch(login(data)),
   resetErrors: () => dispatch(resetErrors())
 })
 
