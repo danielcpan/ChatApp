@@ -16,8 +16,8 @@ module.exports = {
     }
   },
   send: async (req, res, next) => {
-    try {
-      const newMessage = await models.Message.create(req.body);
+    try {      
+      const newMessage = await models.Message.create({ ...req.body, userId: req.user.id });
       const message = await models.Message.findByPk(newMessage.id, {
         include: [{
           model: models.User,

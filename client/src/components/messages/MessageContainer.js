@@ -71,10 +71,8 @@ class MessageContainer extends React.Component {
       text: this.state.text,
       timestamp: new Date(),
       chatId: this.props.chat.id,
-      userId: 1
     }
     await this.props.sendMessage(data)
-    // await this.props.getChats();
     this.setState({text: ''})
   }
 
@@ -105,7 +103,7 @@ class MessageContainer extends React.Component {
         <Grid item xs={12}>
           <List dense>
             {messages.map(message => {
-              if (message.userId === 1) {
+              if (message.userId === this.props.currentUser.id) {
                 return <MessageSenderItem key={message.id} message={message} />
               } else {
                 return <MessageReceiverItem key={message.id} message={message} />
@@ -184,7 +182,8 @@ class MessageContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  chat: state.chats.currentChat
+  chat: state.chats.currentChat,
+  currentUser: state.auth.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({

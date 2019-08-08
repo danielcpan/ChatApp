@@ -96,9 +96,11 @@ export const deleteChat = (id) => async (dispatch, getState) => {
   }
 }
 
-export const sendMessage = (data) => async dispatch => {
+export const sendMessage = (data) => async (dispatch, getState) => {
   try {
-    const response = await axios.post(`${SERVER_URL}/api/messages/send`, data);
+    const response = await axios.post(`${SERVER_URL}/api/messages/send`, data, {
+      headers: { Authorization: "Bearer " + getState().auth.token }
+    });
     dispatch({
       type: CREATE_MESSAGE,
       payload: response.data
