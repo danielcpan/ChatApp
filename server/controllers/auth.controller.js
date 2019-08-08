@@ -44,7 +44,16 @@ module.exports = {
   register: async (req, res, next) => {
     try {
       const newUser = await models.User.create(req.body);
-      return res.status(httpStatus.CREATED).json(newUser);
+
+      const user = await models.User.findByPk(newUser.id, {
+        attributes: ['id', 'username']
+      });
+
+      if (!user) {
+        return next(new APIError('User not found', httpStatus.NOT_FOUND));
+      }
+
+      return res.status(httpStatus.CREATED).json(user);
     } catch (err) {
       return next(err);
     }

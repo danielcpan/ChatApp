@@ -1,6 +1,7 @@
 import { 
   REGISTER, 
   LOGIN,
+  LOGOUT
 } from '../actions/types';
 
 const initialState = {
@@ -17,6 +18,13 @@ export default (state = initialState, action) => {
         ...state,
         currentUser: action.payload.user,
         token: action.payload.token
+      }
+    case LOGOUT:
+      localStorage.clear();
+      return {
+        ...state,
+        currentUser: {},
+        token: ''
       }
     default: 
       return state;

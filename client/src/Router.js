@@ -3,14 +3,9 @@ import React from 'react';
 import decode from 'jwt-decode';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-import Home from './views/Home';
-import UserForm from './components/users/form/UserForm';
-import ChatList from './components/chats/ChatList';
-import MessageContainer from './components/messages/MessageContainer';
 import Chats from './views/Chats';
-import ChatForm from './components/chats/ChatForm';
+import Register from './views/Register'
 import Login from './views/Login'
-// import UsernameField from './components/users/form/UsernameField';
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');
@@ -40,15 +35,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 export default () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/register" exact component={UserForm} />
+      <Route path="/register" exact component={Register} />
       <Route path="/login" exact component={Login} />
-      <Route path="/chats" exact component={ChatList} />
-      <PrivateRoute path="/chats/:chatId" exact component={Chats} />
-      {/* <Route path="/messages" exact component={MessageContainer} /> */}
-      {/* <Route path="/chats2" exact component={Chats} /> */}
-      {/* <Route path="/chats/new" exact component={ChatForm} /> */}
-      {/* <Route path="/chats/:chatId" component={Chats} /> */}
+      <PrivateRoute path="/chats/:chatId?" component={Chats} />
 
     </Switch>
   </BrowserRouter>

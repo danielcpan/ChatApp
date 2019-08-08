@@ -2,9 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '@material-ui/core/styles';
-import ErrorIcon from '@material-ui/icons/Error';
-import { Link } from 'react-router-dom'
-import { Button, Grid, Paper, TextField, Typography, Container, Icon, SnackbarContent } from '@material-ui/core';
+import { Link, Redirect } from 'react-router-dom'
+import { Button, Grid, Paper, TextField, Typography, Container } from '@material-ui/core';
 
 import { login } from '../actions/authActions';
 import { resetErrors } from '../actions/errorActions';
@@ -41,64 +40,44 @@ const styles = theme => ({
   },
 });
 
-class UserForm extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       userFormData: {
         email: '',
         password: ''
-      }
+      },
+      toChats: false,
     }
   }
 
   onSubmit = async e => {
     e.preventDefault();
-
-    this.props.login(this.state.userFormData)
-    // console.log(this.props)
-
+    await this.props.login(this.state.userFormData)
+    if (this.props.currentUser !== {}) {
+      this.setState({ toChats: true })
+    }
   }
 
   onChange = e => {
     const { name, value } = e.target
-    // this.validate(value)
     this.setState({ userFormData: {
       ...this.state.userFormData,
       [name]: value
     }})
   }
 
-  validate = (val) => {
-    const errors = {
-      usernameError: '',
-      emailError: '',
-      passwordError: ''
-    }
-
-    const usernameLengthRule = val => (val.length >= 2 && val.length <= 23) || 'Please enter a value between 2 and 23 characters long';
-
-    // const rules = this.getRules();
-    const rules = [usernameLengthRule]
-    const usernameError = rules.map(rule => rule(val)).filter(el => el !== true)[0] || ''
-
-    this.setState({
-      ...this.state,
-      usernameError
-    })
-  }
-
   componentWillMount() {
-    console.log("login about to mount")
     this.props.resetErrors()
   }
 
   render() {
     const { classes, errors } = this.props;
 
-    // if (this.state.toDashboard === true) {
-    //   return <Redirect to='/dashboard' />
-    // }
+    if (this.state.toChats === true) {
+      return <Redirect to='/chats/1' />
+    }
 
     return (
       <Container component="main" className={classes.root}>
@@ -169,6 +148,7 @@ class UserForm extends React.Component {
 }
 const mapStateToProps = state => ({
   errors: state.errors,
+  currentUser: state.auth.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -176,4 +156,4 @@ const mapDispatchToProps = dispatch => ({
   resetErrors: () => dispatch(resetErrors())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(UserForm));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Login));

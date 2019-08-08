@@ -1,6 +1,7 @@
 // AUTH_ACTIONS
 export const REGISTER = 'REGISTER';
 export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
 
 // CHAT_ACTIONS
 export const GET_CHAT = 'GET_CHAT';
