@@ -79,7 +79,7 @@ class Register extends React.Component {
     const { classes, errors } = this.props;
 
     if (this.state.toChats === true) {
-      return <Redirect to='/chats/1' />
+      return <Redirect to='/chats' />
     }
 
     if (this.state.toLogin === true) {

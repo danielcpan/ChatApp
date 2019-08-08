@@ -90,7 +90,6 @@ class MessageContainer extends React.Component {
   }
 
   scrollToBottom() {
-    // this.el.scrollIntoView({behavior: 'smooth'});
     this.el.scrollIntoView();
   }  
 
