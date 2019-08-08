@@ -1,4 +1,3 @@
-const Sequelize = require('sequelize');
 const httpStatus = require('http-status');
 const models = require('../models');
 const APIError = require('../utils/APIError.utils');
@@ -100,9 +99,12 @@ module.exports = {
   },
   create: async (req, res, next) => {
     try {
-      console.log("we got inside the create")
-      const users = await models.User.findAll({ where: { id: req.body.usersIdList.concat(req.user.id) } });
-      console.log(users)
+      const users = await models.User.findAll({ 
+        where: { 
+          id: req.body.usersIdList.concat(req.user.id) 
+        }
+      });
+
       if (users.length === 0) {
         return next(new APIError('Users not found', httpStatus.NOT_FOUND));
       }
@@ -141,7 +143,18 @@ module.exports = {
   },
   update: async (req, res, next) => {
     try {
-      const chat = await models.Chat.findByPk(req.params.chatId);
+      const chat = await models.Chat.findByPk(req.params.chatId, {
+        include: [
+          {
+            model: models.User,
+            where: {
+              id: req.user.id
+            },
+            required: true
+          }
+        ]
+      });
+
       if (!chat) {
         return next(new APIError('Chat not found', httpStatus.NOT_FOUND));
       }
@@ -153,7 +166,18 @@ module.exports = {
   },
   delete: async (req, res, next) => {
     try {
-      const chat = await models.Chat.findByPk(req.params.chatId);
+      const chat = await models.Chat.findByPk(req.params.chatId, {
+        include: [
+          {
+            model: models.User,
+            where: {
+              id: req.user.id
+            },
+            required: true
+          }
+        ]
+      });
+      
       if (!chat) {
         return next(new APIError('Chat not found', httpStatus.NOT_FOUND));
       }

@@ -14,7 +14,9 @@ router.route('/')
 router.route('/:chatId')
   .get(expressJwt({ secret: JWT_SECRET }), chatController.get)
   // .get(chatController.get)
-  .put(chatController.update)
-  .delete(chatController.delete);
+  .put(expressJwt({ secret: JWT_SECRET }), chatController.update)
+  // .put(chatController.update)
+  .delete(expressJwt({ secret: JWT_SECRET }), chatController.delete);
+  // .delete(chatController.delete);
 
 module.exports = router;

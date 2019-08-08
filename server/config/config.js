@@ -14,6 +14,7 @@ module.exports = {
     host: 'localhost',
     dialect: 'postgres',
     underscored: true,
+    logging: false
   },
   production: {
     username: 'postgres',
