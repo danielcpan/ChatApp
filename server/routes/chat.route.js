@@ -8,7 +8,8 @@ const router = express.Router(); // eslint-disable-line new-cap
 router.route('/')
   .get(expressJwt({ secret: JWT_SECRET }), chatController.list)
   // .get(chatController.list)
-  .post(chatController.create);
+  // .post(chatController.create);
+  .post(expressJwt({ secret: JWT_SECRET }), chatController.create);
 
 router.route('/:chatId')
   .get(expressJwt({ secret: JWT_SECRET }), chatController.get)

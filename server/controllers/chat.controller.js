@@ -6,20 +6,24 @@ const APIError = require('../utils/APIError.utils');
 module.exports = {
   get: async (req, res, next) => {
     try {
-      const chat = await models.Chat.findByPk(req.params.chatId, {
+      const user = await models.User.findByPk(req.user.id);
+
+      if (!user) {
+        return next(new APIError('User does not own this chat', httpStatus.UNAUTHORIZED));
+      }
+      
+      const userChats = await user.getChats({
         attributes: ['id', 'name'],
+        where: {
+          id: req.params.chatId
+        },
         include: [
           {
             model: models.User,
             attributes: ['id', 'username'],
-            where: {
-              id: {
-                [Sequelize.Op.notIn]: [req.user.id],
-              },
-            },
             through: {
-              attributes: [],
-            },
+              attributes: []
+            }
           },
           {
             model: models.Message,
@@ -28,37 +32,22 @@ module.exports = {
               model: models.User,
               attributes: ['id', 'username'],
             }],
-          },
+          }
         ],
         order: [[models.Message, 'timestamp', 'DESC']],
-      });
-
-      const user = await chat.getUsers({ where: {id: req.user.id}})
-
-      if (!user[0]) {
-        return next(new APIError('User does not own this chat', httpStatus.UNAUTHORIZED));
+      })
+      
+      if (!userChats[0]) {
+        return next(new APIError('Chat not found', httpStatus.UNAUTHORIZED));
       }
 
-      // console.log(users[0].toJSON())
-      // console.log(await chat.getUsers())
+      // Temp Fix to remove join table
+      const chat = userChats.map(userChat => {
+        userChat = userChat.toJSON()
+        delete userChat.chatMembers
+        return userChat;
+      })[0]
 
-      // RAW QUERY TEST
-      // const chat = await models.sequelize
-      //   .query(`
-      //     SELECT messages.id, text, messages.created_at, username
-      //     FROM messages
-      //     INNER JOIN
-      //     users ON messages.user_id = users.id
-      //     WHERE chat_id = 1
-      //     ORDER BY created_at DESC
-      //     LIMIT 1`, {
-      //       model: models.Message,
-      //       mapToModel: true
-      //     }
-      //   )
-      if (!chat) {
-        return next(new APIError('Chat not found', httpStatus.NOT_FOUND));
-      }
       chat.messages.reverse();
       return res.json(chat);
     } catch (err) {
@@ -67,7 +56,13 @@ module.exports = {
   },
   list: async (req, res, next) => {
     try {
-      const chats = await models.Chat.findAll({
+      const user = await models.User.findByPk(req.user.id)
+
+      if (!user) {
+        return next(new APIError('User does not own this chat', httpStatus.NOT_FOUND));
+      }
+
+      const userChats = await user.getChats({
         attributes: ['id', 'name'],
         include: [
           {
@@ -75,9 +70,7 @@ module.exports = {
             attributes: ['id', 'username'],
             through: {
               attributes: [],
-              where: { userId: req.user.id }
-            },
-            required: true
+            },            
           },
           {
             model: models.Message,
@@ -86,12 +79,19 @@ module.exports = {
               {
                 model: models.User,
                 attributes: ['username'],
-              },
-            ],
+              }
+            ]
           },
         ],
         order: [[models.Message, 'timestamp', 'DESC']],
-      });
+      })
+
+      // Temp Fix to remove join table
+      const chats = userChats.map(userChat => {
+        userChat = userChat.toJSON()
+        delete userChat.chatMembers
+        return userChat;
+      })
 
       return res.json(chats);
     } catch (err) {
@@ -100,7 +100,9 @@ module.exports = {
   },
   create: async (req, res, next) => {
     try {
-      const users = await models.User.findAll({ where: { id: req.body.usersIdList } });
+      console.log("we got inside the create")
+      const users = await models.User.findAll({ where: { id: req.body.usersIdList.concat(req.user.id) } });
+      console.log(users)
       if (users.length === 0) {
         return next(new APIError('Users not found', httpStatus.NOT_FOUND));
       }
@@ -113,14 +115,11 @@ module.exports = {
           {
             model: models.User,
             attributes: ['id', 'username'],
-            where: {
-              id: {
-                [Sequelize.Op.notIn]: [1],
-              },
-            },
             through: {
               attributes: [],
+              where: { userId: req.user.id }
             },
+            required: true
           },
           {
             model: models.Message,

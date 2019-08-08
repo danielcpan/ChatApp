@@ -11,12 +11,10 @@ import {
 
 const SERVER_URL = 'http://localhost:5000';
 
-const token = localStorage.getItem('token')
-
 export const getChat = (id) => async (dispatch, getState) => {
   try {
     const response = await axios.get(`${SERVER_URL}/api/chats/${id}`, {
-      headers: { Authorization: "Bearer " + token }
+      headers: { Authorization: "Bearer " + getState().auth.token }
     });
     dispatch({
       type: GET_CHAT,
@@ -30,10 +28,10 @@ export const getChat = (id) => async (dispatch, getState) => {
   }
 }
 
-export const getChats = () => async dispatch => {
+export const getChats = () => async (dispatch, getState) => {
   try {
     const response = await axios.get(`${SERVER_URL}/api/chats`, {
-      headers: { Authorization: "Bearer " + token }
+      headers: { Authorization: "Bearer " + getState().auth.token }
     });
     dispatch({
       type: GET_CHATS,
@@ -47,9 +45,11 @@ export const getChats = () => async dispatch => {
   }
 }
 
-export const createChat = (data) => async dispatch => {
+export const createChat = (data) => async (dispatch, getState) => {
   try {
-    const response = await axios.post(`${SERVER_URL}/api/chats`, data);
+    const response = await axios.post(`${SERVER_URL}/api/chats`, data, {
+      headers: { Authorization: "Bearer " + getState().auth.token }
+    });
     dispatch({
       type: CREATE_CHAT,
       payload: response.data
@@ -62,9 +62,11 @@ export const createChat = (data) => async dispatch => {
   }
 }
 
-export const updateChat = (data) => async dispatch => {
+export const updateChat = (data) => async (dispatch, getState) => {
   try {
-    const response = await axios.put(`${SERVER_URL}/api/chats/${data.id}`, data);
+    const response = await axios.put(`${SERVER_URL}/api/chats/${data.id}`, data, {
+      headers: { Authorization: "Bearer " + getState().auth.token }
+    });
     dispatch({
       type: UPDATE_CHAT,
       payload: response.data
@@ -77,9 +79,11 @@ export const updateChat = (data) => async dispatch => {
   }
 }
 
-export const deleteChat = (id) => async dispatch => {
+export const deleteChat = (id) => async (dispatch, getState) => {
   try {
-    const response = await axios.delete(`${SERVER_URL}/api/chats/${id}`);
+    const response = await axios.delete(`${SERVER_URL}/api/chats/${id}`, {
+      headers: { Authorization: "Bearer " + getState().auth.token }
+    });
     dispatch({
       type: DELETE_CHAT,
       payload: response.data
