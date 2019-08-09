@@ -91,7 +91,7 @@ function Chats(props) {
           variant="permanent"
           open
         >
-          <ChatList currentChatId={props.match.params.chatId}/>
+          <ChatList />
         </Drawer>
       </Hidden>
     </React.Fragment>
@@ -117,7 +117,7 @@ function Chats(props) {
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer}>{drawer}</nav>
-      <MessageContainer chatId={props.match.params.chatId}/>
+      <MessageContainer/>
     </div>
   );
 }

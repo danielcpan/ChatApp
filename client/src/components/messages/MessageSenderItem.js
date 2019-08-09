@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function MessageSenderItem(props) {
+const MessageSenderItem = props => {
   const classes = useStyles();
   const { id, text } = props.message;
 
@@ -31,3 +31,5 @@ export default function MessageSenderItem(props) {
 MessageSenderItem.propTypes = {
   message: PropTypes.object.isRequired
 }
+
+export default MessageSenderItem;

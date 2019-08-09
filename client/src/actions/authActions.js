@@ -15,10 +15,6 @@ const SERVER_URL = 'http://localhost:5000';
 export const register = data => async dispatch => {
   try {
     await axios.post(`${SERVER_URL}/api/auth/register`, data);
-    const loginData = { 
-      email: data.email,
-      password: data.password
-    }
 
     try {
       dispatch({ type: REGISTER })
@@ -26,7 +22,7 @@ export const register = data => async dispatch => {
       // Intentional Catch for undefined token, temporary solution
     }
 
-    dispatch(login(loginData))
+    // dispatch(login(loginData))
   } catch (err) {
     dispatch({
       type: 'REGISTER_ERROR',

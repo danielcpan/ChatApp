@@ -1,4 +1,3 @@
-
 import React from 'react';
 import decode from 'jwt-decode';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';

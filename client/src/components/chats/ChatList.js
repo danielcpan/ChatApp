@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import format from 'date-fns/format';
 import { withStyles } from '@material-ui/core/styles';
-import { List, ListSubheader, Grid, Fab, Icon} from '@material-ui/core';
+import { List, ListSubheader, Grid, Fab, Icon, ListItem, ListItemText, Typography, ListItemAvatar, Avatar} from '@material-ui/core';
 
 import { getCurrentUser } from '../../actions/authActions';
 import { getChat, getChats } from '../../actions/chatActions';
 import ChatListItem from './ChatListItem';
+import ChatListItemEmpty from './ChatListItemEmpty';
 import ChatForm from './ChatForm';
 
 import { Link, Route, Switch, Redirect } from 'react-router-dom';
@@ -44,10 +45,6 @@ class ChatList extends React.Component {
   async componentWillMount() {
     await this.props.getCurrentUser();
     await this.props.getChats();
-  }
-
-  onSubmit = async () => {
-
   }
 
   onChange = e => {
@@ -114,6 +111,27 @@ class ChatList extends React.Component {
     this.setState({ isFormOpen: false })
   }
 
+  renderChatList = () => {
+    return (
+      this.props.chats.map((chat, idx) => (          
+        <Link 
+          to={`/chats/${chat.id}`} 
+          key={`chat_${chat.id}_index_${idx}`}
+          style={{ textDecoration: 'none', color: 'black' }} 
+          onClick={() => this.props.getChat(chat.id)}
+        >
+          <ChatListItem 
+            chat={chat}
+            selectedId={this.state.selectedId}
+            getTextPreview={this.getTextPreview} 
+            handleListItemClick={this.handleListItemClick}
+          >
+          </ChatListItem>
+        </Link>
+      ))
+    )
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -141,22 +159,11 @@ class ChatList extends React.Component {
               </Grid>
             </Grid>
           }>
-          {this.props.chats.map((chat, idx) => (          
-            <Link 
-              to={`/chats/${chat.id}`} 
-              key={`chat_${chat.id}_index_${idx}`}
-              style={{ textDecoration: 'none', color: 'black' }} 
-              onClick={() => this.props.getChat(chat.id)}
-            >
-              <ChatListItem 
-                chat={chat}
-                selectedId={this.state.selectedId}
-                getTextPreview={this.getTextPreview} 
-                handleListItemClick={this.handleListItemClick}
-              >
-              </ChatListItem>
-            </Link>
-          ))}
+          {(this.props.chats.length > 0) ? (
+            this.renderChatList()
+          ) : (
+            <ChatListItemEmpty handleClickOpen={this.handleClickOpen} />
+          )}
       </List>
       <ChatForm isFormOpen={this.state.isFormOpen} handleClose={this.handleClose}/>
     </React.Fragment>

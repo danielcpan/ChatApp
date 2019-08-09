@@ -31,7 +31,6 @@ export default (state = initialState, action) => {
         token: ''
       }
     case GET_CURRENT_USER: 
-      console.log('got inside here')
       return {
         ...state,
         currentUser: action.payload

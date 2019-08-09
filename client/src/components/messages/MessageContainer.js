@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from "react-router";
 
 import { withStyles } from '@material-ui/core/styles';
 import { List, Grid, Icon, TextField, IconButton, AppBar, Toolbar, MenuIcon, Fab } from '@material-ui/core';
@@ -60,7 +61,11 @@ class MessageContainer extends React.Component {
   }
 
   componentWillMount() {
-    this.props.getChat(this.props.chatId);
+    const { chatId } = this.props.match.params || {};
+
+    if (chatId) {
+      this.props.getChat(chatId);
+    }
   }
 
   onSubmit = async e => {
@@ -191,4 +196,4 @@ const mapDispatchToProps = dispatch => ({
   sendMessage: (text) => dispatch(sendMessage(text))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MessageContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withRouter(MessageContainer)));

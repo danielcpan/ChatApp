@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom'
 import { Button, Grid, Link, Paper, TextField, Typography, Container } from '@material-ui/core';
 
-import { register } from '../actions/authActions';
+import { register, login } from '../actions/authActions';
 import { resetErrors } from '../actions/errorActions';
 import ServerErrorsList from '../components/ServerErrorsList';
 
@@ -56,7 +56,12 @@ class Register extends React.Component {
 
   onSubmit = async e => {
     e.preventDefault();
-    await this.props.register(this.state.userFormData)
+    await this.props.register(this.state.userFormData);
+    const loginData = { 
+      email: this.state.userFormData.email,
+      password: this.state.userFormData.password
+    }
+    await this.props.login(loginData)
     if (this.props.isLoggedIn) {
       this.setState({ toChats: true })
     }
@@ -180,6 +185,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   register: (data) => dispatch(register(data)),
+  login: (data) => dispatch(login(data)),
   resetErrors: () => dispatch(resetErrors())
 })
 

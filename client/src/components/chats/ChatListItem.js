@@ -19,7 +19,7 @@ export default function ChatListItem(props) {
       </ListItemAvatar>
       {messages.length > 0 ? (
         <ListItemText
-          primary={`id: ${id} - ${name}`}
+          primary={name}
           secondary={
             <React.Fragment>
               <Typography
