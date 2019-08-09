@@ -46,7 +46,7 @@ export const login = data => async dispatch => {
   }
 }
 
-export const logout = data => dispatch => {
+export const logout = () => dispatch => {
   dispatch({ type: LOGOUT })
 }
 

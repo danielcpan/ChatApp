@@ -30,9 +30,6 @@ class Login extends React.Component {
   onSubmit = async e => {
     e.preventDefault();
     await this.props.login(this.state.userFormData)
-    if (this.props.isLoggedIn) {
-      this.setState({ toChats: true })
-    }
   }
 
   onChange = e => {
@@ -44,14 +41,16 @@ class Login extends React.Component {
   }
 
   linkToRegister = async () => {
-    await this.props.resetErrors();
+    if (this.props.errors) {
+      await this.props.resetErrors();  
+    }
     this.setState({ toRegister: true})
   }
 
   render() {
     const { classes, errors } = this.props;
 
-    if (this.state.toChats === true || this.props.isLoggedIn) {
+    if (this.props.isLoggedIn) {
       return <Redirect to='/chats' />
     }
 

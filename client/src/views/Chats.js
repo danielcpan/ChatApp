@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Redirect } from 'react-router-dom'
 import { 
   AppBar, 
   CssBaseline, 
@@ -21,6 +22,7 @@ class Chats extends React.Component {
     this.state = {
       mobileOpen: false,
       setMobileOpen: false,
+      toLogin: false,
     }
   }
 
@@ -31,6 +33,10 @@ class Chats extends React.Component {
 
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen })
+  }
+
+  handleLogoutRedirect = () => {
+    this.setState({ toLogin: true });
   }
 
   renderDrawer = classes => (
@@ -67,6 +73,10 @@ class Chats extends React.Component {
   render() {
     const { classes } = this.props;
 
+    if (this.state.toLogin) {
+      return <Redirect to='/login' />
+    }
+
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -84,7 +94,7 @@ class Chats extends React.Component {
             <Typography noWrap className={classes.chatName}>
               {(this.props.chat.id) && (<span>{this.props.chat.name}</span>)}
             </Typography>
-            <AppBarUserItem />
+            <AppBarUserItem handleLogoutRedirect={this.handleLogoutRedirect}/>
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer}>{this.renderDrawer(classes)}</nav>

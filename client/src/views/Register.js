@@ -35,9 +35,8 @@ class Register extends React.Component {
       email: this.state.userFormData.email,
       password: this.state.userFormData.password
     }
-    await this.props.login(loginData)
-    if (this.props.isLoggedIn) {
-      this.setState({ toChats: true })
+    if (!this.props.errors) {
+      await this.props.login(loginData)
     }
   }
 
@@ -50,7 +49,9 @@ class Register extends React.Component {
   }
 
   linkToLogin = async () => {
-    await this.props.resetErrors();
+    if (this.props.errors) {
+      await this.props.resetErrors();  
+    }
     this.setState({ toLogin: true})
   }  
 

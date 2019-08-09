@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Avatar, IconButton, Menu, MenuItem } from '@material-ui/core';
+import { logout } from '../actions/authActions';
 
 const AppBarUserItem = props => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  console.log(props)
 
   function handleMenu(event) {
     setAnchorEl(event.currentTarget);
@@ -13,6 +15,11 @@ const AppBarUserItem = props => {
 
   function handleClose() {
     setAnchorEl(null);
+  }
+
+  async function handleLogout() {
+    props.handleLogoutRedirect();
+    props.logout();
   }
 
   return (
@@ -25,7 +32,9 @@ const AppBarUserItem = props => {
         onClick={handleMenu}
         color="inherit"
       >
-        <Avatar>{props.user.username.charAt(0).toUpperCase()}</Avatar>
+        {(props.user.username) && (
+          <Avatar>{props.user.username.charAt(0).toUpperCase()}</Avatar>
+        )}
       </IconButton>
       <Menu
         id="menu-appbar"
@@ -42,7 +51,7 @@ const AppBarUserItem = props => {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
   );
@@ -56,4 +65,8 @@ const mapStateToProps = state => ({
   user: state.auth.currentUser
 })
 
-export default connect(mapStateToProps)(AppBarUserItem);
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logout())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppBarUserItem);

@@ -28,7 +28,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         currentUser: {},
-        token: ''
+        token: '',
+        isLoggedIn: false
       }
     case GET_CURRENT_USER: 
       return {

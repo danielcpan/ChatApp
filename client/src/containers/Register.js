@@ -1,9 +1,10 @@
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 
-import Register from '../views/Login'
+import Register from '../views/Register'
 import { login, register } from '../actions/authActions';
 import { resetErrors } from '../actions/errorActions';
+import imageUrl from '../assets/SignUp.jpg'
 
 const styles = theme => ({
   '@global': {
@@ -16,7 +17,7 @@ const styles = theme => ({
     width: '70vw',
   },  
   image: {
-    backgroundImage: `url(${require('../assets/SignUp.jpg')})`,
+    backgroundImage: `url(${imageUrl})`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'contain',
     backgroundPosition: 'center',
