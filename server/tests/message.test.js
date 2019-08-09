@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const app = require('../../app');
+const app = require('../app');
 
 describe('## Message APIs', () => {
   const validTestUserCredentials = {

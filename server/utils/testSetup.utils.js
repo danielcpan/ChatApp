@@ -3,7 +3,7 @@ const { expect } = require('chai');
 const request = require('supertest');
 const { factory } = require('factory-girl');
 const { isValid, syncTestDatabase, truncateTables } = require('./testHelpers.utils');
-require('../tests/factories');
+require('../factories');
 
 before(async () => {
   await syncTestDatabase();

@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const { factory } = require('factory-girl');
 const models = require('../models');
 const app = require('../app');
-require('../tests/factories');
+require('../factories');
 
 module.exports.isValid = async (object) => {
   const modelInstance = await object;
