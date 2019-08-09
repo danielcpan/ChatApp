@@ -38,13 +38,4 @@ describe('## User APIs', () => {
       expect(response.body.username).to.equal(data.username);
     });
   });
-
-  describe('# DELETE /api/users', () => {
-    it('should delete a user', async () => {
-      const response = await request(app).delete(`/api/users/${user1.id}`);
-
-      expect(response.status).to.equal(httpStatus.OK);
-      expect(response.body.deleted).to.equal(true);
-    });
-  });
 });

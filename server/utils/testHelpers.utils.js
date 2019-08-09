@@ -30,14 +30,14 @@ module.exports.syncTestDatabase = async () => {
 
 module.exports.buildTestUserToken = async () => {
   const data = {
-      username: 'TestUser',
-      email: 'testUser@gmail.com',
-      password: 'password',
+    username: 'TestUser',
+    email: 'testUser@gmail.com',
+    password: 'password',
   };
 
   await factory.create('User', data);
   const response = await request(app).post('/api/auth/login')
     .send({ email: data.email, password: data.password });
 
-  return response.body.token  
-}
+  return response.body.token;
+};

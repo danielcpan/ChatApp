@@ -6,7 +6,7 @@ module.exports = {
   get: async (req, res, next) => {
     try {
       const user = await models.User.findByPk(req.params.userId, {
-        attributes: ['id', 'username']
+        attributes: ['id', 'username'],
       });
       if (!user) {
         return next(new APIError('User not found', httpStatus.NOT_FOUND));
@@ -34,18 +34,6 @@ module.exports = {
       }
       await user.update(req.body);
       return res.status(httpStatus.OK).json(user);
-    } catch (err) {
-      return next(err);
-    }
-  },
-  delete: async (req, res, next) => {
-    try {
-      const user = await models.User.findByPk(req.params.userId);
-      if (!user) {
-        return next(new APIError('User not found', httpStatus.NOT_FOUND));
-      }
-      await user.destroy();
-      return res.status(httpStatus.OK).json({ deleted: true });
     } catch (err) {
       return next(err);
     }

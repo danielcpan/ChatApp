@@ -2,11 +2,11 @@ const httpStatus = require('http-status');
 const app = require('../../app');
 
 describe('## Chat APIs', () => {
-  const validTestUserCredentials ={
+  const validTestUserCredentials = {
     username: 'TestUser',
     email: 'testUser@gmail.com',
-    password: 'password',    
-  }
+    password: 'password',
+  };
 
   let testUser;
   let testUserToken;
@@ -15,23 +15,22 @@ describe('## Chat APIs', () => {
 
   before(async () => {
     await truncateTables();
-    testUser = await factory.create('User', validTestUserCredentials)
+    testUser = await factory.create('User', validTestUserCredentials);
     user2 = await factory.create('User');
 
     const response = await request(app)
       .post('/api/auth/login')
-      .send(validTestUserCredentials)
+      .send(validTestUserCredentials);
 
-    testUserToken = response.body.token
+    testUserToken = response.body.token;
 
     chat1 = await factory.create('Chat', {}, { users: [testUser, user2] });
-
   });
 
   describe('# GET /api/chats/:chatId', () => {
     it('errors when not logged in', async () => {
       const response = await request(app)
-        .get(`/api/chats/${chat1.id}`)
+        .get(`/api/chats/${chat1.id}`);
 
       expect(response.status).to.equal(httpStatus.UNAUTHORIZED);
     });
@@ -39,7 +38,7 @@ describe('## Chat APIs', () => {
     it('should get chat details', async () => {
       const response = await request(app)
         .get(`/api/chats/${chat1.id}`)
-        .set('Authorization', `Bearer ${testUserToken}`)
+        .set('Authorization', `Bearer ${testUserToken}`);
 
       expect(response.status).to.equal(httpStatus.OK);
       expect(response.body.name).to.equal(chat1.name);
@@ -49,7 +48,7 @@ describe('## Chat APIs', () => {
   describe('# GET /api/chats', () => {
     it('errors when not logged in', async () => {
       const response = await request(app)
-        .get('/api/chats')
+        .get('/api/chats');
 
       expect(response.status).to.equal(httpStatus.UNAUTHORIZED);
     });
@@ -57,7 +56,7 @@ describe('## Chat APIs', () => {
     it('should get all chats', async () => {
       const response = await request(app)
         .get('/api/chats')
-        .set('Authorization', `Bearer ${testUserToken}`)
+        .set('Authorization', `Bearer ${testUserToken}`);
 
       expect(response.status).to.equal(httpStatus.OK);
       expect(response.body).to.have.lengthOf(1);
@@ -123,7 +122,7 @@ describe('## Chat APIs', () => {
   describe('# DELETE /api/chats', () => {
     it('errors when not logged in', async () => {
       const response = await request(app)
-        .delete(`/api/chats/${chat1.id}`)
+        .delete(`/api/chats/${chat1.id}`);
 
       expect(response.status).to.equal(httpStatus.UNAUTHORIZED);
     });

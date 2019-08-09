@@ -10,19 +10,19 @@ module.exports = {
       if (!user) {
         return next(new APIError('User does not own this chat', httpStatus.UNAUTHORIZED));
       }
-      
+
       const userChats = await user.getChats({
         attributes: ['id', 'name'],
         where: {
-          id: req.params.chatId
+          id: req.params.chatId,
         },
         include: [
           {
             model: models.User,
             attributes: ['id', 'username'],
             through: {
-              attributes: []
-            }
+              attributes: [],
+            },
           },
           {
             model: models.Message,
@@ -31,21 +31,21 @@ module.exports = {
               model: models.User,
               attributes: ['id', 'username'],
             }],
-          }
+          },
         ],
         order: [[models.Message, 'timestamp', 'DESC']],
-      })
-      
+      });
+
       if (!userChats[0]) {
         return next(new APIError('Chat not found', httpStatus.UNAUTHORIZED));
       }
 
       // Temp Fix to remove join table
-      const chat = userChats.map(userChat => {
-        userChat = userChat.toJSON()
-        delete userChat.chatMembers
+      const chat = userChats.map((userChat) => {
+        userChat = userChat.toJSON(); // eslint-disable-line no-param-reassign
+        delete userChat.chatMembers; // eslint-disable-line no-param-reassign
         return userChat;
-      })[0]
+      })[0];
 
       chat.messages.reverse();
       return res.json(chat);
@@ -55,7 +55,7 @@ module.exports = {
   },
   list: async (req, res, next) => {
     try {
-      const user = await models.User.findByPk(req.user.id)
+      const user = await models.User.findByPk(req.user.id);
 
       if (!user) {
         return next(new APIError('User does not own this chat', httpStatus.NOT_FOUND));
@@ -69,7 +69,7 @@ module.exports = {
             attributes: ['id', 'username'],
             through: {
               attributes: [],
-            },            
+            },
           },
           {
             model: models.Message,
@@ -78,19 +78,19 @@ module.exports = {
               {
                 model: models.User,
                 attributes: ['username'],
-              }
-            ]
+              },
+            ],
           },
         ],
         order: [[models.Message, 'timestamp', 'DESC']],
-      })
+      });
 
       // Temp Fix to remove join table
-      const chats = userChats.map(userChat => {
-        userChat = userChat.toJSON()
-        delete userChat.chatMembers
+      const chats = userChats.map((userChat) => {
+        userChat = userChat.toJSON(); // eslint-disable-line no-param-reassign
+        delete userChat.chatMembers; // eslint-disable-line no-param-reassign
         return userChat;
-      })
+      });
 
       return res.json(chats);
     } catch (err) {
@@ -99,10 +99,10 @@ module.exports = {
   },
   create: async (req, res, next) => {
     try {
-      const users = await models.User.findAll({ 
-        where: { 
-          id: req.body.usersIdList.concat(req.user.id) 
-        }
+      const users = await models.User.findAll({
+        where: {
+          id: req.body.usersIdList.concat(req.user.id),
+        },
       });
 
       if (users.length === 0) {
@@ -119,9 +119,9 @@ module.exports = {
             attributes: ['id', 'username'],
             through: {
               attributes: [],
-              where: { userId: req.user.id }
+              where: { userId: req.user.id },
             },
-            required: true
+            required: true,
           },
           {
             model: models.Message,
@@ -148,11 +148,11 @@ module.exports = {
           {
             model: models.User,
             where: {
-              id: req.user.id
+              id: req.user.id,
             },
-            required: true
-          }
-        ]
+            required: true,
+          },
+        ],
       });
 
       if (!chat) {
@@ -171,13 +171,13 @@ module.exports = {
           {
             model: models.User,
             where: {
-              id: req.user.id
+              id: req.user.id,
             },
-            required: true
-          }
-        ]
+            required: true,
+          },
+        ],
       });
-      
+
       if (!chat) {
         return next(new APIError('Chat not found', httpStatus.NOT_FOUND));
       }

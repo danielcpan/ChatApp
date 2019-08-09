@@ -2,36 +2,27 @@ const httpStatus = require('http-status');
 const app = require('../../app');
 
 describe('## Message APIs', () => {
-  const validTestUserCredentials ={
+  const validTestUserCredentials = {
     username: 'TestUser',
     email: 'testUser@gmail.com',
-    password: 'password',    
-  }
+    password: 'password',
+  };
 
   let testUser;
-  let testUserToken;  
+  let testUserToken;
   let message1;
 
   before(async () => {
     await truncateTables();
-    testUser = await factory.create('User', validTestUserCredentials)
+    testUser = await factory.create('User', validTestUserCredentials);
 
     const response = await request(app)
       .post('/api/auth/login')
-      .send(validTestUserCredentials)
+      .send(validTestUserCredentials);
 
-    testUserToken = response.body.token
+    testUserToken = response.body.token;
 
     message1 = await factory.create('Message', { userId: testUser.id });
-  });
-
-  describe('# GET /api/messages', () => {
-    it('should get all messages', async () => {
-      const response = await request(app).get('/api/messages');
-
-      expect(response.status).to.equal(httpStatus.OK);
-      expect(response.body).to.have.lengthOf(1);
-    });
   });
 
   describe('# POST /api/messages', () => {

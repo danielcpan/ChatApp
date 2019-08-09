@@ -1,5 +1,5 @@
 const express = require('express');
-const expressJwt = require('express-jwt')
+const expressJwt = require('express-jwt');
 const chatController = require('../controllers/chat.controller');
 const { JWT_SECRET } = require('../config/config');
 
@@ -17,6 +17,6 @@ router.route('/:chatId')
   .put(expressJwt({ secret: JWT_SECRET }), chatController.update)
   // .put(chatController.update)
   .delete(expressJwt({ secret: JWT_SECRET }), chatController.delete);
-  // .delete(chatController.delete);
+// .delete(chatController.delete);
 
 module.exports = router;

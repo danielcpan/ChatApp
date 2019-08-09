@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const Sequelize = require('sequelize');
 const httpStatus = require('http-status');
 const models = require('../models');
 const APIError = require('../utils/APIError.utils');
@@ -15,14 +14,14 @@ module.exports = {
 
       // Check and catch sequelize instance errors
       let sequelizeInstanceErrors = null;
-      await models.User.build({ 
+      await models.User.build({
         username: 'temp',
         email: req.body.email,
-        password: req.body.password
-      }).validate().catch(err => sequelizeInstanceErrors = err)
+        password: req.body.password,
+      }).validate().catch(err => sequelizeInstanceErrors = err); // eslint-disable-line no-return-assign, max-len
 
       if (sequelizeInstanceErrors) {
-        return next(sequelizeInstanceErrors)
+        return next(sequelizeInstanceErrors);
       }
 
       if (!user) {
@@ -46,7 +45,7 @@ module.exports = {
       const newUser = await models.User.create(req.body);
 
       const user = await models.User.findByPk(newUser.id, {
-        attributes: ['id', 'username']
+        attributes: ['id', 'username'],
       });
 
       if (!user) {

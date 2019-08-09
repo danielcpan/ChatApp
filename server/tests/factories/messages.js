@@ -11,4 +11,3 @@ module.exports = factory.define('Message', models.Message, (buildOptions = {}) =
   };
   return attrs;
 });
-// createdAt: faker.date.recent(400)
