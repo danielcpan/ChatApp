@@ -2,9 +2,9 @@ import React from 'react';
 import decode from 'jwt-decode';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-import Chats from './views/Chats';
-import Register from './views/Register'
-import Login from './views/Login'
+import Chats from './containers/Chats';
+import Register from './containers/Register'
+import Login from './containers/Login'
 
 const isAuthenticated = () => {
   const token = localStorage.getItem('token');

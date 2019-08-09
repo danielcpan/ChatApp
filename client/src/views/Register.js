@@ -1,44 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom'
-import { Button, Grid, Link, Paper, TextField, Typography, Container } from '@material-ui/core';
+import { 
+  Button, 
+  Grid, 
+  Link, 
+  Paper, 
+  TextField, 
+  Typography, 
+  Container 
+} from '@material-ui/core';
 
-import { register, login } from '../actions/authActions';
-import { resetErrors } from '../actions/errorActions';
 import ServerErrorsList from '../components/ServerErrorsList';
-
-const styles = theme => ({
-  '@global': {
-    body: {
-      backgroundColor: theme.palette.common.white,
-    },
-  },
-  root: {
-    marginTop: theme.spacing(10),
-    width: '70vw',
-  },  
-  image: {
-    backgroundImage: `url(${require('../assets/SignUp.jpg')})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'contain',
-    backgroundPosition: 'center',
-  },
-  paper: {
-    margin: theme.spacing(2, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-});
 
 class Register extends React.Component {
   constructor(props) {
@@ -83,7 +57,7 @@ class Register extends React.Component {
   render() {
     const { classes, errors } = this.props;
 
-    if (this.state.toChats === true) {
+    if (this.state.toChats === true || this.props.isLoggedIn) {
       return <Redirect to='/chats' />
     }
 
@@ -177,16 +151,13 @@ class Register extends React.Component {
     )
   }
 }
-const mapStateToProps = state => ({
-  errors: state.errors,
-  currentUser: state.auth.currentUser,
-  isLoggedIn: state.auth.isLoggedIn
-})
 
-const mapDispatchToProps = dispatch => ({
-  register: (data) => dispatch(register(data)),
-  login: (data) => dispatch(login(data)),
-  resetErrors: () => dispatch(resetErrors())
-})
+Register.propTypes = {
+  errors: PropTypes.object,
+  isLoggedIn: PropTypes.bool.isRequired,
+  register: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
+  resetErrors: PropTypes.func.isRequired
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Register));
+export default Register;

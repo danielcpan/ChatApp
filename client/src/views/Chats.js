@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import MenuIcon from '@material-ui/icons/Menu';
-import { withStyles } from '@material-ui/core/styles';
 import { 
   AppBar, 
   CssBaseline, 
@@ -13,54 +11,9 @@ import {
   Typography 
 } from '@material-ui/core';
 
-import ChatList from '../components/chats/ChatList';
-import MessageContainer from '../components/messages/MessageContainer';
+import ChatList from '../containers/ChatsList';
+import MessageContainer from '../containers/MessageContainer';
 import AppBarUserItem from '../components/AppBarUserItem';
-
-import { getCurrentUser } from '../actions/authActions';
-import { getChat, getChats } from '../actions/chatActions';
-
-const drawerWidth = 350;
-
-const styles = theme => ({
-  root: {
-    display: 'flex',
-    height: '100vh',
-    overflow: 'auto'
-  },
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-  },
-  appBar: {
-    marginLeft: drawerWidth,
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-    },
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-  toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  chatName: {
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 28,
-    flexGrow: 1,
-  },
-  content: {
-    marginTop: theme.spacing(10),
-    flexGrow: 1,
-  },  
-});
 
 class Chats extends React.Component {
   constructor(props) {
@@ -140,15 +93,11 @@ class Chats extends React.Component {
     );    
   }
 }
-const mapStateToProps = state => ({
-  chat: state.chats.currentChat,
-  user: state.auth.currentUser
-})
 
-const mapDispatchToProps = dispatch => ({
-  getChat: (id) => dispatch(getChat(id)),
-  getChats: () => dispatch(getChats()),
-  getCurrentUser: () => dispatch(getCurrentUser())
-})
+Chats.propTypes = {
+  chat: PropTypes.object.isRequired,
+  getCurrentUser: PropTypes.func.isRequired,
+  getChats: PropTypes.func.isRequired
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Chats));
+export default Chats;

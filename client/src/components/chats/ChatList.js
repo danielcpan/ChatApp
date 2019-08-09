@@ -1,46 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import format from 'date-fns/format';
-import { withStyles } from '@material-ui/core/styles';
 import { 
   List, 
   ListSubheader, 
   Grid, 
   Fab, 
   Icon, 
-  ListItem, 
-  ListItemText, 
-  Typography, 
-  ListItemAvatar, 
-  Avatar
 } from '@material-ui/core';
 
-import { getChat } from '../../actions/chatActions';
 import ChatListItem from './ChatListItem';
 import ChatListItemEmpty from './ChatListItemEmpty';
 import ChatForm from './ChatForm';
-
-import { Link } from 'react-router-dom';
-
-const styles = theme => ({
-  root: {
-    width: '100%',
-    overflow: 'auto',
-  },
-  inline: {
-    display: 'inline',
-  },
-  header: {
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 28,
-    padding: theme.spacing(1)
-  },
-  fab: {
-    margin: theme.spacing(1),
-  },
-});
 
 class ChatList extends React.Component {
   constructor(props) {
@@ -49,11 +21,6 @@ class ChatList extends React.Component {
       selectedId: null,
       isFormOpen: false
     }
-  }
-
-  async componentWillMount() {
-    // await this.props.getCurrentUser();
-    // await this.props.getChats();
   }
 
   onChange = e => {
@@ -182,16 +149,7 @@ class ChatList extends React.Component {
 
 ChatList.propTypes = {
   getChat: PropTypes.func.isRequired,
-  // getChats: PropTypes.func.isRequired,
   chats: PropTypes.array.isRequired
 }
 
-const mapStateToProps = state => ({
-  chats: state.chats.chatsList,
-})
-
-const mapDispatchToProps = dispatch => ({
-  getChat: (id) => dispatch(getChat(id)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ChatList));
+export default ChatList;

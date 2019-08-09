@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { 
+  Avatar, 
+  ListItem, 
+  ListItemText, 
+  ListItemAvatar, 
+  Typography
+} from '@material-ui/core';
 
-import { Avatar, ListItem, ListItemText, ListItemAvatar, Typography} from '@material-ui/core';
-
-export default function ChatListItem(props) {
+const ChatListItem = props => {
   const { id, name, users, messages } = props.chat;
   const { selectedId = 0, getTextPreview, handleListItemClick } = props;
 
@@ -61,3 +66,5 @@ ChatListItem.propTypes = {
   getTextPreview: PropTypes.func.isRequired,
   handleListItemClick: PropTypes.func.isRequired
 }
+
+export default ChatListItem;
