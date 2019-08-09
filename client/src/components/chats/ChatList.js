@@ -180,7 +180,7 @@ ChatList.propTypes = {
 const mapStateToProps = state => ({
   chat: state.chats.currentChat,
   chats: state.chats.chatsList,
-  currentUser: state.auth.currentUser
+  user: state.auth.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({

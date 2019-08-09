@@ -6,7 +6,7 @@ const ChatListItemEmpty = props => {
   const { handleClickOpen } = props
 
   return (
-      <ListItem
+    <ListItem
       alignItems="flex-start" 
       button
       onClick={handleClickOpen}

@@ -121,27 +121,7 @@ class MessageContainer extends React.Component {
             ref={el => {this.el = el}}>{`.`}
           </div>
         </Grid>
-        {/* <Grid item xs={10}>
-          <form autoComplete="off" onSubmit={this.onSubmit}>
-          <InputBase
-            className={classes.input}
-            name="text"
-            value={this.state.text}
-            onChange={this.onChange}
-          />
-          </form>
-        </Grid>
-        <Grid item xs={2}>
-          <IconButton 
-            size="medium" 
-            aria-label="send" 
-            className={classes.sendIcon}
-            ref={el => this.el = el}
-          >
-            <Icon className={classes.rightIcon}>send</Icon>
-          </IconButton>
-        </Grid> */}
-      <AppBar position="fixed" color="inherit" className={classes.appBar}>
+        <AppBar position="fixed" color="inherit" className={classes.appBar}>
         <Toolbar>
           <Grid container>
             <Grid item xs={10}>
@@ -169,15 +149,7 @@ class MessageContainer extends React.Component {
                 <Icon className={classes.rightIcon}>send</Icon>
               </IconButton>
             </Grid>
-            {/* <InputBase
-              className={classes.input}
-              name="text"
-              label="test"
-              value={this.state.text}
-              onChange={this.onChange}
-            /> */}
-            </Grid>
-          {/* dasdas */}
+          </Grid>
         </Toolbar>
       </AppBar>        
       </Grid>

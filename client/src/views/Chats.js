@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -8,10 +9,12 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import { Button } from '@material-ui/core';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import ChatList from '../components/chats/ChatList';
 import MessageContainer from '../components/messages/MessageContainer';
+import AppBarUserItem from '../components/AppBarUserItem';
 
 const drawerWidth = 350;
 
@@ -46,7 +49,8 @@ const useStyles = makeStyles(theme => ({
   chatName: {
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 28,    
+    fontSize: 28,
+    flexGrow: 1,
   },
   content: {
     marginTop: theme.spacing(10),
@@ -54,11 +58,13 @@ const useStyles = makeStyles(theme => ({
   },  
 }));
 
-function Chats(props) {
+const Chats = props => {
   const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  console.log(props)
 
   function handleDrawerToggle() {
     setMobileOpen(!mobileOpen);
@@ -112,14 +118,25 @@ function Chats(props) {
             <MenuIcon />
           </IconButton>
           <Typography noWrap className={classes.chatName}>
-            User
+            {(props.chat.id) && (<span>{props.chat.name}</span>)}
           </Typography>
+          <AppBarUserItem username={"tres"}/>
+          {/* <div>
+          <Typography>
+            Welcome Daniel
+          </Typography>          
+          </div>
+          <Button color="inherit">Logout</Button> */}
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer}>{drawer}</nav>
-      <MessageContainer/>
+      {(props.chat.id) && (<MessageContainer/>)}
     </div>
   );
 }
+const mapStateToProps = state => ({
+  chat: state.chats.currentChat,
+  user: state.auth.currentUser
+})
 
-export default Chats;
+export default connect(mapStateToProps, null)(Chats);
