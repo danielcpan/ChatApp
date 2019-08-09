@@ -1,24 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { Button } from '@material-ui/core';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+import { 
+  AppBar, 
+  CssBaseline, 
+  Drawer, 
+  Hidden, 
+  IconButton, 
+  Toolbar, 
+  Typography 
+} from '@material-ui/core';
 
 import ChatList from '../components/chats/ChatList';
 import MessageContainer from '../components/messages/MessageContainer';
 import AppBarUserItem from '../components/AppBarUserItem';
 
+import { getCurrentUser } from '../actions/authActions';
+import { getChat, getChats } from '../actions/chatActions';
+
 const drawerWidth = 350;
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   root: {
     display: 'flex',
     height: '100vh',
@@ -56,29 +60,33 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(10),
     flexGrow: 1,
   },  
-}));
+});
 
-const Chats = props => {
-  const { container } = props;
-  const classes = useStyles();
-  const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  console.log(props)
-
-  function handleDrawerToggle() {
-    setMobileOpen(!mobileOpen);
+class Chats extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      mobileOpen: false,
+      setMobileOpen: false,
+    }
   }
 
-  const drawer = (
+  async componentWillMount() {
+    await this.props.getCurrentUser();
+    await this.props.getChats();
+  }
+
+  handleDrawerToggle = () => {
+    this.setState({ mobileOpen: !this.state.mobileOpen })
+  }
+
+  renderDrawer = classes => (
     <React.Fragment>
       <Hidden smUp implementation="css">
         <Drawer
-          container={container}
           variant="temporary"
-          anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
+          open={this.state.mobileOpen}
+          onClose={this.handleDrawerToggle}
           classes={{
             paper: classes.drawerPaper,
           }}
@@ -103,40 +111,44 @@ const Chats = props => {
     </React.Fragment>
   );
 
-  return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" elevation={1} color="inherit" className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography noWrap className={classes.chatName}>
-            {(props.chat.id) && (<span>{props.chat.name}</span>)}
-          </Typography>
-          <AppBarUserItem username={"tres"}/>
-          {/* <div>
-          <Typography>
-            Welcome Daniel
-          </Typography>          
-          </div>
-          <Button color="inherit">Logout</Button> */}
-        </Toolbar>
-      </AppBar>
-      <nav className={classes.drawer}>{drawer}</nav>
-      {(props.chat.id) && (<MessageContainer/>)}
-    </div>
-  );
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar position="fixed" elevation={1} color="inherit" className={classes.appBar}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={this.handleDrawerToggle}
+              className={classes.menuButton}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography noWrap className={classes.chatName}>
+              {(this.props.chat.id) && (<span>{this.props.chat.name}</span>)}
+            </Typography>
+            <AppBarUserItem />
+          </Toolbar>
+        </AppBar>
+        <nav className={classes.drawer}>{this.renderDrawer(classes)}</nav>
+        {(this.props.chat.id) && (<MessageContainer/>)}
+      </div>
+    );    
+  }
 }
 const mapStateToProps = state => ({
   chat: state.chats.currentChat,
   user: state.auth.currentUser
 })
 
-export default connect(mapStateToProps, null)(Chats);
+const mapDispatchToProps = dispatch => ({
+  getChat: (id) => dispatch(getChat(id)),
+  getChats: () => dispatch(getChats()),
+  getCurrentUser: () => dispatch(getCurrentUser())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Chats));
