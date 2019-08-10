@@ -6,7 +6,7 @@ import {
   LOGIN,
   LOGOUT,
   GET_CURRENT_USER,
-} from './types';
+} from '../constants/actionTypes';
 
 const SERVER_URL = 'http://localhost:5000';
 

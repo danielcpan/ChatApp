@@ -60,7 +60,7 @@ module.exports = {
       //   return userChat;
       // })[0];
 
-      // chat.messages.reverse();
+      chat.messages.reverse();
       return res.json(chat);
     } catch (err) {
       return next(err);

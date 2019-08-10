@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { GET_USERS } from './types';
+import { GET_USERS } from '../constants/actionTypes';
 
 const SERVER_URL = 'http://localhost:5000';
 

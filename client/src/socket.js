@@ -1,22 +1,29 @@
 import io from 'socket.io-client';
+import {
+  DELIVER_CREATED_CHAT_TO_ONLINE_CLIENTS,
+  DELIVER_MESSAGE_TO_ONLINE_CLIENTS
+} from './constants/actionTypes'
+import {
+  REGISTER_SOCKET_USER_ID,
+  RECEIVED_MESSAGE,
+  CREATED_CHAT,
+} from './constants/socketEventTypes';
 
 const socketUrl = "http://localhost:5000"
 const socket = io(socketUrl);
 
 const configureSocket = (dispatch, getState) => {
-  // make sure our socket is connected to the port
   socket.on('connect', () => {
     console.log(`SocketIO connected at ${socketUrl}`);
-    // console.log(getState().auth.currentUser)
-    socket.emit('LOGIN_USER', getState().auth.currentUser.id)
+    socket.emit(REGISTER_SOCKET_USER_ID, getState().auth.currentUser.id)
   });
 
-  // the socket.on method is like an event listener
-  // just like how our redux reducer works
-  // the different actions that our socket/client will emit
-  // is catched by these listeners
-  socket.on('UPDATED_CHAT', data => {
-    dispatch({ type: 'DELIVER_UPDATED_CHAT_TO_REDUCER', payload: data });
+  socket.on(CREATED_CHAT, data => {
+    dispatch({ type: DELIVER_CREATED_CHAT_TO_ONLINE_CLIENTS, payload: data });
+  });  
+
+  socket.on(RECEIVED_MESSAGE, data => {
+    dispatch({ type: DELIVER_MESSAGE_TO_ONLINE_CLIENTS, payload: data });
   });
 
   return socket;

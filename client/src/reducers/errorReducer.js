@@ -1,4 +1,4 @@
-import { RESET_ERRORS } from '../actions/types';
+import { RESET_ERRORS } from '../constants/actionTypes';
 
 export default (state = null, action) => {
   const { type, error } = action

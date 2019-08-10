@@ -4,7 +4,7 @@ import {
   LOGIN,
   LOGOUT,
   GET_CURRENT_USER
-} from '../actions/types';
+} from '../constants/actionTypes';
 
 const initialState = {
   currentUser: {},

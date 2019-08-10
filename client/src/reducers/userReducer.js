@@ -1,5 +1,4 @@
-import { GET_USERS } from '../actions/types';
-import { socket } from '../index';
+import { GET_USERS } from '../constants/actionTypes';
 
 const initialState = {
   userList: [],

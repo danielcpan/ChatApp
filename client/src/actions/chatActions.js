@@ -7,7 +7,7 @@ import {
   UPDATE_CHAT, 
   DELETE_CHAT,
   CREATE_MESSAGE 
-} from './types';
+} from '../constants/actionTypes';
 
 const SERVER_URL = 'http://localhost:5000';
 
@@ -102,6 +102,7 @@ export const sendMessage = (data) => async (dispatch, getState) => {
     const response = await axios.post(`${SERVER_URL}/api/messages/send`, data, {
       headers: { Authorization: "Bearer " + getState().auth.token }
     });
+
     dispatch({
       type: 'SEND_MESSAGE',
       payload: response.data

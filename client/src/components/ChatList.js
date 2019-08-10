@@ -20,6 +20,10 @@ class ChatList extends React.Component {
     }
   }
 
+  componentWillMount() {
+    
+  }
+
   handleClickOpen = () => {
     this.setState({ isFormOpen: true })
   }
@@ -56,7 +60,7 @@ class ChatList extends React.Component {
                 </Grid>            
             </Grid>
           }>
-          {chats.map((chat, idx) => (
+          {chats.map(chat => (
             <Link 
               to={`/chats/${chat.id}`} 
               key={chat.id}

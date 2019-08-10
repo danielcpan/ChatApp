@@ -4,8 +4,11 @@ import {
   CREATE_CHAT, 
   UPDATE_CHAT, 
   DELETE_CHAT, 
-  CREATE_MESSAGE
-} from '../actions/types';
+  SEND_MESSAGE,
+  DELIVER_MESSAGE_TO_ONLINE_CLIENTS,
+  DELIVER_CREATED_CHAT_TO_ONLINE_CLIENTS
+} from '../constants/actionTypes';
+import { JOIN_CHAT } from '../constants/socketEventTypes';
 import { socket } from '../index';
 
 const initialState = {
@@ -17,11 +20,11 @@ const initialState = {
 export default (state = initialState, action) => {
   switch(action.type) {
     case GET_CHAT:
-
-      // socket.emit('JOIN_CHAT_ROOM', action.payload.id)
+      socket.emit(JOIN_CHAT, action.payload.id)
       return {
         ...state,
-        currentChat: action.payload
+        currentChat: action.payload,
+        messages: action.payload.messages
       }
     case GET_CHATS:
       return {
@@ -29,51 +32,29 @@ export default (state = initialState, action) => {
         chatsList: action.payload
       }
     case CREATE_CHAT:
+      socket.emit(CREATE_CHAT, action.payload);
       return {
         ...state, 
         chatsList: [action.payload, ...state.chatsList]
       }
     case UPDATE_CHAT:
     case DELETE_CHAT:
-    // case 'SEND_MESSAGE':
-    //   const currentChatCopy = { 
-    //     ...state.currentChat, 
-    //     messages: [...state.currentChat.messages, action.payload],
-    //     users: [...state.currentChat.users]
-    //   }
-
-    //   const chatsListCopy = state.chatsList.map(chat => {
-    //     if (chat.id === action.payload.chatId) {
-    //       return { 
-    //         ...currentChatCopy, 
-    //         messages: [...currentChatCopy.messages].reverse()
-    //       }
-    //     }
-    //     return chat;
-    //   })
-
-    //   state = { 
-    //     ...state, 
-    //     currentChat: currentChatCopy,
-    //     chatsList: chatsListCopy,
-    //   }
-
-    //   socket.emit('UPDATE_CHAT', state.currentChat)
-    //   return state;
-
-    case 'SEND_MESSAGE':
-      state = { 
+    case SEND_MESSAGE:
+      socket.emit(SEND_MESSAGE, action.payload)
+      return { 
         ...state, 
         messages: [...state.messages, action.payload],
       }
-
-      socket.emit('UPDATE_CHAT', state.messages)
-      return state;
-    case 'DELIVER_UPDATED_CHAT_TO_REDUCER':
+    case DELIVER_MESSAGE_TO_ONLINE_CLIENTS:
       return { 
         ...state, 
-        messages: action.payload
+        messages: [...state.messages, action.payload]
       };
+    case DELIVER_CREATED_CHAT_TO_ONLINE_CLIENTS:
+      return { 
+        ...state, 
+        chatsList: [action.payload, ...state.chatsList]
+      };      
     default: 
       return state;
   }
