@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 
 import UserList from './UserList';
-import ChatList from './ChatList';
+import ChatList from '../containers/ChatsList';
 
 const SideDrawer = props => {
   const { users, chats, mobileOpen, handleDrawerToggle, classes } = props;

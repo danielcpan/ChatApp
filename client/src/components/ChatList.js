@@ -66,7 +66,7 @@ class ChatList extends React.Component {
               to={`/chats/${chat.id}`} 
               key={`chat_${chat.id}_index_${idx}`}
               style={{ textDecoration: 'none', color: 'black' }} 
-              // onClick={() => this.props.getChat(chat.id)}
+              onClick={() => this.props.getChat(chat.id)}
             >
               <ChatListItem 
                 chat={chat}

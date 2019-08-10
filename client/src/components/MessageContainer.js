@@ -22,13 +22,13 @@ class MessageContainer extends React.Component {
     }
   }
 
-  componentWillMount() {
-    const { chatId } = this.props.match.params || {};
+  // componentWillMount() {
+  //   // const { chatId } = this.props.match.params || {};
 
-    if (chatId) {
-      this.props.getChat(chatId);
-    }
-  }
+  //   // if (chatId) {
+  //   //   this.props.getChat(chatId);
+  //   // }
+  // }
 
   onSubmit = async e => {
     e.preventDefault();

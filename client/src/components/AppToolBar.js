@@ -11,7 +11,7 @@ import {
 import AppToolBarUserItem from './AppToolBarUserItem';
 
 const AppToolBar = props => {
-  const { handleDrawerToggle, handleLogoutRedirect, classes } = props;
+  const { chat, handleDrawerToggle, handleLogoutRedirect, classes } = props;
 
   return (
     <AppBar 
@@ -31,7 +31,7 @@ const AppToolBar = props => {
         <MenuIcon />
       </IconButton>
       <Typography noWrap className={classes.chatName}>
-        Chat App
+        {chat.name}
       </Typography>
       <AppToolBarUserItem handleLogoutRedirect={handleLogoutRedirect}/>
     </Toolbar>

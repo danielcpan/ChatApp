@@ -18,9 +18,13 @@ class Chats extends React.Component {
   }
 
   componentWillMount() {
+    const { chatId } = this.props.match.params || {};
     this.props.getCurrentUser();
     this.props.getUsers();
     this.props.getChats();
+    if (chatId) {
+      this.props.getChat(chatId);
+    }    
   }
 
   handleDrawerToggle = () => {
@@ -42,6 +46,7 @@ class Chats extends React.Component {
       <div className={classes.root}>
         <CssBaseline />
         <AppToolBar 
+          chat={this.props.chat}
           handleDrawerToggle={this.handleDrawerToggle} 
           handleLogoutRedirect={this.handleLogoutRedirect}
           classes={classes}
@@ -50,7 +55,7 @@ class Chats extends React.Component {
           handleDrawerToggle={this.handleDrawerToggle} 
           mobileOpen={this.state.mobileOpen}
         />
-        <MessageContainer />
+        <MessageContainer chat={this.props.chat}/>
       </div>
     );    
   }
