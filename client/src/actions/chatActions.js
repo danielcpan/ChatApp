@@ -113,9 +113,3 @@ export const sendMessage = (data) => async (dispatch, getState) => {
     })
   }
 }
-// export const sendMessage = data => dispatch => {
-//   dispatch({
-//     type: 'SEND_MESSAGE',
-//     payload: data
-//   })
-// }

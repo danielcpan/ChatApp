@@ -4,6 +4,9 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const GET_CURRENT_USER = 'GET_CURRENT_USER'
 
+// USER_ACTIONS
+export const GET_USERS = 'GET_USERS';
+
 // CHAT_ACTIONS
 export const GET_CHAT = 'GET_CHAT';
 export const GET_CHATS = 'GET_CHATS';

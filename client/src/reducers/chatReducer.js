@@ -17,10 +17,12 @@ const initialState = {
 export default (state = initialState, action) => {
   switch(action.type) {
     case GET_CHAT:
-        return {
-          ...state,
-          currentChat: action.payload
-        }      
+
+      socket.emit('JOIN_CHAT_ROOM', action.payload.id)
+      return {
+        ...state,
+        currentChat: action.payload
+      }
     case GET_CHATS:
       return {
         ...state,

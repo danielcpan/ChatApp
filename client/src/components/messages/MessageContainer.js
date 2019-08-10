@@ -62,7 +62,10 @@ class MessageContainer extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { messages } = this.props.chat || {}
+    // const { messages } = this.props.chat || {}
+
+    const messages = []
+
 
     return (
       <Grid container className={classes.root}>

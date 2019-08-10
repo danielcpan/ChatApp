@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Chats from '../views/Chats'
 import { getCurrentUser } from '../actions/authActions';
 import { getChats } from '../actions/chatActions';
+import { getUsers } from '../actions/userActions';
 
 const drawerWidth = 350;
 
@@ -49,12 +50,14 @@ const styles = theme => ({
 
 const mapStateToProps = state => ({
   chat: state.chats.currentChat,
+  users: state.users.usersList,
   user: state.auth.currentUser
 })
 
 const mapDispatchToProps = dispatch => ({
   getChats: () => dispatch(getChats()),
-  getCurrentUser: () => dispatch(getCurrentUser())
+  getCurrentUser: () => dispatch(getCurrentUser()),
+  getUsers: () => dispatch(getUsers())
 })
 
 

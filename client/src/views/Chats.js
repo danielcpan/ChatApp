@@ -12,7 +12,7 @@ import {
   Typography 
 } from '@material-ui/core';
 
-import ChatList from '../containers/ChatsList';
+import UsersList from '../containers/UserList'
 import MessageContainer from '../containers/MessageContainer';
 import AppBarUserItem from '../components/AppBarUserItem';
 
@@ -28,7 +28,8 @@ class Chats extends React.Component {
 
   async componentWillMount() {
     await this.props.getCurrentUser();
-    await this.props.getChats();
+    await this.props.getUsers();
+    // await this.props.getChats();
   }
 
   handleDrawerToggle = () => {
@@ -53,7 +54,7 @@ class Chats extends React.Component {
             keepMounted: true,
           }}
         >
-          <ChatList />
+          <UsersList />
         </Drawer>
       </Hidden>
       <Hidden xsDown implementation="css">
@@ -64,7 +65,7 @@ class Chats extends React.Component {
           variant="permanent"
           open
         >
-          <ChatList />
+          <UsersList />
         </Drawer>
       </Hidden>
     </React.Fragment>
@@ -92,13 +93,13 @@ class Chats extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography noWrap className={classes.chatName}>
-              {(this.props.chat.id) && (<span>{this.props.chat.name}</span>)}
+              Chat App
             </Typography>
             <AppBarUserItem handleLogoutRedirect={this.handleLogoutRedirect}/>
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer}>{this.renderDrawer(classes)}</nav>
-        {(this.props.chat.id) && (<MessageContainer/>)}
+        <MessageContainer />
       </div>
     );    
   }

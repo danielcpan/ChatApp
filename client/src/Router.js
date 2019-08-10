@@ -37,7 +37,6 @@ export default () => (
       <Route path="/register" exact component={Register} />
       <Route path="/login" exact component={Login} />
       <PrivateRoute path="/chats/:chatId?" component={Chats} />
-
     </Switch>
   </BrowserRouter>
 );

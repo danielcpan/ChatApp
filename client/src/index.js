@@ -7,7 +7,7 @@ import App from './components/App';
 import store from './store';
 import configureSocket from './socket';
 
-export const socket = configureSocket(store.dispatch)
+export const socket = configureSocket(store.dispatch, store.getState)
 
 render(
   <Provider store={store}>

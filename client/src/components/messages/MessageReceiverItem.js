@@ -15,8 +15,6 @@ const useStyles = makeStyles(theme => ({
 
 const MessageReceiverItem = props => {
   const classes = useStyles();
-  console.log("props inside")
-  console.log(props)
   const { id, user, text, } = props.message;
 
   if (user) {
