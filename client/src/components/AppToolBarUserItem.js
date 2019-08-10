@@ -58,7 +58,8 @@ const AppToolBarUserItem = props => {
 }
 
 AppToolBarUserItem.propTypes = {
-  username: PropTypes.string,
+  user: PropTypes.object,
+  handleLogoutRedirect: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({

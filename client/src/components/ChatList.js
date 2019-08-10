@@ -1,4 +1,5 @@
 import React from 'react';
+import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { 
   List, 
@@ -80,6 +81,10 @@ class ChatList extends React.Component {
       </React.Fragment>
     )
   }
+}
+
+ChatList.propTypes = {
+  chats: Proptypes.array.isRequired
 }
 
 export default ChatList;

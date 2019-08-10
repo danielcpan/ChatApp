@@ -15,13 +15,22 @@ const useStyles = makeStyles(theme => ({
 
 const MessageSenderItem = props => {
   const classes = useStyles();
-  const { id, text } = props.message;
+  const { message } = props;
 
   return (
     <ListItem>
-      <Grid container alignItems="flex-start" justify="flex-end" direction="row">
+      <Grid 
+        container 
+        alignItems="flex-start" 
+        justify="flex-end" 
+        direction="row"
+      >
         <Grid item>
-          <ListItemText id={id} primary={text} className={classes.sent}/>
+          <ListItemText 
+            id={message.id} 
+            primary={message.text} 
+            className={classes.sent}
+          />
         </Grid>
       </Grid>
     </ListItem>

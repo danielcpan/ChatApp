@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import ErrorIcon from '@material-ui/icons/Error';
 import { Grid, SnackbarContent } from "@material-ui/core";
@@ -45,6 +46,10 @@ const ServerErrorsList = (props) => {
   }
 
   return null
+}
+
+ServerErrorsList.propTypes = {
+  errors: PropTypes.array
 }
 
 export default withStyles(styles)(ServerErrorsList)

@@ -48,4 +48,11 @@ const SideDrawer = props => {
   )
 }
 
+SideDrawer.propTypes = {
+  users: PropTypes.array.isRequired,
+  chats: PropTypes.array.isRequired,
+  mobileOpen: PropTypes.bool.isRequired,
+  handleDrawerToggle: PropTypes.func.isRequired
+}
+
 export default SideDrawer;

@@ -15,19 +15,29 @@ const useStyles = makeStyles(theme => ({
 
 const MessageReceiverItem = props => {
   const classes = useStyles();
-  const { id, user, text, } = props.message;
+  const { message } = props
 
-  if (user) {
+  if (message.user) {
     return (
       <ListItem>
-        <Grid container alignItems="flex-start" wrap='nowrap'>
+        <Grid 
+          container 
+          alignItems="flex-start" 
+          wrap='nowrap'
+        >
           <Grid item>
             <ListItemAvatar>
-                <Avatar>{user.username.charAt(0).toUpperCase()}</Avatar>
+                <Avatar>
+                  {message.user.username.charAt(0).toUpperCase()}
+                </Avatar>
             </ListItemAvatar>
           </Grid>
           <Grid item>
-            <ListItemText id={id} primary={text} className={classes.received}/>
+            <ListItemText 
+              id={message.id} 
+              primary={message.text} 
+              className={classes.received}
+            />
           </Grid>
         </Grid>
       </ListItem>

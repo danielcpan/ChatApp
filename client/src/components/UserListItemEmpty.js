@@ -37,5 +37,4 @@ const UserListItemEmpty = () => {
   )
 }
 
-
 export default UserListItemEmpty;

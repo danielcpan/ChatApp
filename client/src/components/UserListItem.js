@@ -8,19 +8,30 @@ import {
 } from '@material-ui/core';
 
 const UserListItem = props => {
-  const { id, username, email } = props.user;
+  const { user } = props
 
   return (
     <ListItem 
       alignItems="flex-start" 
       button 
-      key={id}>
+      key={user.id}>
       <ListItemAvatar>
-        <Avatar>{username.charAt(0).toUpperCase()}</Avatar>
+        <Avatar>{user.username.charAt(0).toUpperCase()}</Avatar>
       </ListItemAvatar>
         <ListItemText 
-          primary={(username.length < 30) ? (username) : (`${username.substr(0,30)}...`)}
-          secondary={(email.length < 30) ? (email) : (`${email.substr(0,30)}...`)} />
+          primary={
+            (user.username.length < 30) ? (
+              user.username
+            ) : (
+              `${user.username.substr(0,30)}...`
+            )}
+          secondary={
+            (user.email.length < 30) ? (
+              user.email
+            ) : (
+              `${user.email.substr(0,30)}...`
+            )} 
+          />
     </ListItem>
   )
 }

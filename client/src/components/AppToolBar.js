@@ -39,4 +39,9 @@ const AppToolBar = props => {
   )
 }
 
+AppToolBar.propTypes = {
+  handleDrawerToggle: PropTypes.func.isRequired,
+  handleLogoutRedirect: PropTypes.func.isRequired
+}
+
 export default AppToolBar;
