@@ -42,12 +42,14 @@ module.exports = (socket) => {
   })
 
   socket.on('UPDATE_CHAT', data => {
-    currentChat = data
+    // currentChat = data
     // socket.broadcast.emit('UPDATED_CHAT', data)
     // console.log("currentChat")
     // console.log(currentChat)
     // socket.to(`CHAT_ROOM_${currentChat.id}`).emit(data)
-    socket.to(`CHAT_ROOM_${currentChat.id}`).emit('UPDATED_CHAT', data)
+    // socket.to(`CHAT_ROOM_${currentChat.id}`).emit('UPDATED_CHAT', data)
+    // socket.emit('UPDATED_CHAT', data)
+    socket.broadcast.emit('UPDATED_CHAT', data)
   })
 
   socket.on('disconnect', (data) => {

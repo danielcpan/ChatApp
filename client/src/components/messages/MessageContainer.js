@@ -63,8 +63,9 @@ class MessageContainer extends React.Component {
   render() {
     const { classes } = this.props;
     // const { messages } = this.props.chat || {}
+    const { messages } = this.props || {}
 
-    const messages = []
+    // const messages = []
 
 
     return (
