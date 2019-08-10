@@ -1,19 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Divider } from '@material-ui/core';
+import { 
+  Divider,
+  Drawer,
+  Hidden 
+} from '@material-ui/core';
 
 import UserList from './UserList';
 import ChatList from './ChatList';
 
 const SideDrawer = props => {
-  const { users, chats, classes } = props;
+  const { users, chats, mobileOpen, handleDrawerToggle, classes } = props;
 
   return (
-    <React.Fragment>
-      <UserList users={users} classes={classes} />
-      <Divider />
-      <ChatList chats={chats} classes={classes} />
-    </React.Fragment>
+    <nav className={classes.drawer}>
+      <Hidden smUp implementation="css">
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          ModalProps={{
+            keepMounted: true,
+          }}
+        >
+          <UserList users={users} classes={classes} />
+          <Divider />
+          <ChatList chats={chats} classes={classes} />
+        </Drawer>
+      </Hidden>
+      <Hidden xsDown implementation="css">
+        <Drawer
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          variant="permanent"
+          open
+        >
+          <UserList users={users} classes={classes} />
+          <Divider />
+          <ChatList chats={chats} classes={classes} />
+        </Drawer>
+      </Hidden>
+    </nav>
   )
 }
 

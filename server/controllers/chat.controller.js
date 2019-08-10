@@ -103,42 +103,46 @@ module.exports = {
   },
   create: async (req, res, next) => {
     try {
-      const users = await models.User.findAll({
-        where: {
-          id: req.body.usersIdList.concat(req.user.id),
-        },
-      });
 
-      if (users.length === 0) {
-        return next(new APIError('Users not found', httpStatus.NOT_FOUND));
-      }
-      const chatName = users.map(user => user.username).join(', ');
-      const newChat = await models.Chat.create({ name: chatName });
-      await newChat.setUsers(users);
-
-      const chat = await models.Chat.findByPk(newChat.id, {
-        include: [
-          {
-            model: models.User,
-            attributes: ['id', 'username'],
-            through: {
-              attributes: [],
-              where: { userId: req.user.id },
-            },
-            required: true,
-          },
-          {
-            model: models.Message,
-            attributes: ['id', 'userId', 'text', 'timestamp'],
-            include: [
-              {
-                model: models.User,
-                attributes: ['username'],
-              },
-            ],
-          },
-        ],
+      const chat = await models.Chat.create(req.body, {
+        attributes: ['id', 'name']
       });
+      // const users = await models.User.findAll({
+      //   where: {
+      //     id: req.body.usersIdList.concat(req.user.id),
+      //   },
+      // });
+
+      // if (users.length === 0) {
+      //   return next(new APIError('Users not found', httpStatus.NOT_FOUND));
+      // }
+      // const chatName = users.map(user => user.username).join(', ');
+      // const newChat = await models.Chat.create({ name: chatName });
+      // await newChat.setUsers(users);
+
+      // const chat = await models.Chat.findByPk(newChat.id, {
+      //   include: [
+      //     {
+      //       model: models.User,
+      //       attributes: ['id', 'username'],
+      //       through: {
+      //         attributes: [],
+      //         where: { userId: req.user.id },
+      //       },
+      //       required: true,
+      //     },
+      //     {
+      //       model: models.Message,
+      //       attributes: ['id', 'userId', 'text', 'timestamp'],
+      //       include: [
+      //         {
+      //           model: models.User,
+      //           attributes: ['username'],
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // });
 
       return res.status(httpStatus.CREATED).json(chat);
     } catch (err) {

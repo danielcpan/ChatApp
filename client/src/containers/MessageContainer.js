@@ -19,7 +19,7 @@ const styles = theme => ({
     display: 'inline',
   },
   header: {
-  fontWeight: 'bold',
+    fontWeight: 'bold',
     fontSize: 28,
   },
   input: {

@@ -5,7 +5,6 @@ import {
   ListItem, 
   ListItemText, 
   ListItemAvatar, 
-  Typography
 } from '@material-ui/core';
 
 const UserListItem = props => {
@@ -19,7 +18,9 @@ const UserListItem = props => {
       <ListItemAvatar>
         <Avatar>{username.charAt(0).toUpperCase()}</Avatar>
       </ListItemAvatar>
-        <ListItemText primary={username} secondary={email} />
+        <ListItemText 
+          primary={(username.length < 30) ? (username) : (`${username.substr(0,30)}...`)}
+          secondary={(email.length < 30) ? (email) : (`${email.substr(0,30)}...`)} />
     </ListItem>
   )
 }

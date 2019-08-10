@@ -5,12 +5,23 @@ import SideDrawer from '../components/SideDrawer';
 import { getUsers } from '../actions/userActions';
 import { getChats } from '../actions/chatActions';
 
+const drawerWidth = 350;
+
 const styles = theme => ({
   root: {
     width: '100%',
     height: '100vh',
     overflow: 'auto',
   },
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },  
   inline: {
     display: 'inline',
   },

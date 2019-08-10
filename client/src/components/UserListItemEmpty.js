@@ -1,7 +1,13 @@
 import React from 'react';
-import { Avatar, ListItem, ListItemAvatar, ListItemText, Typography} from '@material-ui/core';
+import { 
+  Avatar, 
+  ListItem, 
+  ListItemAvatar, 
+  ListItemText, 
+  Typography
+} from '@material-ui/core';
 
-const UserListItemEmpty = props => {
+const UserListItemEmpty = () => {
 
   return (
     <ListItem

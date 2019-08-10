@@ -1,24 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
+import { 
+  Button, 
+  TextField, 
+  Dialog, 
+  DialogActions, 
+  DialogContent, 
+  DialogTitle 
+} from '@material-ui/core';
 
 import { createChat } from '../actions/chatActions';
-import UserField from './UserField';
 
 class ChatForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       chatFormData: {
-        usersIdList: []
+        name: '',
       }
     }
   }
 
-  handleUsersIdListChange = usersList => {
-    const idList = usersList.map(user => { if (user !== null) return user.id})
-    this.setState({ chatFormData: { usersIdList: idList }})
+  onChange = e => {
+    const { name, value } = e.target
+    this.setState({ chatFormData: {
+      ...this.state.chatFormData,
+      [name]: value
+    }})
   }
 
   onSubmit = e => {
@@ -33,12 +42,19 @@ class ChatForm extends React.Component {
     return (
       <div>
         <Dialog fullWidth={true} open={isFormOpen} onClose={handleClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Create New Chat And Send To: </DialogTitle>
-          <DialogContent style={{ height: '190px' }}>
+          <DialogTitle id="form-dialog-title">Create New Chat </DialogTitle>
+          <DialogContent>
             <form onSubmit={this.onSubmit}>
-              <UserField 
-                handleUsersIdListChange={this.handleUsersIdListChange} 
-                usersIdList={this.state.usersIdList}
+              <TextField
+                id="name"
+                type="text"
+                label="Chat name"
+                name="name"
+                value={this.state.chatFormData.name}
+                onChange={this.onChange}
+                variant="outlined"
+                required
+                fullWidth
               />
             </form>
           </DialogContent>

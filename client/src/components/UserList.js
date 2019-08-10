@@ -5,8 +5,8 @@ import {
   Grid, 
 } from '@material-ui/core';
 
-import UserListItem from './users/UserListItem';
-import UserListItemEmpty from './users/UserListItemEmpty';
+import UserListItem from './UserListItem';
+import UserListItemEmpty from './UserListItemEmpty';
 
 const UserList = (props) => {
   const { users, classes } = props;

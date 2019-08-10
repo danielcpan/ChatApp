@@ -10,7 +10,7 @@ import {
 
 const ChatListItem = props => {
   const { id, name } = props.chat;
-  const { selectedId = 0, getTextPreview, handleListItemClick } = props;
+  const { selectedId = 0, handleListItemClick } = props;
 
   return (
     <ListItem 
@@ -23,7 +23,8 @@ const ChatListItem = props => {
         <Avatar>{name.charAt(0).toUpperCase()}</Avatar>
       </ListItemAvatar>
       <ListItemText
-          primary={name}
+          primary={
+            (name.length < 30) ? (name) : (`${name.substr(0, 30)}...`)}
           secondary={
             <React.Fragment>
               <Typography
@@ -44,7 +45,6 @@ const ChatListItem = props => {
 ChatListItem.propTypes = {
   chat: PropTypes.object.isRequired,
   selectedId: PropTypes.number,
-  getTextPreview: PropTypes.func.isRequired,
   handleListItemClick: PropTypes.func.isRequired
 }
 

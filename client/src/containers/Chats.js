@@ -14,12 +14,6 @@ const styles = theme => ({
     height: '100vh',
     overflow: 'auto'
   },
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-  },
   appBar: {
     marginLeft: drawerWidth,
     [theme.breakpoints.up('sm')]: {
@@ -32,36 +26,22 @@ const styles = theme => ({
       display: 'none',
     },
   },
-  toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-  },
   chatName: {
     color: 'black',
     fontWeight: 'bold',
     fontSize: 28,
     flexGrow: 1,
   },
-  content: {
-    marginTop: theme.spacing(10),
-    flexGrow: 1,
-  },  
 });
 
-const mapStateToProps = state => ({
-  chat: state.chats.currentChat,
-  users: state.users.usersList,
-  user: state.auth.currentUser
-})
-
 const mapDispatchToProps = dispatch => ({
-  getChats: () => dispatch(getChats()),
   getCurrentUser: () => dispatch(getCurrentUser()),
-  getUsers: () => dispatch(getUsers())
+  getUsers: () => dispatch(getUsers()),
+  getChats: () => dispatch(getChats()),
 })
 
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(withStyles(styles)(Chats))
