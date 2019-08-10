@@ -8,7 +8,7 @@ import {
   Typography
 } from '@material-ui/core';
 
-import AppBarUserItem from './AppBarUserItem';
+import AppToolBarUserItem from './AppToolBarUserItem';
 
 const AppToolBar = props => {
   const { handleDrawerToggle, handleLogoutRedirect, classes } = props;
@@ -33,7 +33,7 @@ const AppToolBar = props => {
       <Typography noWrap className={classes.chatName}>
         Chat App
       </Typography>
-      <AppBarUserItem handleLogoutRedirect={handleLogoutRedirect}/>
+      <AppToolBarUserItem handleLogoutRedirect={handleLogoutRedirect}/>
     </Toolbar>
   </AppBar>
   )

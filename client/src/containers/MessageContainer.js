@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 
-import MessageContainer from '../components/messages/MessageContainer'
+import MessageContainer from '../components/MessageContainer'
 import { getChat, getChats, sendMessage } from '../actions/chatActions';
 
 const drawerWidth = 350;
