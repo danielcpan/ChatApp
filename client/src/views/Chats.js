@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 
 import UsersList from '../containers/UserList'
+import SideDrawer from '../containers/SideDrawer'
 import MessageContainer from '../containers/MessageContainer';
 import AppBarUserItem from '../components/AppBarUserItem';
 
@@ -29,7 +30,7 @@ class Chats extends React.Component {
   async componentWillMount() {
     await this.props.getCurrentUser();
     await this.props.getUsers();
-    // await this.props.getChats();
+    await this.props.getChats();
   }
 
   handleDrawerToggle = () => {
@@ -54,7 +55,8 @@ class Chats extends React.Component {
             keepMounted: true,
           }}
         >
-          <UsersList />
+          {/* <UsersList /> */}
+          <SideDrawer />
         </Drawer>
       </Hidden>
       <Hidden xsDown implementation="css">
@@ -65,7 +67,8 @@ class Chats extends React.Component {
           variant="permanent"
           open
         >
-          <UsersList />
+          {/* <UsersList /> */}
+          <SideDrawer />
         </Drawer>
       </Hidden>
     </React.Fragment>

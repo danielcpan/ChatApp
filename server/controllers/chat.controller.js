@@ -55,42 +55,46 @@ module.exports = {
   },
   list: async (req, res, next) => {
     try {
-      const user = await models.User.findByPk(req.user.id);
+      const chats = await models.Chat.findAll({
+        attributes: ['id', 'name']
+      })
 
-      if (!user) {
-        return next(new APIError('User does not own this chat', httpStatus.NOT_FOUND));
-      }
+      // const user = await models.User.findByPk(req.user.id);
 
-      const userChats = await user.getChats({
-        attributes: ['id', 'name'],
-        include: [
-          {
-            model: models.User,
-            attributes: ['id', 'username'],
-            through: {
-              attributes: [],
-            },
-          },
-          {
-            model: models.Message,
-            attributes: ['id', 'userId', 'text', 'timestamp'],
-            include: [
-              {
-                model: models.User,
-                attributes: ['username'],
-              },
-            ],
-          },
-        ],
-        order: [[models.Message, 'timestamp', 'DESC']],
-      });
+      // if (!user) {
+      //   return next(new APIError('User does not own this chat', httpStatus.NOT_FOUND));
+      // }
 
-      // Temp Fix to remove join table
-      const chats = userChats.map((userChat) => {
-        userChat = userChat.toJSON(); // eslint-disable-line no-param-reassign
-        delete userChat.chatMembers; // eslint-disable-line no-param-reassign
-        return userChat;
-      });
+      // const userChats = await user.getChats({
+      //   attributes: ['id', 'name'],
+      //   include: [
+      //     {
+      //       model: models.User,
+      //       attributes: ['id', 'username'],
+      //       through: {
+      //         attributes: [],
+      //       },
+      //     },
+      //     {
+      //       model: models.Message,
+      //       attributes: ['id', 'userId', 'text', 'timestamp'],
+      //       include: [
+      //         {
+      //           model: models.User,
+      //           attributes: ['username'],
+      //         },
+      //       ],
+      //     },
+      //   ],
+      //   order: [[models.Message, 'timestamp', 'DESC']],
+      // });
+
+      // // Temp Fix to remove join table
+      // const chats = userChats.map((userChat) => {
+      //   userChat = userChat.toJSON(); // eslint-disable-line no-param-reassign
+      //   delete userChat.chatMembers; // eslint-disable-line no-param-reassign
+      //   return userChat;
+      // });
 
       return res.json(chats);
     } catch (err) {

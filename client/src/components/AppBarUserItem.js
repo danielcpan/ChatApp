@@ -7,7 +7,6 @@ import { logout } from '../actions/authActions';
 const AppBarUserItem = props => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  console.log(props)
 
   function handleMenu(event) {
     setAnchorEl(event.currentTarget);

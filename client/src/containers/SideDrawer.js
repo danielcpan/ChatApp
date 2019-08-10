@@ -1,12 +1,14 @@
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 
-import ChatsList from '../components/ChatList'
-import { getChat } from '../actions/chatActions';
+import SideDrawer from '../components/SideDrawer';
+import { getUsers } from '../actions/userActions';
+import { getChats } from '../actions/chatActions';
 
 const styles = theme => ({
   root: {
     width: '100%',
+    height: '100vh',
     overflow: 'auto',
   },
   inline: {
@@ -24,14 +26,16 @@ const styles = theme => ({
 });
 
 const mapStateToProps = state => ({
-  chats: state.chats.chatsList,
+  users: state.users.userList,
+  chats: state.chats.chatsList
 })
 
 const mapDispatchToProps = dispatch => ({
-  getChat: (id) => dispatch(getChat(id)),
+  getUsers: () => dispatch(getUsers()),
+  getChats: () => dispatch(getChats()),
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(ChatsList))
+)(withStyles(styles)(SideDrawer))

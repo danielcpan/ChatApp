@@ -7,6 +7,7 @@ import { getUsers } from '../actions/userActions';
 const styles = theme => ({
   root: {
     width: '100%',
+    height: '100vh',
     overflow: 'auto',
   },
   inline: {
@@ -25,6 +26,7 @@ const styles = theme => ({
 
 const mapStateToProps = state => ({
   users: state.users.userList,
+  chats: state.chats.chatsList
 })
 
 const mapDispatchToProps = dispatch => ({

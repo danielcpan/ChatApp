@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 
 const ChatListItem = props => {
-  const { id, name, users, messages } = props.chat;
+  const { id, name } = props.chat;
   const { selectedId = 0, getTextPreview, handleListItemClick } = props;
 
   return (
@@ -20,10 +20,9 @@ const ChatListItem = props => {
       onClick={ e => handleListItemClick(e, id)}
       key={id}>
       <ListItemAvatar>
-        <Avatar>{users[0].username.charAt(0).toUpperCase()}</Avatar>
+        <Avatar>{name.charAt(0).toUpperCase()}</Avatar>
       </ListItemAvatar>
-      {messages.length > 0 ? (
-        <ListItemText
+      <ListItemText
           primary={name}
           secondary={
             <React.Fragment>
@@ -33,29 +32,11 @@ const ChatListItem = props => {
                 noWrap
                 color="textPrimary"
               >
-                {`${messages[0].user.username}: `}
               </Typography>
-              {getTextPreview(messages[0])}
+              description here!
             </React.Fragment>
           }
         />
-      ) : (
-        <ListItemText
-          primary={name}
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                noWrap
-                color="textPrimary"
-              >
-                No messages yet!
-              </Typography>
-            </React.Fragment>
-          }
-        />
-      )}
     </ListItem>
   )
 }

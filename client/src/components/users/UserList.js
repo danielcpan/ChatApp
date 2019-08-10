@@ -4,10 +4,15 @@ import {
   List, 
   ListSubheader, 
   Grid, 
+  Divider,
+  Fab,
+  Icon,
+  Link
 } from '@material-ui/core';
 
 import UserListItem from './UserListItem';
 import UserListItemEmpty from './UserListItemEmpty';
+import ChatListItem from '../ChatListItem';
 
 class UsersList extends React.Component {
   constructor(props) {
@@ -30,12 +35,34 @@ class UsersList extends React.Component {
     )
   }
 
+  renderChatList = () => {
+    return (
+      this.props.chats.map((chat, idx) => (          
+        <Link 
+          to={`/chats/${chat.id}`} 
+          key={`chat_${chat.id}_index_${idx}`}
+          style={{ textDecoration: 'none', color: 'black' }} 
+          onClick={() => this.props.getChat(chat.id)}
+        >
+          <ChatListItem 
+            chat={chat}
+            selectedId={this.state.selectedId}
+            getTextPreview={this.getTextPreview} 
+            handleListItemClick={this.handleListItemClick}
+          >
+          </ChatListItem>
+        </Link>
+      ))
+    )
+  }  
+
   render() {
     const { classes } = this.props;
 
     return (
       <React.Fragment>
         <List 
+          dense
           className={classes.root} 
           subheader={
             <Grid container>
@@ -53,6 +80,32 @@ class UsersList extends React.Component {
             <UserListItemEmpty />
           )}
       </List>
+      <Divider />
+      <List 
+        dense
+        className={classes.root} 
+        subheader={
+          <Grid container>
+            <Grid item xs={10}>
+              <ListSubheader className={classes.header}>
+                Chats
+              </ListSubheader>
+            </Grid>
+            <Grid item xs={2}>
+              <Fab 
+                size="small" 
+                color="secondary" 
+                aria-label="edit" 
+                className={classes.fab}
+                onClick={this.handleClickOpen}
+              >
+                <Icon>edit_icon</Icon>
+              </Fab>
+              </Grid>            
+          </Grid>
+        }>
+        {this.renderChatList()}
+      </List>      
     </React.Fragment>
     )
   }

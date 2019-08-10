@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@material-ui/core';
 
-import { createChat } from '../../actions/chatActions';
+import { createChat } from '../actions/chatActions';
 import UserField from './UserField';
 
 class ChatForm extends React.Component {
