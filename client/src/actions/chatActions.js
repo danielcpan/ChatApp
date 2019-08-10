@@ -21,6 +21,7 @@ export const getChat = (id) => async (dispatch, getState) => {
       payload: response.data
     })
   } catch (err) {
+    console.log(err)
     dispatch({
       type: 'GET_CHAT_ERROR',
       error: err.response.data
@@ -102,7 +103,7 @@ export const sendMessage = (data) => async (dispatch, getState) => {
       headers: { Authorization: "Bearer " + getState().auth.token }
     });
     dispatch({
-      type: CREATE_MESSAGE,
+      type: 'SEND_MESSAGE',
       payload: response.data
     })
   } catch (err) {
@@ -112,3 +113,9 @@ export const sendMessage = (data) => async (dispatch, getState) => {
     })
   }
 }
+// export const sendMessage = data => dispatch => {
+//   dispatch({
+//     type: 'SEND_MESSAGE',
+//     payload: data
+//   })
+// }

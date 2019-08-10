@@ -48,7 +48,8 @@ const styles = theme => ({
 
 const mapStateToProps = state => ({
   chat: state.chats.currentChat,
-  currentUser: state.auth.currentUser
+  currentUser: state.auth.currentUser,
+  messages: state.chats.messages
 })
 
 const mapDispatchToProps = dispatch => ({

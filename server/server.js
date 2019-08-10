@@ -12,4 +12,4 @@ server.listen(PORT, () => {
 });
 
 // TOOD: Try Sockets
-// io.on('connection', socketManager)
+io.on('connection', socketManager)

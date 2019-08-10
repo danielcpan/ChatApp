@@ -6,10 +6,12 @@ import {
   DELETE_CHAT, 
   CREATE_MESSAGE
 } from '../actions/types';
+import { socket } from '../index';
 
 const initialState = {
   currentChat: {},
   chatsList: [],
+  messages: [],
 };
 
 export default (state = initialState, action) => {
@@ -31,7 +33,31 @@ export default (state = initialState, action) => {
       }
     case UPDATE_CHAT:
     case DELETE_CHAT:
-    case CREATE_MESSAGE: 
+    // case CREATE_MESSAGE: 
+    //   const currentChatCopy = { 
+    //     ...state.currentChat, 
+    //     messages: [...state.currentChat.messages, action.payload],
+    //     users: [...state.currentChat.users]
+    //   }
+
+    //   const chatsListCopy = state.chatsList.map(chat => {
+    //     if (chat.id === action.payload.chatId) {
+    //       return { 
+    //         ...currentChatCopy, 
+    //         messages: [...currentChatCopy.messages].reverse()
+    //       }
+    //     }
+    //     return chat;
+    //   })
+
+    //   socket && socket.emit('UPDATE_CHAT', state);
+
+    //   return {
+    //     ...state,
+    //     currentChat: currentChatCopy,
+    //     chatsList: chatsListCopy
+    //   }
+    case 'SEND_MESSAGE':
       const currentChatCopy = { 
         ...state.currentChat, 
         messages: [...state.currentChat.messages, action.payload],
@@ -48,11 +74,19 @@ export default (state = initialState, action) => {
         return chat;
       })
 
-      return {
-        ...state,
+      state = { 
+        ...state, 
         currentChat: currentChatCopy,
-        chatsList: chatsListCopy
+        chatsList: chatsListCopy,
       }
+
+      socket.emit('UPDATE_CHAT', state.currentChat)
+      return state;
+    case 'DELIVER_UPDATED_CHAT_TO_REDUCER':
+      return { 
+        ...state, 
+        currentChat: action.payload
+      };
     default: 
       return state;
   }

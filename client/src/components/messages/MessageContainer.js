@@ -39,7 +39,7 @@ class MessageContainer extends React.Component {
       timestamp: new Date(),
       chatId: this.props.chat.id,
     }
-    await this.props.sendMessage(data)
+    this.props.sendMessage(data)
     this.setState({text: ''})
   }
 
@@ -62,7 +62,7 @@ class MessageContainer extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { messages = [] } = this.props.chat
+    const { messages } = this.props.chat || {}
 
     return (
       <Grid container className={classes.root}>
@@ -89,7 +89,7 @@ class MessageContainer extends React.Component {
             <Grid item xs={10}>
               <form autoComplete="off" onSubmit={this.onSubmit}>
                 <TextField
-                  placeholder="Test"
+                  placeholder="Type a message..."
                   margin="dense"
                   fullWidth
                   variant="outlined"
@@ -107,6 +107,7 @@ class MessageContainer extends React.Component {
                 size="medium" 
                 aria-label="send" 
                 className={classes.sendIcon}
+                onClick={this.onSubmit}
               >
                 <Icon className={classes.rightIcon}>send</Icon>
               </IconButton>

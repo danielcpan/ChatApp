@@ -5,6 +5,9 @@ import * as serviceWorker from './serviceWorker';
 
 import App from './components/App';
 import store from './store';
+import configureSocket from './socket';
+
+export const socket = configureSocket(store.dispatch)
 
 render(
   <Provider store={store}>
