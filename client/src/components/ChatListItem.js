@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from "react-router";
 import { 
   Avatar, 
   ListItem, 
@@ -9,14 +10,13 @@ import {
 } from '@material-ui/core';
 
 const ChatListItem = props => {
-  const { chat, selectedId = 0, handleListItemClick } = props;
+  const { chat } = props;
 
   return (
     <ListItem 
       alignItems="flex-start" 
       button 
-      selected={chat.id === selectedId}
-      onClick={ e => handleListItemClick(e, chat.id)}
+      selected={chat.id == props.match.params.chatId}
       key={chat.id}>
       <ListItemAvatar>
         <Avatar>{chat.name.charAt(0).toUpperCase()}</Avatar>
@@ -43,8 +43,6 @@ const ChatListItem = props => {
 
 ChatListItem.propTypes = {
   chat: PropTypes.object.isRequired,
-  selectedId: PropTypes.number,
-  handleListItemClick: PropTypes.func.isRequired
 }
 
-export default ChatListItem;
+export default withRouter(ChatListItem);

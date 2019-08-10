@@ -16,13 +16,8 @@ class ChatList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedId: null,
       isFormOpen: false,
     }
-  }
-
-  handleListItemClick = (event, idx) => {
-    this.setState({ selectedId: idx })
   }
 
   handleClickOpen = () => {
@@ -61,19 +56,14 @@ class ChatList extends React.Component {
                 </Grid>            
             </Grid>
           }>
-          {chats.map((chat, idx) => (          
+          {chats.map((chat, idx) => (
             <Link 
               to={`/chats/${chat.id}`} 
-              key={`chat_${chat.id}_index_${idx}`}
+              key={chat.id}
               style={{ textDecoration: 'none', color: 'black' }} 
               onClick={() => this.props.getChat(chat.id)}
             >
-              <ChatListItem 
-                chat={chat}
-                selectedId={this.state.selectedId}
-                handleListItemClick={this.handleListItemClick}
-              >
-              </ChatListItem>
+              <ChatListItem chat={chat} />
             </Link>
           ))}
         </List>
