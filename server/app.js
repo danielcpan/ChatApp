@@ -22,15 +22,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // if (process.env.NODE_ENV === 'development') {
 // Sync the database models
-// const models = require('./models');
-// models.sequelize.sync({
-//   force: true,
-// });
+const models = require('./models');
+models.sequelize.sync({
+  force: true,
+});
 
 // const { createTestData } = require('./seeders/testData');
 // createTestData()
-// console.log(path.join('client/build'))
-app.use(express.static('client/build'));
 
 // Mount all routes on /api path
 app.use('/api', routes);
@@ -48,9 +46,13 @@ app.use((err, req, res, next) => {
   return next(err);
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join('/client/build/index.html'));
-});
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 // Catch 404 and forward to Error Handler
 app.use((req, res, next) => {
