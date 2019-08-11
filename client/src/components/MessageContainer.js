@@ -15,20 +15,9 @@ import MessageReceiverItem from './MessageReceiverItem';
 import MessageSenderItem from './MessageSenderItem';
 
 class MessageContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: '',
-    };
-  }
-
-  // componentWillMount() {
-  //   // const { chatId } = this.props.match.params || {};
-
-  //   // if (chatId) {
-  //   //   this.props.getChat(chatId);
-  //   // }
-  // }
+  state = {
+    text: '',
+  };
 
   onSubmit = async (e) => {
     e.preventDefault();
@@ -62,11 +51,7 @@ class MessageContainer extends React.Component {
 
   render() {
     const { classes } = this.props;
-    // const { messages } = this.props.chat || {}
     const { messages } = this.props || {};
-
-    // const messages = []
-
 
     return (
       <Grid container className={classes.root}>

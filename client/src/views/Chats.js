@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import { CssBaseline } from '@material-ui/core';
 
 import AppToolBar from '../components/AppToolBar';
@@ -51,7 +52,7 @@ class Chats extends React.Component {
           handleDrawerToggle={this.handleDrawerToggle}
           mobileOpen={this.state.mobileOpen}
         />
-        <MessageContainer chat={chat} />
+        {(this.props.match.params.chatId) && (<MessageContainer chat={chat} />)}
       </div>
     );
   }
@@ -65,4 +66,4 @@ Chats.propTypes = {
   getChat: PropTypes.func.isRequired,
 };
 
-export default Chats;
+export default withRouter(Chats);

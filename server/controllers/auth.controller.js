@@ -9,7 +9,7 @@ module.exports = {
     try {
       const user = await models.User.findOne({
         attributes: ['id', 'username', 'password', 'email'],
-        where: { email: req.body.email },
+        where: { email: req.body.email.toLowerCase() },
       });
 
       // Check and catch sequelize instance errors
@@ -42,7 +42,13 @@ module.exports = {
   },
   register: async (req, res, next) => {
     try {
-      const newUser = await models.User.create(req.body);
+      const { email, username, password } = req.body
+      const data = {
+        email: email.toLowerCase(),
+        username,
+        password
+      }
+      const newUser = await models.User.create(data);
 
       const user = await models.User.findByPk(newUser.id, {
         attributes: ['id', 'username'],

@@ -53,7 +53,9 @@ module.exports = (socket) => {
   socket.on('disconnect', () => {
     console.log('DISCONNECTING!'); // eslint-disable-line no-console
     connections.splice(connections.indexOf(socket), 1);
-    setOfflineUser(socket);
+    if (socket.userId) {
+      setOfflineUser(socket);
+    }
 
     io.emit(RECEIVED_ONLINE_USERS, onlineUsers);
   });
