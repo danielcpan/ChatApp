@@ -6,7 +6,7 @@ module.exports = {
   get: async (req, res, next) => {
     try {
       const user = await models.User.findByPk(req.params.userId, {
-        attributes: ['id', 'username'],
+        attributes: ['id', 'username', 'email'],
       });
       if (!user) {
         return next(new APIError('User not found', httpStatus.NOT_FOUND));

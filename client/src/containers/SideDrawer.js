@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles';
 
 import SideDrawer from '../components/SideDrawer';
-import { getUsers } from '../actions/userActions';
 import { getChats } from '../actions/chatActions';
 
 const drawerWidth = 350;
@@ -37,12 +36,11 @@ const styles = theme => ({
 });
 
 const mapStateToProps = state => ({
-  users: state.users.userList,
+  onlineUsers: state.users.onlineUsers,
   chats: state.chats.chatsList
 })
 
 const mapDispatchToProps = dispatch => ({
-  getUsers: () => dispatch(getUsers()),
   getChats: () => dispatch(getChats()),
 })
 

@@ -1,13 +1,18 @@
 const {
   JOIN_CHAT,
-  REGISTER_SOCKET_USER_ID,
+  SET_ONLINE_USER,
+  SET_OFFLINE_USER,
+  RECEIVED_ONLINE_USERS,
   SEND_MESSAGE,
   RECEIVED_MESSAGE,
   CREATED_CHAT,
   CREATE_CHAT
 } = require('./constants/socketEventTypes')
 
+const { io } = require('./server')
+
 const connections = [];
+const onlineUsers = [];
 
 module.exports = (socket) => {
   connections.push(socket);
@@ -17,8 +22,17 @@ module.exports = (socket) => {
     socket.to(`CHAT_ROOM_${data.chatId}`).emit(RECEIVED_MESSAGE, data)
   });
 
-  socket.on(REGISTER_SOCKET_USER_ID, userId => {
-    socket.userId = userId
+  socket.on(SET_ONLINE_USER, data => {
+    socket.userId = data.id
+    onlineUsers.push(data)
+    console.log("Online Users: ")
+    console.log(onlineUsers)
+    io.emit(RECEIVED_ONLINE_USERS, onlineUsers)
+  })
+
+  socket.on(SET_OFFLINE_USER, data => {
+    setOfflineUser(socket)
+    io.emit(RECEIVED_ONLINE_USERS, onlineUsers)
   })
 
   socket.on(CREATE_CHAT, data => {
@@ -31,7 +45,18 @@ module.exports = (socket) => {
   })
 
   socket.on('disconnect', data => {
-    console.log('disconnecting!');
+    console.log('DISCONNECTING!');
     connections.splice(connections.indexOf(socket), 1);
+    setOfflineUser(socket)
+
+    io.emit(RECEIVED_ONLINE_USERS, onlineUsers)
   });
 };
+
+const setOfflineUser = (socket) => {
+  const onlineUserIndex = onlineUsers.map(user => {
+    return user.id
+  }).indexOf(socket.userId)
+  
+  onlineUsers.splice(onlineUserIndex, 1);
+}

@@ -10,19 +10,15 @@ import {
 
 const SERVER_URL = 'http://localhost:5000';
 
-// const token = localStorage.getItem('token')
 
 export const register = data => async dispatch => {
   try {
     await axios.post(`${SERVER_URL}/api/auth/register`, data);
-
     try {
       dispatch({ type: REGISTER })
     } catch (err) {
       // Intentional Catch for undefined token, temporary solution
     }
-
-    // dispatch(login(loginData))
   } catch (err) {
     dispatch({
       type: 'REGISTER_ERROR',
@@ -46,8 +42,8 @@ export const login = data => async dispatch => {
   }
 }
 
-export const logout = () => dispatch => {
-  dispatch({ type: LOGOUT })
+export const logout = () => (dispatch, getState) => {
+  dispatch({ type: LOGOUT, payload: getState().auth.currentUser })
 }
 
 export const getCurrentUser = () => async (dispatch, getState) => {

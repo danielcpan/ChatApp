@@ -8,7 +8,12 @@ import {
 } from '@material-ui/core';
 
 const UserListItem = props => {
-  const { user } = props
+  const { user } = props || {}
+  // console.log("user")
+  // console.log(user)
+  // user.email = "test"
+
+  // if (!user.username) return null
 
   return (
     <ListItem 

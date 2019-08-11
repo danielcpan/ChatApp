@@ -8,7 +8,7 @@ module.exports = {
   login: async (req, res, next) => {
     try {
       const user = await models.User.findOne({
-        attributes: ['id', 'username', 'password'],
+        attributes: ['id', 'username', 'password', 'email'],
         where: { email: req.body.email },
       });
 

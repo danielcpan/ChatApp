@@ -10,7 +10,7 @@ import UserList from './UserList';
 import ChatList from '../containers/ChatsList';
 
 const SideDrawer = props => {
-  const { users, chats, mobileOpen, handleDrawerToggle, classes } = props;
+  const { onlineUsers, chats, mobileOpen, handleDrawerToggle, classes } = props;
 
   return (
     <nav className={classes.drawer}>
@@ -26,7 +26,7 @@ const SideDrawer = props => {
             keepMounted: true,
           }}
         >
-          <UserList users={users} classes={classes} />
+          <UserList users={onlineUsers} classes={classes} />
           <Divider />
           <ChatList chats={chats} classes={classes} />
         </Drawer>
@@ -39,7 +39,7 @@ const SideDrawer = props => {
           variant="permanent"
           open
         >
-          <UserList users={users} classes={classes} />
+          <UserList users={onlineUsers} classes={classes} />
           <Divider />
           <ChatList chats={chats} classes={classes} />
         </Drawer>
@@ -49,7 +49,7 @@ const SideDrawer = props => {
 }
 
 SideDrawer.propTypes = {
-  users: PropTypes.array.isRequired,
+  onlineUsers: PropTypes.array.isRequired,
   chats: PropTypes.array.isRequired,
   mobileOpen: PropTypes.bool.isRequired,
   handleDrawerToggle: PropTypes.func.isRequired

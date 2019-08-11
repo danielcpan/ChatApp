@@ -5,6 +5,11 @@ import {
   LOGOUT,
   GET_CURRENT_USER
 } from '../constants/actionTypes';
+import {
+  SET_ONLINE_USER,
+  SET_OFFLINE_USER,
+} from '../constants/socketEventTypes';
+import { socket } from '../index';
 
 const initialState = {
   currentUser: {},
@@ -16,6 +21,7 @@ export default (state = initialState, action) => {
   switch(action.type) {
     case REGISTER:
     case LOGIN:
+      socket.emit(SET_ONLINE_USER, action.payload.user)
       localStorage.setItem('token', action.payload.token)
       return {
         ...state,
@@ -24,6 +30,7 @@ export default (state = initialState, action) => {
         isLoggedIn: true
       }
     case LOGOUT:
+      socket.emit(SET_OFFLINE_USER)
       localStorage.clear();
       return {
         ...state,
