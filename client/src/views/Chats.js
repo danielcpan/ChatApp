@@ -10,7 +10,6 @@ import MessageContainer from '../containers/MessageContainer';
 class Chats extends React.Component {
   state = {
     mobileOpen: false,
-    setMobileOpen: false,
     toLogin: false,
   };
 
@@ -33,7 +32,7 @@ class Chats extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { chat, classes } = this.props;
 
     if (this.state.toLogin) {
       return <Redirect to="/login" />;
@@ -43,7 +42,7 @@ class Chats extends React.Component {
       <div className={classes.root}>
         <CssBaseline />
         <AppToolBar
-          chat={this.props.chat}
+          chat={chat}
           handleDrawerToggle={this.handleDrawerToggle}
           handleLogoutRedirect={this.handleLogoutRedirect}
           classes={classes}
@@ -52,16 +51,18 @@ class Chats extends React.Component {
           handleDrawerToggle={this.handleDrawerToggle}
           mobileOpen={this.state.mobileOpen}
         />
-        <MessageContainer chat={this.props.chat} />
+        <MessageContainer chat={chat} />
       </div>
     );
   }
 }
 
 Chats.propTypes = {
+  chat: PropTypes.object,
   getCurrentUser: PropTypes.func.isRequired,
   getUsers: PropTypes.func.isRequired,
   getChats: PropTypes.func.isRequired,
+  getChat: PropTypes.func.isRequired,
 };
 
 export default Chats;

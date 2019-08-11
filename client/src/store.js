@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
@@ -7,7 +8,7 @@ const initialState = {};
 
 const middleware = [thunk];
 
-let store;
+let store; // eslint-disable-line import/no-mutable-exports
 
 if (window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()) {
   store = createStore(

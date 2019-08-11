@@ -86,8 +86,7 @@ class Register extends React.Component {
                     >
                       Sign in
                     </Link>
-                    {' '}
-instead?
+                    {' instead?'}
                   </Grid>
 
                   <ServerErrorsList errors={errors} />

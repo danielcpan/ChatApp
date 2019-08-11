@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import App from './components/App';
 import store from './store';
-import configureSocket from './socket';
+import configureSocket from './socketManager';
 
 export const socket = configureSocket(store.dispatch, store.getState);
 
