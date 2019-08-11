@@ -48,6 +48,10 @@ app.use((err, req, res, next) => {
   return next(err);
 });
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join('/client/build/index.html'));
+});
+
 // Catch 404 and forward to Error Handler
 app.use((req, res, next) => {
   const err = new APIError('API not found', httpStatus.NOT_FOUND);
@@ -61,10 +65,6 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
     message: err.message,
     stack: process.env.NODE_ENV === 'development' ? err.stack : {},
   });
-});
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join('/client/build/index.html'));
 });
 
 module.exports = app;
