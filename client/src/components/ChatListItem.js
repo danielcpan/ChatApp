@@ -25,8 +25,8 @@ const ChatListItem = (props) => {
       </ListItemAvatar>
       <ListItemText
         primary={
-            (chat.name.length < 30) ? (chat.name) : (`${chat.name.substr(0, 30)}...`)
-}
+          (chat.name.length < 30) ? (chat.name) : (`${chat.name.substr(0, 30)}...`)
+        }
         secondary={(
           <>
             <Typography

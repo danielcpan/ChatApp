@@ -52,7 +52,7 @@ class Chats extends React.Component {
           handleDrawerToggle={this.handleDrawerToggle}
           mobileOpen={this.state.mobileOpen}
         />
-        {(this.props.match.params.chatId) && (<MessageContainer chat={chat} />)}
+        {(this.props.match.params.chatId && chat.id) && (<MessageContainer chat={chat} />)}
       </div>
     );
   }
