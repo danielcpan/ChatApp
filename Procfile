@@ -1,1 +1,1 @@
-web: npm i --prefix client && npm run dev
+web: npm run dev
