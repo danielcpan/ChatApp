@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 import { GET_USERS } from '../constants/actionTypes';
-
-const SERVER_URL = 'http://localhost:5000';
+import { SERVER_URL } from '../config';
 
 export const getUser = id => async (dispatch, getState) => {
   try {

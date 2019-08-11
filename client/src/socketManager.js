@@ -7,9 +7,9 @@ import {
   RECEIVED_MESSAGE,
   CREATED_CHAT,
 } from './constants/socketEventTypes';
+import { SERVER_URL } from './config'
 
-const socketUrl = 'http://localhost:5000';
-const socket = io(socketUrl);
+const socket = io(SERVER_URL);
 
 const configureSocket = (dispatch, getState) => {
   socket.on('connect', () => {

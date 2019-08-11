@@ -7,9 +7,7 @@ import {
   LOGOUT,
   GET_CURRENT_USER,
 } from '../constants/actionTypes';
-
-const SERVER_URL = 'http://localhost:5000';
-
+import { SERVER_URL } from '../config';
 
 export const register = data => async (dispatch) => {
   try {

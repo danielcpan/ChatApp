@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "start": "node server/server.js",
+    "client": "npm start --prefix client",
     "server": "nodemon server/server.js",
     "lintServer": "./node_modules/.bin/eslint --fix server",
     "test": "NODE_ENV=test node_modules/.bin/mocha --opts server/mocha.opts --exit",

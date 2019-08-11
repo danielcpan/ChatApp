@@ -7,8 +7,7 @@ import {
   UPDATE_CHAT,
   DELETE_CHAT,
 } from '../constants/actionTypes';
-
-const SERVER_URL = 'http://localhost:5000';
+import { SERVER_URL } from '../config';
 
 export const getChat = id => async (dispatch, getState) => {
   try {

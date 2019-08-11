@@ -1,13 +1,16 @@
 /* eslint no-console: 0 */
 require('dotenv').config();
-const app = require('express')();
+const express = require('express');
 const Sequelize = require('sequelize');
 const httpStatus = require('http-status');
+const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const routes = require('../server/routes/index.route');
 const APIError = require('./utils/APIError.utils');
+
+const app = express();
 
 // Middleware
 app.use(cors());
@@ -26,6 +29,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // const { createTestData } = require('./seeders/testData');
 // createTestData()
+
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // Mount all routes on /api path
 app.use('/api', routes);
@@ -58,5 +63,8 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   });
 });
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
 
 module.exports = app;
