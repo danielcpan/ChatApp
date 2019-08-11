@@ -1,9 +1,9 @@
 
-import { 
-  REGISTER, 
+import {
+  REGISTER,
   LOGIN,
   LOGOUT,
-  GET_CURRENT_USER
+  GET_CURRENT_USER,
 } from '../constants/actionTypes';
 import {
   SET_ONLINE_USER,
@@ -18,32 +18,32 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case REGISTER:
     case LOGIN:
-      socket.emit(SET_ONLINE_USER, action.payload.user)
-      localStorage.setItem('token', action.payload.token)
+      socket.emit(SET_ONLINE_USER, action.payload.user);
+      localStorage.setItem('token', action.payload.token);
       return {
         ...state,
         currentUser: action.payload.user,
         token: action.payload.token,
-        isLoggedIn: true
-      }
+        isLoggedIn: true,
+      };
     case LOGOUT:
-      socket.emit(SET_OFFLINE_USER)
+      socket.emit(SET_OFFLINE_USER);
       localStorage.clear();
       return {
         ...state,
         currentUser: {},
         token: '',
-        isLoggedIn: false
-      }
-    case GET_CURRENT_USER: 
+        isLoggedIn: false,
+      };
+    case GET_CURRENT_USER:
       return {
         ...state,
-        currentUser: action.payload
-      }
-    default: 
+        currentUser: action.payload,
+      };
+    default:
       return state;
   }
-}
+};

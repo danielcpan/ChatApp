@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Avatar, IconButton, Menu, MenuItem } from '@material-ui/core';
+import {
+  Avatar, IconButton, Menu, MenuItem,
+} from '@material-ui/core';
 import { logout } from '../actions/authActions';
 
-const AppToolBarUserItem = props => {
-  const { user, handleLogoutRedirect } = props
+const AppToolBarUserItem = (props) => {
+  const { user, handleLogoutRedirect } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -24,7 +26,9 @@ const AppToolBarUserItem = props => {
 
   return (
     <div>
-      Welcome {user.username}
+      Welcome
+      {' '}
+      {user.username}
       <IconButton
         aria-label="account of current user"
         aria-controls="menu-appbar"
@@ -55,19 +59,19 @@ const AppToolBarUserItem = props => {
       </Menu>
     </div>
   );
-}
+};
 
 AppToolBarUserItem.propTypes = {
   user: PropTypes.object,
-  handleLogoutRedirect: PropTypes.func.isRequired
-}
+  handleLogoutRedirect: PropTypes.func.isRequired,
+};
 
-const mapStateToProps = state => ({
-  user: state.auth.currentUser
-})
+const mapStateToProps = (state) => ({
+  user: state.auth.currentUser,
+});
 
-const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout())
-})
+const mapDispatchToProps = (dispatch) => ({
+  logout: () => dispatch(logout()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppToolBarUserItem);

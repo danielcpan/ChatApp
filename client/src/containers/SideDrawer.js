@@ -1,4 +1,4 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 
 import SideDrawer from '../components/SideDrawer';
@@ -6,7 +6,7 @@ import { getChats } from '../actions/chatActions';
 
 const drawerWidth = 350;
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: '100%',
     height: '100vh',
@@ -20,7 +20,7 @@ const styles = theme => ({
   },
   drawerPaper: {
     width: drawerWidth,
-  },  
+  },
   inline: {
     display: 'inline',
   },
@@ -28,23 +28,23 @@ const styles = theme => ({
     color: 'black',
     fontWeight: 'bold',
     fontSize: 28,
-    padding: theme.spacing(1)
+    padding: theme.spacing(1),
   },
   fab: {
     margin: theme.spacing(1),
   },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   onlineUsers: state.users.onlineUsers,
-  chats: state.chats.chatsList
-})
+  chats: state.chats.chatsList,
+});
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getChats: () => dispatch(getChats()),
-})
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(SideDrawer))
+  mapDispatchToProps,
+)(withStyles(styles)(SideDrawer));

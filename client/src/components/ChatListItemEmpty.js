@@ -1,23 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Avatar, ListItem, ListItemAvatar, ListItemText, Typography} from '@material-ui/core';
+import {
+  Avatar, ListItem, ListItemAvatar, ListItemText, Typography,
+} from '@material-ui/core';
 
-const ChatListItemEmpty = props => {
-  const { handleClickOpen } = props
+const ChatListItemEmpty = (props) => {
+  const { handleClickOpen } = props;
 
   return (
     <ListItem
-      alignItems="flex-start" 
+      alignItems="flex-start"
       button
       onClick={handleClickOpen}
     >
       <ListItemAvatar>
-        <Avatar style={{fontSize: '36px'}}>!</Avatar>
+        <Avatar style={{ fontSize: '36px' }}>!</Avatar>
       </ListItemAvatar>
       <ListItemText
-        primary={"No Chats!"}
-        secondary={
-          <React.Fragment>
+        primary="No Chats!"
+        secondary={(
+          <>
             <Typography
               component="span"
               variant="body2"
@@ -26,16 +28,15 @@ const ChatListItemEmpty = props => {
             >
               Click here to create your first chat!
             </Typography>
-          </React.Fragment>
-        }
-      >
-      </ListItemText>
+          </>
+)}
+      />
     </ListItem>
-  )
-}
+  );
+};
 
 ChatListItemEmpty.propTypes = {
-  handleClickOpen: PropTypes.func.isRequired
-}
+  handleClickOpen: PropTypes.func.isRequired,
+};
 
-export default ChatListItemEmpty
+export default ChatListItemEmpty;

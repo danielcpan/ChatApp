@@ -1,7 +1,7 @@
 import axios from 'axios';
 import decode from 'jwt-decode';
 
-import { 
+import {
   REGISTER,
   LOGIN,
   LOGOUT,
@@ -11,51 +11,51 @@ import {
 const SERVER_URL = 'http://localhost:5000';
 
 
-export const register = data => async dispatch => {
+export const register = (data) => async (dispatch) => {
   try {
     await axios.post(`${SERVER_URL}/api/auth/register`, data);
     try {
-      dispatch({ type: REGISTER })
+      dispatch({ type: REGISTER });
     } catch (err) {
       // Intentional Catch for undefined token, temporary solution
     }
   } catch (err) {
     dispatch({
       type: 'REGISTER_ERROR',
-      error: err.response.data
-    })
+      error: err.response.data,
+    });
   }
-}
+};
 
-export const login = data => async dispatch => {
+export const login = (data) => async (dispatch) => {
   try {
     const response = await axios.post(`${SERVER_URL}/api/auth/login`, data);
     dispatch({
       type: LOGIN,
-      payload: response.data
-    })
+      payload: response.data,
+    });
   } catch (err) {
     dispatch({
       type: 'LOGIN_ERROR',
-      error: err.response.data
-    })
+      error: err.response.data,
+    });
   }
-}
+};
 
 export const logout = () => (dispatch, getState) => {
-  dispatch({ type: LOGOUT, payload: getState().auth.currentUser })
-}
+  dispatch({ type: LOGOUT, payload: getState().auth.currentUser });
+};
 
 export const getCurrentUser = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: GET_CURRENT_USER,
-      payload: decode(getState().auth.token)
-    })
+      payload: decode(getState().auth.token),
+    });
   } catch (err) {
     dispatch({
       type: 'GET_CURRENT_USER_ERROR',
-      error: err
-    })
+      error: err,
+    });
   }
-}
+};

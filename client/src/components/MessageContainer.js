@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from "react-router";
-import { 
-  List, 
-  Grid, 
-  Icon, 
-  TextField, 
-  IconButton, 
-  AppBar, 
-  Toolbar
- } from '@material-ui/core';
+import { withRouter } from 'react-router';
+import {
+  List,
+  Grid,
+  Icon,
+  TextField,
+  IconButton,
+  AppBar,
+  Toolbar,
+} from '@material-ui/core';
 
 import MessageReceiverItem from './MessageReceiverItem';
 import MessageSenderItem from './MessageSenderItem';
@@ -19,7 +19,7 @@ class MessageContainer extends React.Component {
     super(props);
     this.state = {
       text: '',
-    }
+    };
   }
 
   // componentWillMount() {
@@ -30,7 +30,7 @@ class MessageContainer extends React.Component {
   //   // }
   // }
 
-  onSubmit = async e => {
+  onSubmit = async (e) => {
     e.preventDefault();
     if (this.state.text.length === 0) return;
 
@@ -38,14 +38,14 @@ class MessageContainer extends React.Component {
       text: this.state.text,
       timestamp: new Date(),
       chatId: this.props.chat.id,
-    }
-    this.props.sendMessage(data)
-    this.setState({text: ''})
+    };
+    this.props.sendMessage(data);
+    this.setState({ text: '' });
   }
 
-  onChange = e => {
-    const { name, value } = e.target
-    this.setState({ [name]: value })
+  onChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
   }
 
   componentDidMount() {
@@ -58,12 +58,12 @@ class MessageContainer extends React.Component {
 
   scrollToBottom() {
     this.el.scrollIntoView();
-  }  
+  }
 
   render() {
     const { classes } = this.props;
     // const { messages } = this.props.chat || {}
-    const { messages } = this.props || {}
+    const { messages } = this.props || {};
 
     // const messages = []
 
@@ -72,55 +72,56 @@ class MessageContainer extends React.Component {
       <Grid container className={classes.root}>
         <Grid item xs={12}>
           <List dense>
-            {messages.map(message => {
+            {messages.map((message) => {
               if (message.userId === this.props.currentUser.id) {
-                return <MessageSenderItem key={message.id} message={message} />
-              } else {
-                return <MessageReceiverItem key={message.id} message={message} />
+                return <MessageSenderItem key={message.id} message={message} />;
               }
+              return <MessageReceiverItem key={message.id} message={message} />;
             })}
           </List>
         </Grid>
         <Grid item>
-          <div style={{ float:"left", clear: "both" }}
+          <div
+            style={{ float: 'left', clear: 'both' }}
             // Temp solution to scroll down
-            ref={el => {this.el = el}}>{`.`}
+            ref={(el) => { this.el = el; }}
+          >
+            {'.'}
           </div>
         </Grid>
         <AppBar position="fixed" color="inherit" className={classes.appBar}>
-        <Toolbar>
-          <Grid container>
-            <Grid item xs={10}>
-              <form autoComplete="off" onSubmit={this.onSubmit}>
-                <TextField
-                  placeholder="Type a message..."
-                  margin="dense"
-                  fullWidth
-                  variant="outlined"
-                  name="text"
-                  value={this.state.text}
-                  onChange={this.onChange}
-                  style={{backgroundColor: "#f1f0f0", width: '100%'}}
-                >
-                </TextField>
-              </form>
-            </Grid>
+          <Toolbar>
+            <Grid container>
+              <Grid item xs={10}>
+                <form autoComplete="off" onSubmit={this.onSubmit}>
+                  <TextField
+                    placeholder="Type a message..."
+                    margin="dense"
+                    fullWidth
+                    variant="outlined"
+                    name="text"
+                    value={this.state.text}
+                    onChange={this.onChange}
+                    style={{ backgroundColor: '#f1f0f0', width: '100%' }}
+                  />
+                </form>
+              </Grid>
 
-            <Grid item xs={2}>
-              <IconButton 
-                size="medium" 
-                aria-label="send" 
-                className={classes.sendIcon}
-                onClick={this.onSubmit}
-              >
-                <Icon className={classes.rightIcon}>send</Icon>
-              </IconButton>
+              <Grid item xs={2}>
+                <IconButton
+                  size="medium"
+                  aria-label="send"
+                  className={classes.sendIcon}
+                  onClick={this.onSubmit}
+                >
+                  <Icon className={classes.rightIcon}>send</Icon>
+                </IconButton>
+              </Grid>
             </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>        
+          </Toolbar>
+        </AppBar>
       </Grid>
-    )
+    );
   }
 }
 
@@ -129,7 +130,7 @@ MessageContainer.propTypes = {
   currentUser: PropTypes.object.isRequired,
   getChat: PropTypes.func.isRequired,
   getChats: PropTypes.func.isRequired,
-  sendMessage: PropTypes.func.isRequired
+  sendMessage: PropTypes.func.isRequired,
 };
 
 export default withRouter(MessageContainer);

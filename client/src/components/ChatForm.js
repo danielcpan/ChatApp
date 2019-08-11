@@ -1,47 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { 
-  Button, 
-  TextField, 
-  Dialog, 
-  DialogActions, 
-  DialogContent, 
-  DialogTitle 
+import {
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
 } from '@material-ui/core';
 
 import { createChat } from '../actions/chatActions';
 
 class ChatForm extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
+  state = {
+    chatFormData: {
+      name: '',
+    },
+  };
+
+  onChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({
       chatFormData: {
-        name: '',
-      }
-    }
+        ...this.state.chatFormData,
+        [name]: value,
+      },
+    });
   }
 
-  onChange = e => {
-    const { name, value } = e.target
-    this.setState({ chatFormData: {
-      ...this.state.chatFormData,
-      [name]: value
-    }})
+  onSubmit = (e) => {
+    e.preventDefault();
+    this.props.createChat(this.state.chatFormData);
+    this.props.handleClose();
   }
 
-  onSubmit = e => {
-    e.preventDefault()
-    this.props.createChat(this.state.chatFormData)
-    this.props.handleClose()
-  }
-  
   render() {
     const { isFormOpen, handleClose } = this.props;
 
     return (
       <div>
-        <Dialog fullWidth={true} open={isFormOpen} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <Dialog fullWidth open={isFormOpen} onClose={handleClose} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">Create New Chat </DialogTitle>
           <DialogContent>
             <form onSubmit={this.onSubmit}>
@@ -68,17 +67,17 @@ class ChatForm extends React.Component {
           </DialogActions>
         </Dialog>
       </div>
-    )
+    );
   }
 }
 
 ChatForm.propTypes = {
   isFormOpen: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-}
+};
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   createChat: (data) => dispatch(createChat(data)),
-})
+});
 
-export default connect(null, mapDispatchToProps)(ChatForm)
+export default connect(null, mapDispatchToProps)(ChatForm);

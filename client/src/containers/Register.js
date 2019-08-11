@@ -1,12 +1,12 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 
-import Register from '../views/Register'
+import Register from '../views/Register';
 import { login, register } from '../actions/authActions';
 import { resetErrors } from '../actions/errorActions';
-import imageUrl from '../assets/SignUp.jpg'
+import imageUrl from '../assets/SignUp.jpg';
 
-const styles = theme => ({
+const styles = (theme) => ({
   '@global': {
     body: {
       backgroundColor: theme.palette.common.white,
@@ -15,7 +15,7 @@ const styles = theme => ({
   root: {
     marginTop: theme.spacing(10),
     width: '70vw',
-  },  
+  },
   image: {
     backgroundImage: `url(${imageUrl})`,
     backgroundRepeat: 'no-repeat',
@@ -37,19 +37,19 @@ const styles = theme => ({
   },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   errors: state.errors,
   currentUser: state.auth.currentUser,
-  isLoggedIn: state.auth.isLoggedIn
-})
+  isLoggedIn: state.auth.isLoggedIn,
+});
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   register: (data) => dispatch(register(data)),
   login: (data) => dispatch(login(data)),
-  resetErrors: () => dispatch(resetErrors())
-})
+  resetErrors: () => dispatch(resetErrors()),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(Register))
+  mapDispatchToProps,
+)(withStyles(styles)(Register));

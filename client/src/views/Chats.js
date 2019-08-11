@@ -1,21 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
 import { CssBaseline } from '@material-ui/core';
 
 import AppToolBar from '../components/AppToolBar';
-import SideDrawer from '../containers/SideDrawer'
+import SideDrawer from '../containers/SideDrawer';
 import MessageContainer from '../containers/MessageContainer';
 
 class Chats extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      mobileOpen: false,
-      setMobileOpen: false,
-      toLogin: false,
-    }
-  }
+  state = {
+    mobileOpen: false,
+    setMobileOpen: false,
+    toLogin: false,
+  };
 
   componentWillMount() {
     const { chatId } = this.props.match.params || {};
@@ -24,11 +21,11 @@ class Chats extends React.Component {
     this.props.getChats();
     if (chatId) {
       this.props.getChat(chatId);
-    }    
+    }
   }
 
   handleDrawerToggle = () => {
-    this.setState({ mobileOpen: !this.state.mobileOpen })
+    this.setState({ mobileOpen: !this.state.mobileOpen });
   }
 
   handleLogoutRedirect = () => {
@@ -39,25 +36,25 @@ class Chats extends React.Component {
     const { classes } = this.props;
 
     if (this.state.toLogin) {
-      return <Redirect to='/login' />
+      return <Redirect to="/login" />;
     }
 
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppToolBar 
+        <AppToolBar
           chat={this.props.chat}
-          handleDrawerToggle={this.handleDrawerToggle} 
+          handleDrawerToggle={this.handleDrawerToggle}
           handleLogoutRedirect={this.handleLogoutRedirect}
           classes={classes}
         />
-        <SideDrawer 
-          handleDrawerToggle={this.handleDrawerToggle} 
+        <SideDrawer
+          handleDrawerToggle={this.handleDrawerToggle}
           mobileOpen={this.state.mobileOpen}
         />
-        <MessageContainer chat={this.props.chat}/>
+        <MessageContainer chat={this.props.chat} />
       </div>
-    );    
+    );
   }
 }
 
@@ -65,6 +62,6 @@ Chats.propTypes = {
   getCurrentUser: PropTypes.func.isRequired,
   getUsers: PropTypes.func.isRequired,
   getChats: PropTypes.func.isRequired,
-}
+};
 
 export default Chats;

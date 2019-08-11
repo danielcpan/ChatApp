@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { 
+import {
   Divider,
   Drawer,
-  Hidden 
+  Hidden,
 } from '@material-ui/core';
 
 import UserList from './UserList';
 import ChatList from '../containers/ChatsList';
 
-const SideDrawer = props => {
-  const { onlineUsers, chats, mobileOpen, handleDrawerToggle, classes } = props;
+const SideDrawer = (props) => {
+  const {
+    onlineUsers, chats, mobileOpen, handleDrawerToggle, classes,
+  } = props;
 
   return (
     <nav className={classes.drawer}>
@@ -45,14 +47,14 @@ const SideDrawer = props => {
         </Drawer>
       </Hidden>
     </nav>
-  )
-}
+  );
+};
 
 SideDrawer.propTypes = {
   onlineUsers: PropTypes.array.isRequired,
   chats: PropTypes.array.isRequired,
   mobileOpen: PropTypes.bool.isRequired,
-  handleDrawerToggle: PropTypes.func.isRequired
-}
+  handleDrawerToggle: PropTypes.func.isRequired,
+};
 
 export default SideDrawer;

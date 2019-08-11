@@ -1,19 +1,19 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 
-import MessageContainer from '../components/MessageContainer'
+import MessageContainer from '../components/MessageContainer';
 import { getChat, getChats, sendMessage } from '../actions/chatActions';
 
 const drawerWidth = 350;
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     width: '100%',
     position: 'relative',
     overflow: 'auto',
     maxHeight: '100vh',
     marginTop: theme.spacing(7),
-    marginBottom: theme.spacing(7)
+    marginBottom: theme.spacing(7),
   },
   inline: {
     display: 'inline',
@@ -36,29 +36,29 @@ const styles = theme => ({
     marginLeft: drawerWidth,
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
-    },    
-  },  
+    },
+  },
   rightIcon: {
     color: 'rgb(0, 153, 255)',
   },
   sendIcon: {
-    marginLeft: theme.spacing(3)
+    marginLeft: theme.spacing(3),
   },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   chat: state.chats.currentChat,
   currentUser: state.auth.currentUser,
-  messages: state.chats.messages
-})
+  messages: state.chats.messages,
+});
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getChat: (id) => dispatch(getChat(id)),
   getChats: () => dispatch(getChats()),
-  sendMessage: (text) => dispatch(sendMessage(text))
-})
+  sendMessage: (text) => dispatch(sendMessage(text)),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(MessageContainer))
+  mapDispatchToProps,
+)(withStyles(styles)(MessageContainer));

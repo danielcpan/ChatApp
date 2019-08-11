@@ -1,61 +1,59 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Redirect } from 'react-router-dom'
-import { 
-  Button, 
-  Grid, 
-  Link, 
-  Paper, 
-  TextField, 
-  Typography, 
-  Container 
+import { Redirect } from 'react-router-dom';
+import {
+  Button,
+  Grid,
+  Link,
+  Paper,
+  TextField,
+  Typography,
+  Container,
 } from '@material-ui/core';
 
 import ServerErrorsList from '../components/ServerErrorsList';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      userFormData: {
-        email: '',
-        password: ''
-      },
-      toChats: false,
-      toRegister: false,
-    }
-  }
+  state = {
+    userFormData: {
+      email: '',
+      password: '',
+    },
+    toRegister: false,
+  };
 
-  onSubmit = async e => {
+  onSubmit = async (e) => {
     e.preventDefault();
-    await this.props.login(this.state.userFormData)
+    await this.props.login(this.state.userFormData);
   }
 
-  onChange = e => {
-    const { name, value } = e.target
-    this.setState({ userFormData: {
-      ...this.state.userFormData,
-      [name]: value
-    }})
+  onChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({
+      userFormData: {
+        ...this.state.userFormData,
+        [name]: value,
+      },
+    });
   }
 
   linkToRegister = async () => {
     if (this.props.errors) {
-      await this.props.resetErrors();  
+      await this.props.resetErrors();
     }
-    this.setState({ toRegister: true})
+    this.setState({ toRegister: true });
   }
 
   render() {
     const { classes, errors } = this.props;
 
     if (this.props.isLoggedIn) {
-      return <Redirect to='/chats' />
+      return <Redirect to="/chats" />;
     }
 
     if (this.state.toRegister === true) {
-      return <Redirect to='/register' />
+      return <Redirect to="/register" />;
     }
 
     return (
@@ -72,13 +70,15 @@ class Login extends React.Component {
                   </Grid>
 
                   <Grid item xs={4}>
-                    <Link 
-                      onClick={this.linkToRegister} 
-                      variant="body2" 
+                    <Link
+                      onClick={this.linkToRegister}
+                      variant="body2"
                       style={{ cursor: 'pointer' }}
                     >
                       Sign up
-                    </Link> instead?
+                    </Link>
+                    {' '}
+instead?
                   </Grid>
 
                   <ServerErrorsList errors={errors} />
@@ -127,7 +127,7 @@ class Login extends React.Component {
           </Grid>
         </Grid>
       </Container>
-    )
+    );
   }
 }
 
@@ -136,7 +136,7 @@ Login.propTypes = {
   getCurrentUser: PropTypes.func,
   isLoggedIn: PropTypes.bool.isRequired,
   login: PropTypes.func.isRequired,
-  resetErrors: PropTypes.func.isRequired
-}
+  resetErrors: PropTypes.func.isRequired,
+};
 
 export default Login;

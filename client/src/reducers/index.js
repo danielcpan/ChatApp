@@ -8,5 +8,5 @@ export default combineReducers({
   auth: authReducer,
   chats: chatReducer,
   users: userReducer,
-  errors: errorReducer
-})
+  errors: errorReducer,
+});
