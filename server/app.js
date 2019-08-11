@@ -46,13 +46,13 @@ app.use((err, req, res, next) => {
   return next(err);
 });
 
-console.log(path.resolve("client", "build", "index.html"))
+console.log(path.resolve(__dirname, "../", "client", "build", "index.html"))
 if (process.env.NODE_ENV === "production") {
   console.log("we got inside here!")
   app.use(express.static('client/build'));
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve("client", "build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "../", "client", "build", "index.html"));
   });
 }
 
