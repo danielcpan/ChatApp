@@ -31,8 +31,8 @@ module.exports = (socket) => {
   socket.on(SET_ONLINE_USER, (data) => {
     socket.userId = data.id; // eslint-disable-line no-param-reassign
     onlineUsers.push(data); // eslint-disable-line no-unused-vars
-    console.log('Online Users: '); // eslint-disable-line no-console
-    console.log(onlineUsers); // eslint-disable-line no-console
+    // console.log('Online Users: '); // eslint-disable-line no-console
+    // console.log(onlineUsers); // eslint-disable-line no-console
     io.emit(RECEIVED_ONLINE_USERS, onlineUsers);
   });
 
