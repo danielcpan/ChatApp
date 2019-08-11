@@ -1,4 +1,5 @@
-**Chatt App is a real time chatting tool using web sockets (Socket.io)**  
+**Chatt App is a real time chatting tool using web sockets (Socket.io)
+Connect to any chat channel and start talking!**  
 
 Check out the app! [https://chat-app-daniel-pan.herokuapp…](https://chat-app-daniel-pan.herokuapp.com/login)
 
