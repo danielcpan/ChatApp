@@ -10,7 +10,7 @@ import {
 
 const SERVER_URL = 'http://localhost:5000';
 
-export const getChat = (id) => async (dispatch, getState) => {
+export const getChat = id => async (dispatch, getState) => {
   try {
     const response = await axios.get(`${SERVER_URL}/api/chats/${id}`, {
       headers: { Authorization: `Bearer ${getState().auth.token}` },
@@ -44,7 +44,7 @@ export const getChats = () => async (dispatch, getState) => {
   }
 };
 
-export const createChat = (data) => async (dispatch, getState) => {
+export const createChat = data => async (dispatch, getState) => {
   try {
     const response = await axios.post(`${SERVER_URL}/api/chats`, data, {
       headers: { Authorization: `Bearer ${getState().auth.token}` },
@@ -61,7 +61,7 @@ export const createChat = (data) => async (dispatch, getState) => {
   }
 };
 
-export const updateChat = (data) => async (dispatch, getState) => {
+export const updateChat = data => async (dispatch, getState) => {
   try {
     const response = await axios.put(`${SERVER_URL}/api/chats/${data.id}`, data, {
       headers: { Authorization: `Bearer ${getState().auth.token}` },
@@ -78,7 +78,7 @@ export const updateChat = (data) => async (dispatch, getState) => {
   }
 };
 
-export const deleteChat = (id) => async (dispatch, getState) => {
+export const deleteChat = id => async (dispatch, getState) => {
   try {
     const response = await axios.delete(`${SERVER_URL}/api/chats/${id}`, {
       headers: { Authorization: `Bearer ${getState().auth.token}` },
@@ -95,7 +95,7 @@ export const deleteChat = (id) => async (dispatch, getState) => {
   }
 };
 
-export const sendMessage = (data) => async (dispatch, getState) => {
+export const sendMessage = data => async (dispatch, getState) => {
   try {
     const response = await axios.post(`${SERVER_URL}/api/messages/send`, data, {
       headers: { Authorization: `Bearer ${getState().auth.token}` },

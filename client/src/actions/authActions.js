@@ -11,7 +11,7 @@ import {
 const SERVER_URL = 'http://localhost:5000';
 
 
-export const register = (data) => async (dispatch) => {
+export const register = data => async (dispatch) => {
   try {
     await axios.post(`${SERVER_URL}/api/auth/register`, data);
     try {
@@ -27,7 +27,7 @@ export const register = (data) => async (dispatch) => {
   }
 };
 
-export const login = (data) => async (dispatch) => {
+export const login = data => async (dispatch) => {
   try {
     const response = await axios.post(`${SERVER_URL}/api/auth/login`, data);
     dispatch({

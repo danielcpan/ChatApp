@@ -6,7 +6,7 @@ import { getChat, getChats, sendMessage } from '../actions/chatActions';
 
 const drawerWidth = 350;
 
-const styles = (theme) => ({
+const styles = theme => ({
   root: {
     width: '100%',
     position: 'relative',
@@ -46,16 +46,16 @@ const styles = (theme) => ({
   },
 });
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   chat: state.chats.currentChat,
   currentUser: state.auth.currentUser,
   messages: state.chats.messages,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getChat: (id) => dispatch(getChat(id)),
+const mapDispatchToProps = dispatch => ({
+  getChat: id => dispatch(getChat(id)),
   getChats: () => dispatch(getChats()),
-  sendMessage: (text) => dispatch(sendMessage(text)),
+  sendMessage: text => dispatch(sendMessage(text)),
 });
 
 export default connect(

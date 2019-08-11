@@ -21,7 +21,7 @@ const isAuthenticated = () => {
 const PrivateRoute = ({ component: Component, ...rest }) => ( // eslint-disable-line react/jsx-props-no-spreading, max-len
   <Route
     {...rest} // eslint-disable-line react/jsx-props-no-spreading
-    render={(props) => (isAuthenticated() ? (
+    render={props => (isAuthenticated() ? (
       <Component {...props} />
     ) : (
       <Redirect

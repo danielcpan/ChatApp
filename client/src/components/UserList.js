@@ -29,7 +29,7 @@ const UserList = (props) => {
 )}
     >
       {(users.length > 0) ? (
-        users.map((user) => (
+        users.map(user => (
           <UserListItem user={user} key={user.id} />
         ))
       ) : (

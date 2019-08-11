@@ -6,7 +6,7 @@ import { login } from '../actions/authActions';
 import { resetErrors } from '../actions/errorActions';
 import imageUrl from '../assets/SignUp.jpg';
 
-const styles = (theme) => ({
+const styles = theme => ({
   '@global': {
     body: {
       backgroundColor: theme.palette.common.white,
@@ -37,14 +37,14 @@ const styles = (theme) => ({
   },
 });
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   errors: state.errors,
   currentUser: state.auth.currentUser,
   isLoggedIn: state.auth.isLoggedIn,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  login: (data) => dispatch(login(data)),
+const mapDispatchToProps = dispatch => ({
+  login: data => dispatch(login(data)),
   resetErrors: () => dispatch(resetErrors()),
 });
 

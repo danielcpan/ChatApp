@@ -8,7 +8,7 @@ import { getUsers } from '../actions/userActions';
 
 const drawerWidth = 350;
 
-const styles = (theme) => ({
+const styles = theme => ({
   root: {
     display: 'flex',
     height: '100vh',
@@ -34,13 +34,13 @@ const styles = (theme) => ({
   },
 });
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   chat: state.chats.currentChat,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getCurrentUser: () => dispatch(getCurrentUser()),
-  getChat: (id) => dispatch(getChat(id)),
+  getChat: id => dispatch(getChat(id)),
   getUsers: () => dispatch(getUsers()),
   getChats: () => dispatch(getChats()),
 });

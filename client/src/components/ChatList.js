@@ -54,7 +54,7 @@ class ChatList extends React.Component {
             </Grid>
 )}
         >
-          {chats.map((chat) => (
+          {chats.map(chat => (
             <Link
               to={`/chats/${chat.id}`}
               key={chat.id}

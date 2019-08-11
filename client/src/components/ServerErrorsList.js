@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import ErrorIcon from '@material-ui/icons/Error';
 import { Grid, SnackbarContent } from '@material-ui/core';
 
-const styles = (theme) => ({
+const styles = theme => ({
   snackbar: {
     fontSize: '12px',
     margin: theme.spacing(0.5),

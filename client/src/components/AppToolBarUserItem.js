@@ -66,11 +66,11 @@ AppToolBarUserItem.propTypes = {
   handleLogoutRedirect: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   user: state.auth.currentUser,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout()),
 });
 

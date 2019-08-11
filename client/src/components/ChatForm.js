@@ -76,8 +76,8 @@ ChatForm.propTypes = {
   handleClose: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  createChat: (data) => dispatch(createChat(data)),
+const mapDispatchToProps = dispatch => ({
+  createChat: data => dispatch(createChat(data)),
 });
 
 export default connect(null, mapDispatchToProps)(ChatForm);

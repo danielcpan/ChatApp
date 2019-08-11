@@ -6,7 +6,7 @@ import { getChats } from '../actions/chatActions';
 
 const drawerWidth = 350;
 
-const styles = (theme) => ({
+const styles = theme => ({
   root: {
     width: '100%',
     height: '100vh',
@@ -35,12 +35,12 @@ const styles = (theme) => ({
   },
 });
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   onlineUsers: state.users.onlineUsers,
   chats: state.chats.chatsList,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   getChats: () => dispatch(getChats()),
 });
 

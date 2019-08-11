@@ -4,7 +4,7 @@ import { GET_USERS } from '../constants/actionTypes';
 
 const SERVER_URL = 'http://localhost:5000';
 
-export const getUser = (id) => async (dispatch, getState) => {
+export const getUser = id => async (dispatch, getState) => {
   try {
     const response = await axios.get(`${SERVER_URL}/api/users/${id}`, {
       headers: { Authorization: `Bearer ${getState().auth.token}` },
