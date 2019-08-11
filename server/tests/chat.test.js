@@ -68,7 +68,7 @@ describe('## Chat APIs', () => {
       const user = await factory.create('User');
 
       const data = {
-        usersIdList: [testUser.id, user.id],
+        name: 'Test Chat'
       };
       const response = await request(app)
         .post('/api/chats')
@@ -81,7 +81,7 @@ describe('## Chat APIs', () => {
       const user = await factory.create('User');
 
       const data = {
-        usersIdList: [testUser.id, user.id],
+        name: 'Test Chat'
       };
       const response = await request(app)
         .post('/api/chats')
@@ -89,7 +89,7 @@ describe('## Chat APIs', () => {
         .send(data);
 
       expect(response.status).to.equal(httpStatus.CREATED);
-      expect(response.body.name).to.equal(`${testUser.username}, ${user.username}`);
+      expect(response.body.name).to.equal(data.name);
     });
   });
 

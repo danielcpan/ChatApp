@@ -24,42 +24,6 @@ module.exports = {
         return next(new APIError('Chat not found', httpStatus.NOT_FOUND));
       }
 
-      // const userChats = await user.getChats({
-      //   attributes: ['id', 'name'],
-      //   where: {
-      //     id: req.params.chatId,
-      //   },
-      //   include: [
-      //     {
-      //       model: models.User,
-      //       attributes: ['id', 'username'],
-      //       through: {
-      //         attributes: [],
-      //       },
-      //     },
-      //     {
-      //       model: models.Message,
-      //       attributes: ['id', 'userId', 'text', 'timestamp'],
-      //       include: [{
-      //         model: models.User,
-      //         attributes: ['id', 'username'],
-      //       }],
-      //     },
-      //   ],
-      //   order: [[models.Message, 'timestamp', 'DESC']],
-      // });
-
-      // if (!userChats[0]) {
-      //   return next(new APIError('Chat not found', httpStatus.UNAUTHORIZED));
-      // }
-
-      // // Temp Fix to remove join table
-      // const chat = userChats.map((userChat) => {
-      //   userChat = userChat.toJSON(); // eslint-disable-line no-param-reassign
-      //   delete userChat.chatMembers; // eslint-disable-line no-param-reassign
-      //   return userChat;
-      // })[0];
-
       chat.messages.reverse();
       return res.json(chat);
     } catch (err) {
@@ -69,7 +33,7 @@ module.exports = {
   list: async (req, res, next) => {
     try {
       const chats = await models.Chat.findAll({
-        attributes: ['id', 'name']
+        attributes: ['id', 'name', 'createdAt']
       })
 
       return res.json(chats);

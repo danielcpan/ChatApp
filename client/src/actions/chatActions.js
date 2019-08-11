@@ -6,7 +6,6 @@ import {
   CREATE_CHAT, 
   UPDATE_CHAT, 
   DELETE_CHAT,
-  CREATE_MESSAGE 
 } from '../constants/actionTypes';
 
 const SERVER_URL = 'http://localhost:5000';
@@ -21,7 +20,6 @@ export const getChat = (id) => async (dispatch, getState) => {
       payload: response.data
     })
   } catch (err) {
-    console.log(err)
     dispatch({
       type: 'GET_CHAT_ERROR',
       error: err.response.data

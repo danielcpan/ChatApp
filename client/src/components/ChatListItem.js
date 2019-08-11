@@ -8,6 +8,7 @@ import {
   ListItemAvatar, 
   Typography
 } from '@material-ui/core';
+import format from 'date-fns/format';
 
 const ChatListItem = props => {
   const { chat } = props;
@@ -16,7 +17,7 @@ const ChatListItem = props => {
     <ListItem 
       alignItems="flex-start" 
       button 
-      selected={chat.id == props.match.params.chatId}
+      selected={chat.id === parseInt(props.match.params.chatId)}
       key={chat.id}>
       <ListItemAvatar>
         <Avatar>{chat.name.charAt(0).toUpperCase()}</Avatar>
@@ -32,8 +33,9 @@ const ChatListItem = props => {
                 noWrap
                 color="textPrimary"
               >
+                {`Created: `}
               </Typography>
-              description here!
+              {format(chat.createdAt, 'MMM DD, YYYY')}
             </React.Fragment>
           }
         />
