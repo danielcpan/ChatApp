@@ -15,9 +15,11 @@ const connections = [];
 const onlineUsers = [];
 
 const setOfflineUser = (socket) => {
-  const onlineUserIndex = onlineUsers.map(user => user.id).indexOf(socket.userId);
+  if (socket.userId) {
+    const onlineUserIndex = onlineUsers.map(user => user.id).indexOf(socket.userId);
 
-  onlineUsers.splice(onlineUserIndex, 1);
+    onlineUsers.splice(onlineUserIndex, 1);
+  }
 };
 
 module.exports = (socket) => {
@@ -53,9 +55,7 @@ module.exports = (socket) => {
   socket.on('disconnect', () => {
     console.log('DISCONNECTING!'); // eslint-disable-line no-console
     connections.splice(connections.indexOf(socket), 1);
-    if (socket.userId) {
-      setOfflineUser(socket);
-    }
+    setOfflineUser(socket);
 
     io.emit(RECEIVED_ONLINE_USERS, onlineUsers);
   });
