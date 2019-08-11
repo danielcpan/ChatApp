@@ -1,11 +1,10 @@
 import axios from 'axios';
 
 import { GET_USERS } from '../constants/actionTypes';
-import { SERVER_URL } from '../config';
 
 export const getUser = id => async (dispatch, getState) => {
   try {
-    const response = await axios.get(`${SERVER_URL}/api/users/${id}`, {
+    const response = await axios.get(`/api/users/${id}`, {
       headers: { Authorization: `Bearer ${getState().auth.token}` },
     });
     dispatch({
@@ -22,7 +21,7 @@ export const getUser = id => async (dispatch, getState) => {
 
 export const getUsers = () => async (dispatch, getState) => {
   try {
-    const response = await axios.get(`${SERVER_URL}/api/users`, {
+    const response = await axios.get(`/api/users`, {
       headers: { Authorization: `Bearer ${getState().auth.token}` },
     });
     dispatch({

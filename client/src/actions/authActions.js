@@ -7,11 +7,10 @@ import {
   LOGOUT,
   GET_CURRENT_USER,
 } from '../constants/actionTypes';
-import { SERVER_URL } from '../config';
 
 export const register = data => async (dispatch) => {
   try {
-    await axios.post(`${SERVER_URL}/api/auth/register`, data);
+    await axios.post(`/api/auth/register`, data);
     try {
       dispatch({ type: REGISTER });
     } catch (err) {
@@ -27,7 +26,7 @@ export const register = data => async (dispatch) => {
 
 export const login = data => async (dispatch) => {
   try {
-    const response = await axios.post(`${SERVER_URL}/api/auth/login`, data);
+    const response = await axios.post(`/api/auth/login`, data);
     dispatch({
       type: LOGIN,
       payload: response.data,

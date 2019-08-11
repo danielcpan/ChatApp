@@ -7,11 +7,10 @@ import {
   UPDATE_CHAT,
   DELETE_CHAT,
 } from '../constants/actionTypes';
-import { SERVER_URL } from '../config';
 
 export const getChat = id => async (dispatch, getState) => {
   try {
-    const response = await axios.get(`${SERVER_URL}/api/chats/${id}`, {
+    const response = await axios.get(`/api/chats/${id}`, {
       headers: { Authorization: `Bearer ${getState().auth.token}` },
     });
     dispatch({
@@ -28,7 +27,7 @@ export const getChat = id => async (dispatch, getState) => {
 
 export const getChats = () => async (dispatch, getState) => {
   try {
-    const response = await axios.get(`${SERVER_URL}/api/chats`, {
+    const response = await axios.get(`/api/chats`, {
       headers: { Authorization: `Bearer ${getState().auth.token}` },
     });
     dispatch({
@@ -45,7 +44,7 @@ export const getChats = () => async (dispatch, getState) => {
 
 export const createChat = data => async (dispatch, getState) => {
   try {
-    const response = await axios.post(`${SERVER_URL}/api/chats`, data, {
+    const response = await axios.post(`/api/chats`, data, {
       headers: { Authorization: `Bearer ${getState().auth.token}` },
     });
     dispatch({
@@ -62,7 +61,7 @@ export const createChat = data => async (dispatch, getState) => {
 
 export const updateChat = data => async (dispatch, getState) => {
   try {
-    const response = await axios.put(`${SERVER_URL}/api/chats/${data.id}`, data, {
+    const response = await axios.put(`/api/chats/${data.id}`, data, {
       headers: { Authorization: `Bearer ${getState().auth.token}` },
     });
     dispatch({
@@ -79,7 +78,7 @@ export const updateChat = data => async (dispatch, getState) => {
 
 export const deleteChat = id => async (dispatch, getState) => {
   try {
-    const response = await axios.delete(`${SERVER_URL}/api/chats/${id}`, {
+    const response = await axios.delete(`/api/chats/${id}`, {
       headers: { Authorization: `Bearer ${getState().auth.token}` },
     });
     dispatch({
@@ -96,7 +95,7 @@ export const deleteChat = id => async (dispatch, getState) => {
 
 export const sendMessage = data => async (dispatch, getState) => {
   try {
-    const response = await axios.post(`${SERVER_URL}/api/messages/send`, data, {
+    const response = await axios.post(`/api/messages/send`, data, {
       headers: { Authorization: `Bearer ${getState().auth.token}` },
     });
 

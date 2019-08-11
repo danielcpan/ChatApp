@@ -7,8 +7,9 @@ import {
   RECEIVED_MESSAGE,
   CREATED_CHAT,
 } from './constants/socketEventTypes';
-import { SERVER_URL } from './config'
 
+// const SERVER_URL = "http://localhost:5000"
+const SERVER_URL = "https://chat-app-daniel-pan.herokuapp.com"
 const socket = io(SERVER_URL);
 
 const configureSocket = (dispatch, getState) => {
