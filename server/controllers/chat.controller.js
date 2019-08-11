@@ -18,7 +18,7 @@ module.exports = {
           },
         ],
         order: [[models.Message, 'timestamp', 'DESC']],
-      })
+      });
 
       if (!chat) {
         return next(new APIError('Chat not found', httpStatus.NOT_FOUND));
@@ -33,8 +33,8 @@ module.exports = {
   list: async (req, res, next) => {
     try {
       const chats = await models.Chat.findAll({
-        attributes: ['id', 'name', 'createdAt']
-      })
+        attributes: ['id', 'name', 'createdAt'],
+      });
 
       return res.json(chats);
     } catch (err) {
@@ -44,7 +44,7 @@ module.exports = {
   create: async (req, res, next) => {
     try {
       const chat = await models.Chat.create(req.body, {
-        attributes: ['id', 'name']
+        attributes: ['id', 'name'],
       });
 
       return res.status(httpStatus.CREATED).json(chat);

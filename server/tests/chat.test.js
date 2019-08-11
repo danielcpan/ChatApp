@@ -65,10 +65,8 @@ describe('## Chat APIs', () => {
 
   describe('# POST /api/chats', () => {
     it('errors when not logged in', async () => {
-      const user = await factory.create('User');
-
       const data = {
-        name: 'Test Chat'
+        name: 'Test Chat',
       };
       const response = await request(app)
         .post('/api/chats')
@@ -78,10 +76,8 @@ describe('## Chat APIs', () => {
     });
 
     it('should create new chat', async () => {
-      const user = await factory.create('User');
-
       const data = {
-        name: 'Test Chat'
+        name: 'Test Chat',
       };
       const response = await request(app)
         .post('/api/chats')

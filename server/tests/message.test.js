@@ -10,7 +10,7 @@ describe('## Message APIs', () => {
 
   let testUser;
   let testUserToken;
-  let message1;
+  let message1; // eslint-disable-line no-unused-vars
 
   before(async () => {
     await truncateTables();
