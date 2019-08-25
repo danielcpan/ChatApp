@@ -3,7 +3,7 @@ Connect to any chat channel and start talking!**
 
 Check out the app! [https://chat-app-daniel-pan.herokuapp…](https://chat-app-daniel-pan.herokuapp.com/login)
 
-## Budget App using the following technologies:
+## Chat App uses the following technologies:
 
 ### BackEnd: 
 
